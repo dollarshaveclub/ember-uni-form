@@ -1,27 +1,34 @@
+
+var MAX_QTY = 3; // to be replaced with dynamic value variable
+
 App.QuantityWidgetComponent = Ember.Component.extend({
 
   tagName: 'div',
-  classNameBindings: [':quantity-widget'],
+  classNameBindings: [':qty-widget', 'isMinQty', 'isMaxQty'],
   attributeBindings:['name:data-icon'],
 
   actions: {
     increment: function () {
-      this.set('quantity', this.get('quantity') + 1);
-      console.log(this.get('quantity'));
+      if ( this.getQty() < MAX_QTY )
+        this.set('quantity', this.getQty() + 1);
     },
 
     decrement: function () {
-      this.set('quantity', this.get('quantity') - 1);
-      console.log(this.get('quantity'));
+      if ( this.getQty() > 1 )
+        this.set('quantity', this.getQty() - 1);
     }
   },
 
-  isZero: function() {
-    return this.get('quantity') === 0;
+  getQty: function() {
+    return this.get('quantity');
+  },
+
+  isMinQty: function() {
+    return this.getQty() === 1;
   }.property('quantity'),
 
-  isGtOne: function() {
-    return this.get('quantity') > 1;
+  isMaxQty: function() {
+    return this.getQty() >= MAX_QTY;
   }.property('quantity')
 
 });
