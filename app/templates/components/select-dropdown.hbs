@@ -5,7 +5,10 @@
   {{ yield }}
 
   {{!-- This is the selection --}}
-  <div {{ bind-attr data-selection=selection }}>{{ selection }}</div>
+  <div {{ bind-attr data-selection=selection }}>
+    {{ selection }}
+    {{ icon-link name='arrow-down' }}
+  </div>
 
   {{!-- These are the options --}}
   {{#each option in content }}
