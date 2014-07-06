@@ -1,11 +1,17 @@
 
-<div data-selection>{{ selection }}</div>
 
 <div data-option-list>
+
   {{ yield }}
+
+  {{!-- This is the selection --}}
+  <div {{ bind-attr data-selection=selection }}>{{ selection }}</div>
+
+  {{!-- These are the options --}}
   {{#each option in content }}
-    <div data-option {{ bind-attr value=option }}>
+    <div {{ bind-attr value=option }}>
       {{ option }}
+      {{ option option }}
     </div>
   {{/each}}
 </div>

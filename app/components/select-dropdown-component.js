@@ -9,9 +9,10 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   "data-select-dropdown" : 1,
 
   click: function(e) {
-    var value = $(e.target).attr('value');
+    var value       = $(e.target).attr('value');
+    var isSelection = $(e.target).attr('data-selection');
 
-    if (value) {
+    if ( value && !isSelection ) {
       this.unhighlightAll();
       this.set('selection', value);
       this.highlightSelected();
@@ -23,16 +24,39 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   active: false,
 
   didInsertElement: function() {
-    this.highlightSelected();
     this._super();
+    this.set('$list', this.$().find('[data-option-list]') );
+    this.optionizeChildren();
+    this.set('isRendered', 1);
   },
+
+  length: function() {
+    return this.get('$list').find('[data-option]').length;
+  }.property('isRendered'),
+
+  itemHeight: function() {
+    return this.get('$list').find('[data-option]').first().outerHeight();
+  }.property('isRendered'),
+
+  listHeightMax: function() {
+    return this.get('itemHeight') * this.get('length');
+  }.property('itemHeight'),
+
+  setListHeight: function() {
+    var height = this.get('active') ? this.get('listHeightMax') : this.get('itemHeight');
+    this.get('$list').height(height);
+  }.observes('isRendered', 'active'),
 
   highlightSelected: function() {
     this.$().find('[value="'+ this.get('selection') +'"]').attr("selected", "selected");
-  }.observes('value'),
+  }.observes('value', 'isRendered'),
+
+  optionizeChildren: function() {
+    this.get('$list').find('div').attr('data-option', 1);
+  },
 
   unhighlightAll: function() {
-    this.$().find('[data-option-list] >').removeAttr("selected");
-  }
+    this.get('$list').find('[data-option]').removeAttr("selected");
+  }.observes('isRendered')
 
 });
