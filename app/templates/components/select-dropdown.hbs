@@ -1,20 +1,18 @@
-
-
 <div data-option-list>
 
   {{ yield }}
 
   {{!-- This is the selection --}}
-  <div {{ bind-attr data-selection=selection }}>
-    {{ selection }}
+  <div {{ bind-attr data-selection=selectedOption.value }}>
+    {{ selectedOption.displayName }}
     {{ app-icon name='arrow-down' }}
   </div>
 
   {{!-- These are the options --}}
-  {{#each option in content }}
-    <div {{ bind-attr value=option }}>
-      {{ option }}
-      {{ option option }}
+  {{#each option in options }}
+    <div {{ bind-attr value=option.value }}>
+      {{ option.displayName }}
     </div>
   {{/each}}
+
 </div>

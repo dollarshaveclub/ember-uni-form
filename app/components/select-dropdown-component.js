@@ -23,6 +23,13 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
 
   active: false,
 
+  selectedOption: function () {
+    var selection = this.get('selection');
+    return (this.get('options').filter(function (option) {
+      return (option.value.toString() === selection.toString()); // N.B. html element attribute values are strings
+    }))[0];
+  }.property('selection', 'options'),
+
   didInsertElement: function() {
     this._super();
     this.set('$list', this.$().find('[data-option-list]') );
