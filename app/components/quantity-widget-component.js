@@ -1,3 +1,7 @@
+
+var DEFAULT_MIN = 1;
+var DEFAULT_MAX = 3;
+
 App.QuantityWidgetComponent = Ember.Component.extend({
 
   tagName: 'div',
@@ -6,18 +10,22 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   actions: {
     increment: function () {
-      this.set('quantity', Math.max(this.get('quantity') + 1, this.get('max')));
+      if (this.get('isMax')) return;
+      this.set('quantity', this.incrementProperty('quantity') );
     },
 
     decrement: function () {
-      this.set('quantity', Math.min(this.get('quantity') - 1, 1));
+      if (this.get('isMin')) return;
+      this.set('quantity', this.decrementProperty('quantity') );
     }
   },
 
-  max: 3, // to be replaced with dynamic value
+  quantity: DEFAULT_MIN,  // pass in your own to override.
+  max: DEFAULT_MAX,
+  min: DEFAULT_MIN,
 
   isMin: function () {
-    return this.get('quantity') === 1;
+    return this.get('quantity') === this.get('min');
   }.property('quantity'),
 
   isMax: function () {
