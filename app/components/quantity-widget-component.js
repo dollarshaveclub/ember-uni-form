@@ -30,6 +30,9 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   isMax: function () {
     return this.get('quantity') >= this.get('max');
-  }.property('quantity')
+  }.property('quantity'),
 
+  maxTooltip: function () {
+    return '%@ is the maximum quantity.'.fmt(this.get('max'));
+  }.property('max')
 });
