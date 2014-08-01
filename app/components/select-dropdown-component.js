@@ -1,18 +1,17 @@
-
 require('../mixins/responds-to-esc-keypress');
 
 App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, {
 
   tagName: 'div',
   classNameBindings: [ 'active' ],
-  attributeBindings:["data-select-dropdown"],
-  "data-select-dropdown" : 1,
+  attributeBindings:[ 'data-select-dropdown' ],
+  'data-select-dropdown' : 1,
 
   click: function (e) {
     var value       = $(e.target).attr('value');
     var isSelection = $(e.target).attr('data-selection');
 
-    if ( value && !isSelection ) {
+    if (value && !isSelection) {
       this.unhighlightAll();
       this.set('selection', value);
       this.highlightSelected();
@@ -25,14 +24,14 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
 
   selectedOption: function () {
     var selection = this.get('selection');
-    return (this.get('options').filter(function (option) {
-      return (option.value.toString() === selection.toString()); // N.B. html element attribute values are strings
-    }))[0];
+    return this.get('options').filter(function (option) {
+      return option.value.toString() === selection.toString(); // N.B. html element attribute values are strings
+    })[0];
   }.property('selection', 'options'),
 
   didInsertElement: function () {
     this._super();
-    this.set('$list', this.$().find('[data-option-list]') );
+    this.set('$list', this.$().find('[data-option-list]'));
     this.optionizeChildren();
     this.set('isRendered', 1);
   },
@@ -55,7 +54,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   }.observes('isRendered', 'active'),
 
   highlightSelected: function () {
-    this.$().find('[value="'+ this.get('selection') +'"]').attr('selected', 'selected');
+    this.$().find('[value="' + this.get('selection') + '"]').attr('selected', 'selected');
   }.observes('value', 'isRendered'),
 
   optionizeChildren: function () {
