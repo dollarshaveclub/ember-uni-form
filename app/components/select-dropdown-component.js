@@ -63,6 +63,13 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
 
   unhighlightAll: function () {
     this.get('$list').find('[data-option]').removeAttr('selected');
-  }.observes('isRendered')
+  }.observes('isRendered'),
 
+  // @return {boolean} stopPropagation
+  escKeypress: function () {
+    if (this.get('active')) {
+      this.set('active', false);
+      return true;
+    }
+  }
 });
