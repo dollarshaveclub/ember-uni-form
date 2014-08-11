@@ -5,7 +5,7 @@ var DEFAULT_MAX = 3;
 App.QuantityWidgetComponent = Ember.Component.extend({
 
   tagName: 'div',
-  classNameBindings: [ ':quantity-widget', 'isMin', 'isMax' ],
+  classNameBindings: [ ':quantity-widget', 'isMin', 'isMax', 'isDirty' ],
   attributeBindings: [ 'name:data-icon' ],
 
   actions: {
@@ -23,9 +23,14 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     }
   },
 
+  initial: Ember.computed.defaultTo('quantity'),  // pass in your own to override.
   quantity: DEFAULT_MIN,  // pass in your own to override.
   max: DEFAULT_MAX,
   min: DEFAULT_MIN,
+
+  isDirty: function () {
+    return this.get('initial') !== this.get('quantity');
+  }.property('quantity'),
 
   isMin: function () {
     return this.get('quantity') === this.get('min');
