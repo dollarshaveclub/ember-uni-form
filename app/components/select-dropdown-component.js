@@ -10,6 +10,11 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   click: function (e) {
     var value       = $(e.target).attr('value');
     var isSelection = $(e.target).attr('data-selection');
+    var isOverlay   = $(e.target).hasClass('select-dropdown-overlay');
+
+    if (isOverlay) {
+      return this.dismiss();
+    }
 
     if (value && !isSelection) {
       this.unhighlightAll();
@@ -33,7 +38,12 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     this._super();
     this.set('$list', this.$().find('[data-option-list]'));
     this.optionizeChildren();
+    this.bindClickAway();
     this.set('isRendered', 1);
+  },
+
+  willDestroyElement: function () {
+    $('body').off('click', this.clickAwayFn);
   },
 
   length: function () {
@@ -61,14 +71,30 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     this.get('$list').find('div').attr('data-option', 1);
   },
 
+  bindClickAway: function () {
+    // Select Dropdown has 2 types of 'click-away' dismissal.
+    // One bound to the body, and one bound to a dismissal overlay.
+    this.clickAwayFn = function(e){
+      if ( this.get('isDestroyed') ) return;
+      var isClickAway = $(e.target).parents('[data-select-dropdown]').length < 1;
+      if ( isClickAway ) this.dismiss();
+    };
+
+    $('body').on('click', this.clickAwayFn.bind(this));
+  },
+
   unhighlightAll: function () {
     this.get('$list').find('[data-option]').removeAttr('selected');
   }.observes('isRendered'),
 
+  dismiss: function() {
+    this.set('active', false);
+  },
+
   // @return {boolean} stopPropagation
   escKeypress: function () {
     if (this.get('active')) {
-      this.set('active', false);
+      this.dismiss();
       return true;
     }
   }
