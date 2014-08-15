@@ -19,7 +19,6 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     if (value && !isSelection) {
       this.unhighlightAll();
       this.set('selection', value);
-      this.highlightSelected();
     }
 
     this.toggleProperty('active');
@@ -65,7 +64,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
 
   highlightSelected: function () {
     this.$().find('[value="' + this.get('selection') + '"]').attr('selected', 'selected');
-  }.observes('value', 'isRendered'),
+  }.observes('isRendered', 'selection'),
 
   optionizeChildren: function () {
     this.get('$list').find('div').attr('data-option', 1);
