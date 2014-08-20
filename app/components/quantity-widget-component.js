@@ -23,7 +23,7 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     }
   },
 
-  initial: Ember.computed.defaultTo('quantity'),  // pass in your own to override.
+  initial: Ember.computed.oneWay('quantity'),  // pass in your own to override.
   quantity: DEFAULT_MIN,  // pass in your own to override.
   max: DEFAULT_MAX,
   min: DEFAULT_MIN,
