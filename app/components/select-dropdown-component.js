@@ -7,6 +7,14 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   attributeBindings:[ 'data-select-dropdown' ],
   'data-select-dropdown' : 1,
 
+  trackedActions: {
+    select: true
+  },
+
+  actions: {
+    select: $.noop
+  },
+
   click: function (e) {
     var value       = $(e.target).attr('value');
     var isSelection = $(e.target).attr('data-selection');
@@ -17,6 +25,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     }
 
     if (value && !isSelection) {
+      this.send('select');
       this.unhighlightAll();
       this.set('selection', value);
     }
