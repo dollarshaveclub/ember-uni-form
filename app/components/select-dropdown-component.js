@@ -25,7 +25,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     }
 
     if (value && !isSelection) {
-      this.send('select');
+      this.send('select', this.get('trackedModel'));
       this.unhighlightAll();
       this.set('selection', value);
     }
