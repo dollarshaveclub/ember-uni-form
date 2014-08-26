@@ -9,11 +9,19 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   attributeBindings: [ 'name:data-icon' ],
 
   trackedActions: {
-    decrement: true,
-    increment: true
+    increment: true,
+    decrement: true
   },
 
   actions: {
+    plusIcon: function () {
+      this.send('increment', this.get('trackedModel'));
+    },
+
+    minusIcon: function () {
+      this.send('decrement', this.get('trackedModel'));
+    },
+
     increment: function () {
       if (this.get('isMax')) {
         this.set('showMaxTip', new Date());
