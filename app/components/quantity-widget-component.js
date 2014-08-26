@@ -8,6 +8,11 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   classNameBindings: [ ':quantity-widget', 'isMin', 'isMax', 'isDirty' ],
   attributeBindings: [ 'name:data-icon' ],
 
+  trackedActions: {
+    decrement: true,
+    increment: true
+  },
+
   actions: {
     increment: function () {
       if (this.get('isMax')) {
