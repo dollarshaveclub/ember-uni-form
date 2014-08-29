@@ -11,10 +11,6 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
     select: true
   },
 
-  actions: {
-    select: $.noop
-  },
-
   click: function (e) {
     var value       = $(e.target).attr('value');
     var isSelection = $(e.target).attr('data-selection');

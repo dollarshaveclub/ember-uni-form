@@ -5,5 +5,10 @@ App.Address = DS.Model.extend({
   addressLine_2: DS.attr('string'),
   city: DS.attr('string'),
   state: DS.attr('string'),
-  zipCode: DS.attr('string')
+  zipCode: DS.attr('string'),
+
+  name: function () {
+    return this.get('firstName') + ' ' + this.get('lastName');
+  }.property('firstName', 'lastName'),
+
 });
