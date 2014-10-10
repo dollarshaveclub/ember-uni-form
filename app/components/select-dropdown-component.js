@@ -1,6 +1,6 @@
-require('../mixins/responds-to-esc-keypress');
+require('../mixins/responds-to-esc-keydown');
 
-App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, {
+App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeydown, {
 
   tagName: 'div',
   classNameBindings: [ 'active' ],
@@ -96,7 +96,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeypress, 
   },
 
   // @return {boolean} stopPropagation
-  escKeypress: function () {
+  escKeydown: function () {
     if (this.get('active')) {
       this.dismiss();
       return true;
