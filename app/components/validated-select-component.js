@@ -4,6 +4,7 @@ App.ValidatedSelectComponent = Ember.Select.extend({
   classNameBindings: ['error'],
 
   observeErrors: function () {
+    if ( !this.get('parentModel') ) return;
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
