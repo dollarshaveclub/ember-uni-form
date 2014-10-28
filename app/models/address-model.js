@@ -28,8 +28,7 @@ App.Address = DS.Model.extend(
       presence: true
     },
     addressLine_2: {
-      length: { maximum: 35 },
-      presence: true
+      length: { maximum: 35 }
     },
     city: {
       length: { maximum: 40 },
