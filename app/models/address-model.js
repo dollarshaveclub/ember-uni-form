@@ -1,3 +1,4 @@
+
 App.Address = DS.Model.extend(
   Ember.Validations.Mixin,
 {
