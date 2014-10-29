@@ -16,6 +16,12 @@ App.ValidatedSelectComponent = Ember.Select.extend({
     }
   },
 
+  keyDown: function(e) {
+    if ( e.which === 13 ) {
+      this.get('controller').send('save');
+    }
+  },
+
   observeErrors: function () {
     if ( !this.get('parentModel') ) return;
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
