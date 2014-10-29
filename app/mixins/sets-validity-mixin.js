@@ -1,20 +1,16 @@
 
+// TODO: Which pattern to extract duplicated code in validated input and select components...?  WIP.
 App.SetsValidityMixin = Ember.Mixin.create({
 
-  classNameBindings: ['error'],
-
-  init: function () {
-    // Ember.assert('RequiresFullLogin must be mixed in to a Route', this instanceof Ember.Route);
-    this._super();
-  },
+  classNameBindings: ['showError:error'],
 
   focusOut: function () {
-    this.set('error', this.get('isInvalid'));
+    this.set('showError', this.get('isInvalid'));
   },
 
   keyUp: function () {
     if ( this.get('isValid') ) {
-      this.set('error', false);
+      this.set('showError', false);
     }
   },
 
