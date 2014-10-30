@@ -1,26 +1,23 @@
 
 App.ValidatedInputComponent = Ember.TextField.extend({
 
-  classNameBindings: ['error', 'required'],
+  classNameBindings: [ 'showError:error', 'required' ],
+  attributeBindings: [ 'type' ],
 
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
-  save: "save",
+  save: 'save',
 
   focusOut: function () {
-    this.set('error', this.get('isInvalid'));
+    this.set('showError', this.get('isInvalid'));
   },
 
-  keyUp: function (e) {
-    if ( this.get('isValid') ) {
-      this.set('error', false);
-    }
+  keyUp: function () {
+    if (this.get('isValid')) this.set('showError', false);
   },
 
-  keyDown: function(e) {
-    if (e.keyCode === 13) {
-      this.sendAction('save');
-    }
+  keyDown: function (e) {
+    if (e.keyCode === 13) this.sendAction('save');
   },
 
   observeErrors: function () {
@@ -28,7 +25,7 @@ App.ValidatedInputComponent = Ember.TextField.extend({
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
-  required: function() {
+  required: function () {
     if ( !this.get('parentModel') ) return;
     var v = this.get('parentModel.validations');
     return v[this.get('name')] && v[this.get('name')].presence;

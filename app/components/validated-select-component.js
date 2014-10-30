@@ -1,19 +1,17 @@
 
 App.ValidatedSelectComponent = Ember.Select.extend({
 
-  classNameBindings: ['error', 'required'],
+  classNameBindings: [ 'showError:error', 'required' ],
 
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
 
   focusOut: function () {
-    this.set('error', this.get('isInvalid'));
+    this.set('showError', this.get('isInvalid'));
   },
 
   keyUp: function () {
-    if ( this.get('isValid') ) {
-      this.set('error', false);
-    }
+    if (this.get('isValid')) this.set('showError', false);
   },
 
   keyDown: function(e) {
@@ -27,7 +25,7 @@ App.ValidatedSelectComponent = Ember.Select.extend({
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
-  required: function() {
+  required: function () {
     if ( !this.get('parentModel.validations') ) return;
     var v = this.get('parentModel.validations');
     return v[this.get('name')] && v[this.get('name')].presence;
