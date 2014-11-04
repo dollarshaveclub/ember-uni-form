@@ -19,6 +19,7 @@ App.ValidatedFormComponent = Ember.Component.extend({
 
       var self = this;
       this.sendAction('save', function(result) {
+        // console.log('[ValidatedFormComponent] Result', result);
         if (result && result.errors) self.set('errors', result.errors);
       });
     }
@@ -29,7 +30,9 @@ App.ValidatedFormComponent = Ember.Component.extend({
 
   errorMessages: function() {
     return this.get('errors').map(function (error){
-      return error.titleize().toLowerCase().capitalize();
+      error = error.titleize().toLowerCase().capitalize();
+      // console.log('[ValidatedFormComponent] Error', error);
+      return error;
     });
   }.property('errors')
 
