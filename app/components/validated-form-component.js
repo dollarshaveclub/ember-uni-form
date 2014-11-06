@@ -2,11 +2,13 @@
 App.ValidatedFormComponent = Ember.Component.extend({
 
   tagName: 'form',
-  classNameBindings: [ 'isValid:valid:invalid' ],
-  isValid: Ember.computed.alias('formModel.isValid'),
-  showButtons: true,
-  save: 'save',
+  classNameBindings: [ 'isValid:valid:invalid', 'cardType' ],
+
   cancel: 'cancel',
+  cardType: Ember.computed.alias('formModel.creditCardType'),
+  isValid: Ember.computed.alias('formModel.isValid'),
+  save: 'save',
+  showButtons: true,
 
   actions: {
 
@@ -26,6 +28,7 @@ App.ValidatedFormComponent = Ember.Component.extend({
   },
 
   errors: [],
+
   errorMessages: function() {
     return this.get('errors').map(function (error){
       return error.titleize().toLowerCase().capitalize();
