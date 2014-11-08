@@ -8,18 +8,24 @@ App.ValidatedInputComponent = Ember.TextField.extend({
   isInvalid: Ember.computed.notEmpty('errors'),
   submit: 'submit',
 
+  change: function (e) {
+    this.formatCreditCardNumber(e);
+  },
+
   focusOut: function () {
     this.set('showError', this.get('isInvalid'));
   },
 
-  keyUp: function (e) {
-    if (this.get('isValid')) this.set('showError', false);
-
-    // format card number with spaces
+  formatCreditCardNumber: function(e) {
     var $target = $(e.target);
     if ( $target.attr('name') === 'number' ) {
       $target.payment('formatCardNumber');
     }
+  },
+
+  keyUp: function (e) {
+    if (this.get('isValid')) this.set('showError', false);
+    this.formatCreditCardNumber(e);
   },
 
   keyDown: function (e) {
