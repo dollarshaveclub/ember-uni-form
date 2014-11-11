@@ -1,4 +1,6 @@
 
+var YEAR_PREFIX = '20';
+
 App.ValidatedSelectYearComponent = Ember.Select.extend({
 
   years: [],
@@ -7,7 +9,7 @@ App.ValidatedSelectYearComponent = Ember.Select.extend({
     var years    = this.get('years'),
         thisYear = new Date().getFullYear();
     for ( var i = 0; i < 12; i++ ) {
-      years.push( (thisYear + i).toString().substr(2,3) );
+      years.push( YEAR_PREFIX + (thisYear + i).toString().substr(2,3) );
     }
     return years;
   }.property('years')
