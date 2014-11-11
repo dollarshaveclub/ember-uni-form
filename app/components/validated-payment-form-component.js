@@ -1,6 +1,9 @@
 
-// TODO: credit card specific properties seem out of place in the VFC
+require('../components/validated-form-component');
+
 App.ValidatedPaymentFormComponent = App.ValidatedFormComponent.extend({
+
   classNameBindings: [ 'isValid:valid:invalid', 'cardType' ],
   cardType: Ember.computed.alias('formModel.creditCardType')
+
 });

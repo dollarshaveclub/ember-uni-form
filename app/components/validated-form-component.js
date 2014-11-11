@@ -2,10 +2,9 @@
 App.ValidatedFormComponent = Ember.Component.extend({
 
   tagName: 'form',
-  classNameBindings: [ 'isValid:valid:invalid', 'cardType' ],
+  classNameBindings: [ 'isValid:valid:invalid' ],
 
   cancel: 'cancel',
-  cardType: Ember.computed.alias('formModel.creditCardType'),
   isValid: Ember.computed.alias('formModel.isValid'),
   save: 'save',
   showButtons: true,
