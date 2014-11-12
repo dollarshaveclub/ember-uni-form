@@ -16,6 +16,12 @@ App.ValidatedPaymentFormComponent = App.ValidatedFormComponent.extend({
     } else {
       return this.get('payment.isValid') && this.get('address.isValid');
     }
-  }.property('payment.isValid', 'address.isValid', 'sameAsShipping')
+  }.property('payment.isValid', 'address.isValid', 'sameAsShipping'),
+
+  rollbackAddress: function() {
+    this.get('address').then(function(address) {
+      address.rollback();
+    });
+  }.observes('sameAsShipping')
 
 });
