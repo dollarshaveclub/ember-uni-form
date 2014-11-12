@@ -8,7 +8,7 @@ App.ValidatedInputCvvComponent = App.ValidatedInputComponent.extend({
   },
 
   keyUp: function (e) {
-    this._super();
+    this._super(e);
     this.formatCvvNumber(e);
   },
 

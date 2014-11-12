@@ -12,7 +12,7 @@ App.ValidatedInputComponent = Ember.TextField.extend({
     this.set('showError', this.get('isInvalid'));
   },
 
-  keyUp: function (e) {
+  keyUp: function () {
     if (this.get('isValid')) this.set('showError', false);
   },
 
