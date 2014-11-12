@@ -24,8 +24,10 @@ App.ValidatedFormComponent = Ember.Component.extend({
       this.set('errors', false);
       this.sendAction('save', deferred);
 
-      deferred.promise.catch(function(errors){
-        self.set('errors', errors || [ 'Oops! There was a problem.' ]);
+      deferred.promise.catch(function(result){
+        console.log('[ValidatedFormComponent]', result);
+        if (result.unauthorized) self.sendAction('openModal', 'login');
+        self.set('errors', result.errors || [ 'Oops! There was a problem.' ]);
       });
 
     }
