@@ -3,9 +3,9 @@ require('../components/validated-input-component');
 
 App.ValidatedInputCvvComponent = App.ValidatedInputComponent.extend({
 
-  attributeBindings: [ 'pattern', 'autocomplete' ],
+  attributeBindings: [ 'autocomplete', 'pattern' ],
   autocomplete: "off",
-  pattern: "\d*",
+  pattern: "\\d*",
 
   formatCVV: function() {
     this.$().payment('formatCardCVC');

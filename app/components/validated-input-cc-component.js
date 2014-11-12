@@ -3,9 +3,9 @@ require('../components/validated-input-component');
 
 App.ValidatedInputCcComponent = App.ValidatedInputComponent.extend({
 
-  attributeBindings: [ 'pattern', 'autocomplete' ],
+  attributeBindings: [ 'autocomplete', 'pattern' ],
   autocomplete: "cc-number",
-  pattern: "\d*",
+  pattern: "\\d*",
 
   formatCC: function() {
     this.$().payment('formatCardNumber');
