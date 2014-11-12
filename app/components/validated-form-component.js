@@ -19,21 +19,16 @@ App.ValidatedFormComponent = Ember.Component.extend({
       if (!this.get('isValid')) return false;
 
       var self = this;
-      this.sendAction('save', function(result) {
-        if (result && result.errors) self.set('errors', result.errors);
+      var deferred = Ember.RSVP.defer();
+
+      this.set('errors', false);
+      this.sendAction('save', deferred);
+
+      deferred.promise.catch(function(errors){
+        self.set('errors', errors || [ 'Oops! There was a problem.' ]);
       });
+
     }
-
-  },
-
-  errors: [],
-
-  errorMessages: function() {
-    if ( Ember.isArray(this.get('errors')) ) {
-      return this.get('errors').map(function (error){
-        return error.titleize().toLowerCase().capitalize();
-      });
-    }
-  }.property('errors')
+  }
 
 });
