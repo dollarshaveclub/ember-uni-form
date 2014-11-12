@@ -1,7 +1,9 @@
 
+require('../components/validated-select-component');
+
 var YEAR_PREFIX = '20';
 
-App.ValidatedSelectYearComponent = Ember.Select.extend({
+App.ValidatedSelectYearComponent = App.ValidatedSelectComponent.extend({
 
   years: [],
 
