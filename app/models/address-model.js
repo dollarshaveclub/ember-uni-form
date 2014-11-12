@@ -46,7 +46,7 @@ App.Address = DS.Model.extend(
       presence: true
     },
     zipCode: {
-      length: 5,
+      length: { is: 5 },
       numericality: true,
       presence: true
     }
