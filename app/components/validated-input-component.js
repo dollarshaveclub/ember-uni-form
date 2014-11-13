@@ -7,6 +7,7 @@ App.ValidatedInputComponent = Ember.TextField.extend({
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
   submit: 'submit',
+  type: 'text',
 
   focusOut: function () {
     this.set('showError', this.get('isInvalid'));
