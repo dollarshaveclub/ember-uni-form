@@ -23,21 +23,20 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     },
 
     increment: function () {
-      if (this.get('isMax')) {
-        this.set('showMaxTip', new Date());
-      } else {
-        this.set('quantity', this.incrementProperty('quantity'));
-      }
+      this.handleMax();
+      if (this.get('isMax')) return;
+      this.set('quantity', this.incrementProperty('quantity'));
     },
 
     decrement: function () {
       if (this.get('isMin')) return;
       this.set('quantity', this.decrementProperty('quantity') );
+      this.handleMax();
     }
   },
 
-  initial: Ember.computed.oneWay('quantity'),  // pass in your own to override.
-  quantity: DEFAULT_MIN,  // pass in your own to override.
+  initial: Ember.computed.oneWay('quantity'),
+  quantity: DEFAULT_MIN,
   max: DEFAULT_MAX,
   min: DEFAULT_MIN,
 
@@ -53,7 +52,18 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     return this.get('quantity') >= this.get('max');
   }.property('quantity'),
 
-  maxTip: function () {
-    return '%@ is the maximum quantity.'.fmt(this.get('max'));
-  }.property('max')
+  handleMax: function () {
+    Ember.run.cancel(this.timer);
+
+    if ( this.get('isMax') ) {
+      this.set('showMax', true);
+      this.timer = Ember.run.later(this, function (){
+        this.set('showMax', false);
+      }, 1500);
+    } else {
+      this.set('showMax', false);
+    }
+
+  }
+
 });
