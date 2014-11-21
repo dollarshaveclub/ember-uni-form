@@ -3,15 +3,16 @@
 //
 App.RadioButtonComponent = Ember.Component.extend({
 
+  attributeBindings: [ 'checked', 'name', 'type', 'value' ],
   tagName: 'input',
   type: 'radio',
-  attributeBindings: [ 'checked', 'name', 'type', 'value' ],
 
   checked: function () {
-    return this.get('value') === this.get('groupValue');
+    return this.get('value') == this.get('groupValue');
   }.property('value', 'groupValue'),
 
   change: function () {
-    this.set('groupValue', this.get('value'));
+    this.set('groupValue', !parseInt(this.get('value')) );
   }
+
 });
