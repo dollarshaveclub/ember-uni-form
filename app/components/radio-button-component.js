@@ -7,8 +7,12 @@ App.RadioButtonComponent = Ember.Component.extend({
   tagName: 'input',
   type: 'radio',
 
+  checked: function () {
+    return this.get('value') === this.get('groupValue');
+  }.property('value', 'groupValue'),
+
   change: function () {
-    this.set('groupValue', !parseInt(this.get('value')) );
+    this.set('groupValue', this.get('value'));
   }
 
 });
