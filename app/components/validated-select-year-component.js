@@ -1,20 +1,20 @@
 
 require('../components/validated-select-component');
 
+var YEAR_TEXT = 'Year';
+
 App.ValidatedSelectYearComponent = App.ValidatedSelectComponent.extend({
+
+  value: YEAR_TEXT,
 
   content: function() {
     var year = new Date().getFullYear();
-    var i = -2;
+    var i = -1;
 
-    return Array.apply(null, new Array(13)).map(function() {
-      if ( i === -2 ) {
-        i ++;
-        return ('');
-      }
+    return [YEAR_TEXT].concat(Array.apply(null, new Array(13)).map(function() {
       i ++;
       return (year + i).toString();
-    });
+    }));
   }.property()
 
 });
