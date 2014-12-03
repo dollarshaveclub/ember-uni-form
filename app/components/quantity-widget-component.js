@@ -7,6 +7,8 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   tagName: 'div',
   classNameBindings: [ ':quantity-widget', 'isMin', 'isMax', 'isDirty' ],
   attributeBindings: [ 'name:data-icon' ],
+  quantityDidChange: 'quantityDidChange',
+  showRemoveControl: false,
 
   trackedActions: {
     increment: true,
@@ -15,11 +17,15 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   actions: {
     plusIcon: function () {
-      this.send('increment', this.get('trackedModel'));
+      this.send('increment');
     },
 
     minusIcon: function () {
-      this.send('decrement', this.get('trackedModel'));
+      this.send('decrement');
+    },
+
+    removeIcon: function () {
+      this.set('quantity', 0);
     },
 
     increment: function () {
@@ -63,7 +69,14 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     } else {
       this.set('showMax', false);
     }
+  },
 
-  }
+  onQuantityChange: function () {
+    this.sendAction('quantityDidChange', this.get('trackedModel'), this.get('quantity'));
+  }.observes('quantity'),
+
+  shouldShowRemoveControl: function () {
+    return ( this.get('showRemoveControl') && this.get('isMin') );
+  }.property('isMin', 'quantity')
 
 });
