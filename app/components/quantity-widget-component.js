@@ -9,6 +9,7 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   attributeBindings: [ 'name:data-icon' ],
   quantityDidChange: 'quantityDidChange',
   showRemoveControl: false,
+  quantityString: 'Qty. %@',
 
   trackedActions: {
     increment: true,
@@ -57,6 +58,10 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   isMax: function () {
     return this.get('quantity') >= this.get('max');
   }.property('quantity'),
+
+  quantityText: function () {
+    return this.get('quantityString').fmt(this.get('quantity'));
+  }.property('quantity', 'quantityString'),
 
   handleMax: function () {
     Ember.run.cancel(this.timer);
