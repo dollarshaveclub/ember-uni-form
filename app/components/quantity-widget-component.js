@@ -1,6 +1,7 @@
 
 var DEFAULT_MIN = 1;
 var DEFAULT_MAX = 3;
+var SHOW_MESSAGE_DURATION = 1500;
 
 App.QuantityWidgetComponent = Ember.Component.extend({
 
@@ -9,6 +10,11 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   attributeBindings: [ 'name:data-icon' ],
   quantityDidChange: 'quantityDidChange',
   showRemoveControl: false,
+
+  initial: Ember.computed.oneWay('quantity'),
+  quantity: DEFAULT_MIN,
+  max: DEFAULT_MAX,
+  min: DEFAULT_MIN,
 
   trackedActions: {
     increment: true,
@@ -29,22 +35,22 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     },
 
     increment: function () {
-      this.handleMax();
-      if (this.get('isMax')) return;
+      this.clearMessage();
+      if (this.get('isMax')) return this.setMessage('%@ max'.fmt(this.get('quantity')));
       this.set('quantity', this.incrementProperty('quantity'));
     },
 
     decrement: function () {
+      this.clearMessage();
       if (this.get('isMin')) return;
       this.set('quantity', this.decrementProperty('quantity') );
-      this.handleMax();
     }
   },
 
-  initial: Ember.computed.oneWay('quantity'),
-  quantity: DEFAULT_MIN,
-  max: DEFAULT_MAX,
-  min: DEFAULT_MIN,
+  clearMessage: function () {
+    Ember.run.cancel(this.clearMessageTimer);
+    this.set('showMessage', false);
+  },
 
   isDirty: function () {
     return this.get('initial') !== this.get('quantity');
@@ -58,24 +64,19 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     return this.get('quantity') >= this.get('max');
   }.property('quantity'),
 
-  handleMax: function () {
-    Ember.run.cancel(this.timer);
-
-    if (this.get('isMax')) {
-      this.set('showMax', true);
-      this.timer = Ember.run.later(this, function (){
-        this.set('showMax', false);
-      }, 1500);
-    } else {
-      this.set('showMax', false);
-    }
+  setMessage: function (msg) {
+    this.set('message', msg);
+    this.set('showMessage', true);
+    this.clearMessageTimer = Ember.run.later(this, function () {
+      this.set('showMessage', false);
+    }, SHOW_MESSAGE_DURATION);
   },
 
   onQuantityChange: function () {
     this.sendAction('quantityDidChange', this.get('trackedModel'), this.get('quantity'));
   }.observes('quantity'),
 
-  shouldShowRemoveControl: function () {
+  showRemove: function () {
     return (this.get('showRemoveControl') && this.get('isMin'));
   }.property('isMin', 'quantity')
 
