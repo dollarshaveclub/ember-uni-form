@@ -16,19 +16,19 @@ App.ValidatedSelectComponent = Ember.Select.extend({
     if (this.get('isValid')) this.set('showError', false);
   },
 
-  keyDown: function(e) {
-    if ( e.which === 13 ) {
+  keyDown: function (e) {
+    if (e.which === 13) {
       this.get('controller').send('save');
     }
   },
 
   observeErrors: function () {
-    if ( !this.get('parentModel') ) return;
+    if (!this.get('parentModel')) return;
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
   required: function () {
-    if ( !this.get('parentModel.validations') ) return;
+    if (!this.get('parentModel.validations')) return;
     var v = this.get('parentModel.validations');
     return v[this.get('name')] && v[this.get('name')].presence;
   }.property('name', 'parentModel.validations'),
