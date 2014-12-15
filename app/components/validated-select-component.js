@@ -2,7 +2,9 @@
 App.ValidatedSelectComponent = Ember.Select.extend({
 
   classNameBindings: [ 'showError:error', 'required' ],
+  attributeBindings: [ 'autocomplete' ],
 
+  autocomplete: true,
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
 
