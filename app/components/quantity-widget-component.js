@@ -66,6 +66,7 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   setMessage: function (msg) {
     this.set('message', msg);
+    this.set('showMessage', true);
     this.clearMessageTimer = Ember.run.later(this, function () {
       this.set('showMessage', false);
     }, SHOW_MESSAGE_DURATION);
@@ -77,10 +78,6 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   showRemove: function () {
     return (this.get('showRemoveControl') && this.get('isMin'));
-  }.property('isMin', 'quantity'),
-
-  quantityText: function () {
-    return this.get('quantityString').fmt(this.get('quantity'));
-  }.property('quantityString', 'quantity')
+  }.property('isMin', 'quantity')
 
 });
