@@ -42,7 +42,7 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
     decrement: function () {
       this.clearMessage();
-      if (this.get('isMin')) return;
+      if (this.get('isMin') && !this.get('showRemoveControl')) return;
       this.set('quantity', this.decrementProperty('quantity') );
     }
   },

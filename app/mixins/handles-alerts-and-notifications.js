@@ -10,9 +10,14 @@ App.HandlesAlertsAndNotifications = Ember.Mixin.create({
 
   actions: {
 
-    alert: function (message) {
+    alert: function (opts) {
+
+      if (typeof opts === "string") {
+        opts = { title: opts };
+      }
+
       this.send('removeNotification');
-      this.send('openModal', 'alert', Ember.Object.create({ title: message }));
+      this.send('openModal', 'alert', Ember.Object.create(opts));
     },
 
     notify: function (opts) {
