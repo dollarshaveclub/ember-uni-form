@@ -11,23 +11,15 @@ App.Address = DS.Model.extend(
   zipCode: DS.attr('string'),
   userId: DS.attr('string'),
   countryId: DS.attr('string'),
+  smartyPayload: DS.attr(),
+  isVerified: true,
 
   name: function () {
     return this.get('firstName') + ' ' + this.get('lastName');
   }.property('firstName', 'lastName'),
 
-  isVerified: function () {
-    var self = this;
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      var liveAddress = $.LiveAddress(DSC.CONF.smartystreets.key);
-      liveAddress.verify(self.get('string'), function () {
-        return resolve();
-      });
-    });
-  }.property(),
-
-  string: function () {
-    return "%@ \n %@ \n %@, %@ %@".fmt(
+  addressString: function () {
+    return "%@ %@ %@, %@ %@".fmt(
         this.get('addressLine_1'),
         this.get('addressLine_2'),
         this.get('city'),
@@ -35,6 +27,47 @@ App.Address = DS.Model.extend(
         this.get('zipCode')
       );
   }.property('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode'),
+
+  isVerifiable: function () {
+    var zipAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
+                      this.get('errors.zipCode.length') < 1;
+
+    var cityStateAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
+                            this.get('errors.city.length') < 1 &&
+                            this.get('errors.state.length')  < 1;
+
+
+    return zipAndLine1 || cityStateAndLine1;
+  }.property('errors.addressLine_1', 'errors.zipCode'),
+
+  verify: function () {
+    var self = this;
+
+    if (!this.get('isVerifiable')) return;
+
+    Ember.run.cancel(this.verificationTimer);
+    this.verificationTimer = Ember.run.later(this, function (){
+
+      // console.info('[SmartyStreets] Verifying address with ID:', this.get('id'));
+
+      $.ajax({
+        url: "https://api.smartystreets.com/street-address",
+        data: {
+          "auth-token": DSC.CONF.smartystreets["auth-token"],
+          "street": this.get('addressString')
+        },
+        success: function (response) {
+          self.set('isVerified', response.length > 0);
+          self.set('smartyPayload', response);
+        },
+        error: function () {
+          self.set('isVerified', false);
+        }
+      });
+
+    }, 500);
+
+  }.observes('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode', 'isVerifiable'),
 
   validations: {
     firstName: {
