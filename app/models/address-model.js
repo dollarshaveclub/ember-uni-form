@@ -16,6 +16,26 @@ App.Address = DS.Model.extend(
     return this.get('firstName') + ' ' + this.get('lastName');
   }.property('firstName', 'lastName'),
 
+  isVerified: function () {
+    var self = this;
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      var liveAddress = $.LiveAddress(DSC.CONF.smartystreets.key);
+      liveAddress.verify(self.get('string'), function () {
+        return resolve();
+      });
+    });
+  }.property(),
+
+  string: function () {
+    return "%@ \n %@ \n %@, %@ %@".fmt(
+        this.get('addressLine_1'),
+        this.get('addressLine_2'),
+        this.get('city'),
+        this.get('state'),
+        this.get('zipCode')
+      );
+  }.property('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode'),
+
   validations: {
     firstName: {
       length: { maximum: 25 },
