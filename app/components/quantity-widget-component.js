@@ -10,6 +10,7 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   attributeBindings: [ 'name:data-icon' ],
   quantityDidChange: 'quantityDidChange',
   showRemoveControl: false,
+  quantityString: 'Qty. %@',
 
   initial: Ember.computed.oneWay('quantity'),
   quantity: DEFAULT_MIN,
@@ -78,6 +79,11 @@ App.QuantityWidgetComponent = Ember.Component.extend({
 
   showRemove: function () {
     return (this.get('showRemoveControl') && this.get('isMin'));
-  }.property('isMin', 'quantity')
+  }.property('isMin', 'quantity'),
+
+  quantityText: function () {
+    return this.get('quantityString').fmt(this.get('quantity'));
+  }.property('quantityString', 'quantity')
+
 
 });
