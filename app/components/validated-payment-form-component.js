@@ -10,7 +10,7 @@ App.ValidatedPaymentFormComponent = App.ValidatedFormComponent.extend({
   sameAsShipping: Ember.computed.alias('payment.billingAddressSameAsShippingAddress'),
   payment: Ember.computed.alias('formModel'),
 
-  isValid: function() {
+  isValid: function () {
     if( this.get('sameAsShipping') ) {
       return this.get('payment.isValid');
     } else {
@@ -18,7 +18,7 @@ App.ValidatedPaymentFormComponent = App.ValidatedFormComponent.extend({
     }
   }.property('payment.isValid', 'address.isValid', 'sameAsShipping'),
 
-  rollbackAddress: function() {
+  rollbackAddress: function () {
     this.get('address').then(function(address) {
       address.rollback();
     });
