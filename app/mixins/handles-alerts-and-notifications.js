@@ -23,6 +23,8 @@ App.HandlesAlertsAndNotifications = Ember.Mixin.create({
     notify: function (opts) {
       this.send('removeNotification');
 
+      if (opts.type === 'remove') return;
+
       var message  = (typeof opts === 'string') ? opts : (opts.message || 'No message given.');
 
       this.controllerFor('notification').setProperties({
