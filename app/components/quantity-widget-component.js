@@ -38,13 +38,13 @@ App.QuantityWidgetComponent = Ember.Component.extend({
     increment: function () {
       this.clearMessage();
       if (this.get('isMax')) return this.setMessage('%@ max'.fmt(this.get('quantity')));
-      this.set('quantity', this.incrementProperty('quantity'));
+      this.incrementProperty('quantity');
     },
 
     decrement: function () {
       this.clearMessage();
       if (this.get('isMin') && !this.get('showRemoveControl')) return;
-      this.set('quantity', this.decrementProperty('quantity') );
+      this.decrementProperty('quantity');
     }
   },
 
