@@ -6,7 +6,8 @@ var SHOW_MESSAGE_DURATION = 1500;
 App.QuantityWidgetComponent = Ember.Component.extend({
 
   tagName: 'div',
-  classNameBindings: [ ':quantity-widget', 'isMin', 'isMax', 'isDirty' ],
+  classNames: [ 'quantity-widget' ],
+  classNameBindings: [ 'isDirty', 'isMin', 'isMax', 'isRemoved' ],
   attributeBindings: [ 'name:data-icon' ],
   quantityDidChange: 'quantityDidChange',
   showRemoveControl: false,
@@ -58,11 +59,15 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   }.property('quantity'),
 
   isMin: function () {
-    return this.get('quantity') === this.get('min');
+    return this.get('quantity') <= this.get('min');
   }.property('quantity'),
 
   isMax: function () {
     return this.get('quantity') >= this.get('max');
+  }.property('quantity'),
+
+  isRemoved: function () {
+    return this.get('quantity') === 0;
   }.property('quantity'),
 
   setMessage: function (msg) {
