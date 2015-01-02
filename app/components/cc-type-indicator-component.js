@@ -1,6 +1,5 @@
-App.CcTypeIndicatorComponent = Ember.Component.extend({
-
-  classNameBindings: [ ':cc-type-indicator'],
+App.CcTypeIndicatorComponent = Ember.Component.extend(
+{
+  classNames: [ 'cc-type-indicator'],
   attributeBindings: [ 'cardType:data-card-type' ]
-
 });
