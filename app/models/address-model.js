@@ -30,12 +30,11 @@ App.Address = DS.Model.extend(
 
   isVerifiable: function () {
     var zipAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
-                      this.get('errors.zipCode.length') < 1;
+                      this.get('errors.zipCode.length') < 4;
 
     var cityStateAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
                             this.get('errors.city.length') < 1 &&
-                            this.get('errors.state.length')  < 1;
-
+                            this.get('errors.state.length') < 1;
 
     return zipAndLine1 || cityStateAndLine1;
   }.property('errors.addressLine_1', 'errors.zipCode'),
@@ -46,7 +45,7 @@ App.Address = DS.Model.extend(
     if (!this.get('isVerifiable')) return;
 
     Ember.run.cancel(this.verificationTimer);
-    this.verificationTimer = Ember.run.later(this, function (){
+    this.verificationTimer = Ember.run.later(this, function () {
 
       // console.info('[SmartyStreets] Verifying address with ID:', this.get('id'));
 
@@ -65,7 +64,7 @@ App.Address = DS.Model.extend(
         }
       });
 
-    }, 500);
+    }, 1000);
 
   }.observes('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode', 'isVerifiable'),
 
