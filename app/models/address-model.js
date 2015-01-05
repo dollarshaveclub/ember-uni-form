@@ -30,7 +30,7 @@ App.Address = DS.Model.extend(
 
   isVerifiable: function () {
     var zipAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
-                      this.get('errors.zipCode.length') < 4;
+                      this.get('errors.zipCode.length') < 1;
 
     var cityStateAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
                             this.get('errors.city.length') < 1 &&
