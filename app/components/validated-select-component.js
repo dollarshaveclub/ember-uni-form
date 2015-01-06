@@ -34,7 +34,9 @@ App.ValidatedSelectComponent = Ember.Select.extend({
   }.property('name', 'parentModel.validations'),
 
   syncErrors: function () {
-    this.set('errors', this.get('parentModel.errors.' + this.get('name')));
+    if (!this.get('isDestroyed')) {
+      this.set('errors', this.get('parentModel.errors.' + this.get('name')));
+    }
   }
 
 });

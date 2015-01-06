@@ -16,7 +16,11 @@ App.ValidatedFormComponent = Ember.Component.extend({
     },
 
     submit: function() {
-      if (!this.get('isValid')) return false;
+
+      if (!this.get('isValid')) {
+        console.log('[ValidatedFormComponent] Not submitting invalid formModel.');
+        return false;
+      }
 
       var self = this;
       var deferred = Ember.RSVP.defer();

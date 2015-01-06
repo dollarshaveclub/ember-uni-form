@@ -6,7 +6,6 @@ App.ValidatedInputComponent = Ember.TextField.extend({
 
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
-  submit: 'submit',
   type: 'text',
 
   focusOut: function () {
@@ -15,13 +14,6 @@ App.ValidatedInputComponent = Ember.TextField.extend({
 
   keyUp: function () {
     if (this.get('isValid')) this.set('showError', false);
-  },
-
-  keyDown: function (e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      this.sendAction('submit');
-    }
   },
 
   observeErrors: function () {
