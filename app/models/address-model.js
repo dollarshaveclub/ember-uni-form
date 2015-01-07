@@ -41,7 +41,7 @@ App.Address = DS.Model.extend(
     return zipAndLine1 || cityStateAndLine1;
   }.property('errors.addressLine_1', 'errors.zipCode'),
 
-  isVerifiableChanged: function () {
+  verify: function () {
     var self = this;
 
     Ember.run.cancel(this.verificationTimer);
@@ -75,7 +75,7 @@ App.Address = DS.Model.extend(
 
     }, 1000);
 
-  }.observes('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode', 'isVerifiable'),
+  }.observes('addressString'),
 
   verifyFailed: function () {
     return this.get('verifyResult') === false && this.get('verifyString') === this.get('addressString');
