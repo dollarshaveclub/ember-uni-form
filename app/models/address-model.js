@@ -19,7 +19,7 @@ App.Address = DS.Model.extend(
   }.property('firstName', 'lastName'),
 
   addressString: function () {
-    return "%@ %@ %@, %@ %@".fmt(
+    return '%@ %@ %@, %@ %@'.fmt(
         this.get('addressLine_1'),
         this.get('addressLine_2'),
         this.get('city'),
@@ -42,18 +42,19 @@ App.Address = DS.Model.extend(
   verify: function () {
     var self = this;
 
+    Ember.run.cancel(this.verificationTimer);
+
     if (!this.get('isVerifiable')) return;
 
-    Ember.run.cancel(this.verificationTimer);
     this.verificationTimer = Ember.run.later(this, function () {
 
       // console.info('[SmartyStreets] Verifying address with ID:', this.get('id'));
 
       $.ajax({
-        url: "https://api.smartystreets.com/street-address",
+        url: 'https://api.smartystreets.com/street-address',
         data: {
-          "auth-token": DSC.CONF.smartystreets["auth-token"],
-          "street": this.get('addressString')
+          'auth-token': DSC.CONF.smartystreets['auth-token'],
+          'street': this.get('addressString')
         },
         success: function (response) {
           self.set('isVerified', response.length > 0);
