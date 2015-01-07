@@ -12,7 +12,9 @@ App.Address = DS.Model.extend(
   userId: DS.attr('string'),
   countryId: DS.attr('string'),
   smartyPayload: DS.attr(),
-  isVerified: true,
+
+  verifyResult: null,
+  verifyString: '',
 
   name: function () {
     return this.get('firstName') + ' ' + this.get('lastName');
@@ -39,35 +41,45 @@ App.Address = DS.Model.extend(
     return zipAndLine1 || cityStateAndLine1;
   }.property('errors.addressLine_1', 'errors.zipCode'),
 
-  verify: function () {
+  isVerifiableChanged: function () {
     var self = this;
 
     Ember.run.cancel(this.verificationTimer);
 
     if (!this.get('isVerifiable')) return;
+    if (this.get('addressString') === this.get('verifyString')) return;
 
     this.verificationTimer = Ember.run.later(this, function () {
 
       // console.info('[SmartyStreets] Verifying address with ID:', this.get('id'));
+      var verifyString = this.get('addressString');
 
       $.ajax({
         url: 'https://api.smartystreets.com/street-address',
         data: {
           'auth-token': DSC.CONF.smartystreets['auth-token'],
-          'street': this.get('addressString')
+          'street': verifyString
         },
         success: function (response) {
-          self.set('isVerified', response.length > 0);
+          self.set('verifyResult', response.length > 0);
           self.set('smartyPayload', response);
         },
         error: function () {
-          self.set('isVerified', false);
+          self.set('verifyResult', false);
+          self.set('smartyPayload', null);
+        },
+        complete: function () {
+          self.set('verifyString', verifyString);
         }
       });
 
     }, 1000);
 
   }.observes('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode', 'isVerifiable'),
+
+  verifyFailed: function () {
+    return this.get('verifyResult') === false && this.get('verifyString') === this.get('addressString');
+  }.property('verifyResult', 'verifyString', 'addressString'),
 
   validations: {
     firstName: {
