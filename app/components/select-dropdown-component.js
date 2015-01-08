@@ -1,8 +1,8 @@
 require('../mixins/responds-to-esc-keydown');
 
-App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeydown, {
-
-  tagName: 'div',
+App.SelectDropdownComponent = Ember.Component.extend(
+  App.RespondsToEscKeydown,
+{
   classNameBindings: [ 'active' ],
   attributeBindings:[ 'data-select-dropdown' ],
   'data-select-dropdown' : 1,
@@ -91,7 +91,7 @@ App.SelectDropdownComponent = Ember.Component.extend(App.RespondsToEscKeydown, {
     this.get('$list').find('[data-option]').removeAttr('selected');
   }.observes('isRendered'),
 
-  dismiss: function() {
+  dismiss: function () {
     this.set('active', false);
   },
 
