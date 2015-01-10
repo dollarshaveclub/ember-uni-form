@@ -1,12 +1,13 @@
 
 App.ValidatedSelectComponent = Ember.Select.extend({
 
-  classNameBindings: [ 'showError:error', 'required' ],
+  classNameBindings: [ 'showError:error', 'required', 'isPlaceholder:placeholder' ],
   attributeBindings: [ 'autocomplete' ],
 
   autocomplete: true,
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
+  isPlaceholder: Ember.computed.not('value'),
 
   focusOut: function () {
     this.set('showError', this.get('isInvalid'));

@@ -7,10 +7,12 @@ App.ValidatedSelectStateComponent = App.ValidatedSelectComponent.extend(
 
   content: function () {
     var options = this.get('currentUser.locale.regions') || [];
-    options.unshift({
-      abbreviation: '',
-      name: 'State'
-    });
+    if (options.get('firstObject.abbreviation')) {
+      options.unshiftObject({
+        abbreviation: '',
+        name: 'State'
+      });
+    }
     return options;
   }.property('currentUser.locale.region')
 
