@@ -1,4 +1,6 @@
-
+//
+// Mixed in to CurrentUserService
+//
 App.HasActionModels = Ember.Mixin.create({
 
   createSubscriptionAction: function () {
@@ -19,6 +21,11 @@ App.HasActionModels = Ember.Mixin.create({
 
     this.set('_createSubscriptionAction', createSubscriptionAction);
     return createSubscriptionAction;
-  }.property()
+  }.property(),
+
+  onStatusChange: function () {
+    if (!this.get('_createSubscriptionAction')) return;
+    this.set('_createSubscriptionAction.user', this.get('model'));
+  }.observes('model.status'),
 
 });
