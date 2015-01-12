@@ -1,4 +1,4 @@
-App.HandlesSubmissionsEvents = Ember.Mixin.create(
+App.HandlesSubmissionEvents = Ember.Mixin.create(
   Ember.Evented,
 {
 
