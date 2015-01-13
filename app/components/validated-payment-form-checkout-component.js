@@ -17,10 +17,6 @@ App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.ex
     return this.get('showPaymentFormFields') === '1';
   }.property('showPaymentFormFields'),
 
-  showPaymentFormChanged: function () {
-    this.send('showPaymentFormChanged', this.get('showPaymentForm'));
-  }.observes('showPaymentForm'),
-
   togglePaymentForm: function() {
     return this.set('showPaymentForm', this.get('showPaymentFormFields') === '1');
   }.observes('showPaymentFormFields'),
