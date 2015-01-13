@@ -1,7 +1,10 @@
 
-App.ValidatedSelectComponent = Ember.Select.extend({
+require('../mixins/handles-validation-errors-for-inputs');
 
-  classNameBindings: [ 'showError:error', 'required', 'isPlaceholder:placeholder' ],
+App.ValidatedSelectComponent = Ember.Select.extend(
+  App.HandlesValidationErrorsForInputs,
+{
+  classNameBindings: [ 'required', 'isPlaceholder:placeholder' ],
   attributeBindings: [ 'autocomplete' ],
 
   autocomplete: true,
@@ -23,21 +26,10 @@ App.ValidatedSelectComponent = Ember.Select.extend({
     }
   },
 
-  observeErrors: function () {
-    if (!this.get('parentModel')) return;
-    this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
-  }.on('didInsertElement'),
-
   required: function () {
     if (!this.get('parentModel.validations')) return;
     var v = this.get('parentModel.validations');
     return v[this.get('name')] && v[this.get('name')].presence;
-  }.property('name', 'parentModel.validations'),
-
-  syncErrors: function () {
-    if (!this.get('isDestroyed')) {
-      this.set('errors', this.get('parentModel.errors.' + this.get('name')));
-    }
-  }
+  }.property('name', 'parentModel.validations')
 
 });

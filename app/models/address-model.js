@@ -1,6 +1,9 @@
 
+require('../mixins/provides-ui-errors');
+
 App.Address = DS.Model.extend(
   Ember.Validations.Mixin,
+  App.ProvidesUIErrors,
 {
   firstName: DS.attr('string'),
   lastName: DS.attr('string'),

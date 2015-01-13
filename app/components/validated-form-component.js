@@ -7,7 +7,6 @@ App.ValidatedFormComponent = Ember.Component.extend({
   isValid: Ember.computed.alias('formModel.isValid'),
   save: 'save',
   showButtons: true,
-  inlineMessageMap: {},
 
   actions: {
 
@@ -34,33 +33,8 @@ App.ValidatedFormComponent = Ember.Component.extend({
         self.set('errors', result.errors || [ 'Oops! There was a problem.' ]);
       });
 
-    },
-
-    willShowError: function (name, messages) {
-      var map = this.get('inlineMessageMap');
-      map[name] = messages;
-      this.set('inlineMessageMap', map);
-      this.set('inlineMessageMapUpdatedAt', new Date().getTime());
-    },
-
-    willRemoveError: function (name) {
-      var map = this.get('inlineMessageMap');
-      map[name] = [];
-      this.set('inlineMessageMap', map);
-      this.set('inlineMessageMapUpdatedAt', new Date().getTime());
     }
 
-  },
-
-  inlineMessages: function () {
-    var messages = [];
-    var map = this.get('inlineMessageMap');
-
-    for (var array in map) {
-      messages = messages.concat(map[array]);
-    }
-
-    return messages;
-  }.property('inlineMessageMapUpdatedAt')
+  }
 
 });
