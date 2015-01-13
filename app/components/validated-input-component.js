@@ -3,7 +3,7 @@ require('../mixins/handles-validation-errors-for-inputs');
 App.ValidatedInputComponent = Ember.TextField.extend(
   App.HandlesValidationErrorsForInputs,
 {
-  classNameBindings: [ 'required' ],
+  classNameBindings: [ 'showError:error', 'required' ],
   attributeBindings: [ 'type' ],
 
   isValid: Ember.computed.empty('errors'),

@@ -1,13 +1,11 @@
 App.HandlesValidationErrorsForInputs = Ember.Mixin.create({
 
-  classNameBindings: [ 'showError:error' ],
   errors: [],
   showError: false,
 
   syncErrors: function () {
-    if (!this.get('isDestroyed')) {
-      this.set('errors', this.get('parentModel.errors.' + this.get('name')));
-    }
+    if (this.get('isDestroyed')) return;
+    this.set('errors', this.get('parentModel.errors.' + this.get('name')));
   },
 
   observeErrors: function () {
@@ -16,8 +14,12 @@ App.HandlesValidationErrorsForInputs = Ember.Mixin.create({
   }.on('didInsertElement'),
 
   errorVisibilityForModel: function () {
-    if (this.get('showError'))  this.get('parentModel').trigger('shouldShowValidationError', this.get('name'));
-    if (!this.get('showError')) this.get('parentModel').trigger('shouldDismissValidationError', this.get('name'));
+    var parentModel = this.get('parentModel');
+    if (this.get('showError')) {
+      parentModel.trigger('shouldShowValidationError', this.get('name'));
+    } else {
+      parentModel.trigger('shouldDismissValidationError', this.get('name'));
+    }
   }.observes('showError', 'name')
 
 });
