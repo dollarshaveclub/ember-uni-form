@@ -7,6 +7,8 @@ App.ValidatedInputComponent = Ember.TextField.extend({
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
   type: 'text',
+  willShowError: 'willShowError',
+  willRemoveError: 'willRemoveError',
 
   focusOut: function () {
     this.set('showError', this.get('isInvalid'));
@@ -30,6 +32,25 @@ App.ValidatedInputComponent = Ember.TextField.extend({
   syncErrors: function () {
     if (this.get('isDestroyed')) return;
     this.set('errors', this.get('parentModel.errors.' + this.get('name')));
-  }
+  },
+
+  bubbleError: function () {
+    if (this.get('showError'))  this.sendAction('willShowError', this.get('name'), this.get('errorMessages'));
+    if (!this.get('showError')) this.sendAction('willRemoveError', this.get('name'));
+  }.observes('showError', 'name'),
+
+  errorMessages: function () {
+    var parentModel = this.get('parentModel');
+    var name = this.get('name');
+
+    var errors = parentModel.get('errors');
+    var validations = parentModel.get('validations');
+    if (!errors || !validations) return;
+
+    var inputErrors = errors.get(name) || [];
+    return inputErrors.map(function(error){
+      return name.titleize() + ' ' + error;
+    });
+  }.property('name')
 
 });
