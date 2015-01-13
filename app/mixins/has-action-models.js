@@ -3,6 +3,20 @@
 //
 App.HasActionModels = Ember.Mixin.create({
 
+  createAccountAction: function () {
+    if (this.get('_createAccountAction')) return this.get('_createAccountAction');
+    var createAccountAction = this.get('store').createRecord('createAccountAction');
+    this.set('_createAccountAction', createAccountAction);
+    return createAccountAction;
+  }.property(),
+
+  createSessionAction: function () {
+    if (this.get('_createSessionAction')) return this.get('_createSessionAction');
+    var createSessionAction = this.get('store').createRecord('createSessionAction');
+    this.set('_createSessionAction', createSessionAction);
+    return createSessionAction;
+  }.property(),
+
   createSubscriptionAction: function () {
     if (this.get('_createSubscriptionAction')) return this.get('_createSubscriptionAction');
 
