@@ -4,26 +4,21 @@ require('../components/validated-payment-form-component');
 App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.extend({
 
   credits: Ember.computed.alias('currentUser.walletBalance'),
-  showPaymentFormFields: '0',
   total: Ember.computed.alias('currentUser.nextBox.total'),
 
   creditsCoverTotal: function () {
     var covered = this.get('credits') > this.get('total');
-    this.set('showPaymentForm', !covered);
     return covered;
   }.property('credits', 'total'),
 
-  showPaymentForm: function () {
-    return this.get('showPaymentFormFields') === '1';
-  }.property('showPaymentFormFields'),
-
-  togglePaymentForm: function() {
-    return this.set('showPaymentForm', this.get('showPaymentFormFields') === '1');
-  }.observes('showPaymentFormFields'),
+  // For some reason, property does not work here,
+  // so we add an observer below.
+  watchSkipPaymentMethod: function () {
+    this.set('showPaymentForm', !parseInt(this.get('user.createSubscriptionAction.skipPaymentMethod')));
+  }.observes('user.createSubscriptionAction.skipPaymentMethod'),
 
   walletBalance: function () {
     var walletBalance = this.get('credits') > 0;
-    if ( !walletBalance ) this.set('showPaymentForm', true);
     return walletBalance;
   }.property('credits')
 
