@@ -16,9 +16,6 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   quantityString: 'Qty. %@',
   showRemoveControl: false,
 
-  // Actions
-  quantityDidChange: 'quantityDidChange',
-
   trackedActions: {
     minusIcon: true,
     plusIcon: true,
@@ -81,10 +78,6 @@ App.QuantityWidgetComponent = Ember.Component.extend({
       this.set('showMessage', false);
     }, SHOW_MESSAGE_DURATION);
   },
-
-  onQuantityChange: function () {
-    this.sendAction('quantityDidChange', this.get('trackedModel'), this.get('quantity'));
-  }.observes('quantity'),
 
   showRemove: function () {
     return (this.get('showRemoveControl') && this.get('isMin'));
