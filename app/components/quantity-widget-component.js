@@ -16,6 +16,9 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   quantityString: 'Qty. %@',
   showRemoveControl: false,
 
+  // Actions
+  quantityDidChange: 'quantityDidChange',
+
   trackedActions: {
     minusIcon: true,
     plusIcon: true,
