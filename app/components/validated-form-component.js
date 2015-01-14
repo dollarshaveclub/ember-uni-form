@@ -7,6 +7,7 @@ App.ValidatedFormComponent = Ember.Component.extend({
   isValid: Ember.computed.alias('formModel.isValid'),
   save: 'save',
   showButtons: true,
+  notify: "notify",
 
   actions: {
 
@@ -33,6 +34,10 @@ App.ValidatedFormComponent = Ember.Component.extend({
         self.set('errors', result.errors || [ 'Oops! There was a problem.' ]);
       });
 
+    },
+
+    notify: function (opts) {
+      this.sendAction('notify', opts);
     }
 
   }
