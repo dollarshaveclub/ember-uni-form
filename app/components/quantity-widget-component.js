@@ -5,48 +5,52 @@ var SHOW_MESSAGE_DURATION = 1500;
 
 App.QuantityWidgetComponent = Ember.Component.extend({
 
-  tagName: 'div',
   classNames: [ 'quantity-widget' ],
   classNameBindings: [ 'isDirty', 'isMin', 'isMax', 'isRemoved' ],
   attributeBindings: [ 'name:data-icon' ],
-  quantityDidChange: 'quantityDidChange',
-  showRemoveControl: false,
-  quantityString: 'Qty. %@',
 
   initial: Ember.computed.oneWay('quantity'),
-  quantity: DEFAULT_MIN,
   max: DEFAULT_MAX,
   min: DEFAULT_MIN,
+  quantity: DEFAULT_MIN,
+  quantityString: 'Qty. %@',
+  showRemoveControl: false,
+
+  // Actions
+  quantityDidChange: 'quantityDidChange',
 
   trackedActions: {
-    increment: true,
-    decrement: true
+    minusIcon: true,
+    plusIcon: true,
+    removeIcon: true
   },
 
   actions: {
+
     plusIcon: function () {
-      this.send('increment');
+      this.increment();
     },
 
     minusIcon: function () {
-      this.send('decrement');
+      this.decrement();
     },
 
     removeIcon: function () {
       this.set('quantity', 0);
-    },
-
-    increment: function () {
-      this.clearMessage();
-      if (this.get('isMax')) return this.setMessage('%@ max'.fmt(this.get('quantity')));
-      this.incrementProperty('quantity');
-    },
-
-    decrement: function () {
-      this.clearMessage();
-      if (this.get('isMin') && !this.get('showRemoveControl')) return;
-      this.decrementProperty('quantity');
     }
+
+  },
+
+  increment: function () {
+    this.clearMessage();
+    if (this.get('isMax')) return this.setMessage('%@ max'.fmt(this.get('quantity')));
+    this.incrementProperty('quantity');
+  },
+
+  decrement: function () {
+    this.clearMessage();
+    if (this.get('isMin') && !this.get('showRemoveControl')) return;
+    this.decrementProperty('quantity');
   },
 
   clearMessage: function () {
