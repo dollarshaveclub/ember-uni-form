@@ -5,22 +5,28 @@ App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.ex
 
   credits: Ember.computed.alias('currentUser.walletBalance'),
   total: Ember.computed.alias('currentUser.nextBox.total'),
-  showPaymentForm: true,
 
   creditsCoverTotal: function () {
-    var covered = this.get('credits') > this.get('total');
-    return covered;
+    return this.get('credits') > this.get('total');
   }.property('credits', 'total'),
 
   // For some reason, property does not work here,
   // so we add an observer below.
   watchSkipPaymentMethod: function () {
-    if (!this.get('creditsCoverTotal')) {
-      this.set('showPaymentForm', true);
+    if (this.get('creditsCoverTotal')) {
+      this.set('showPaymentForm', !this.get('skipPaymentMethod'));
     } else {
-      this.set('showPaymentForm', !parseInt(this.get('user.createSubscriptionAction.skipPaymentMethod')));
+      this.set('showPaymentForm', true);
     }
-  }.observes('user.createSubscriptionAction.skipPaymentMethod'),
+  }.observes('skipPaymentMethod', 'creditsCoverTotal'),
+
+  showPaymentForm: function () {
+    return !this.get('skipPaymentMethod') || this.get('creditsCoverTotal');
+  }.property('creditsCoverTotal', 'skipPaymentMethod'),
+
+  skipPaymentMethod: function () {
+    return parseInt(this.get('user.createSubscriptionAction.skipPaymentMethod'));
+  }.property('user.createSubscriptionAction.skipPaymentMethod'),
 
   walletBalance: function () {
     var walletBalance = this.get('credits') > 0;
