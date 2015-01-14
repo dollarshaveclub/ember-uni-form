@@ -63,11 +63,11 @@ App.Address = DS.Model.extend(
           'auth-token': DSC.CONF.smartystreets['auth-token'],
           'street': verifyString
         },
-        success: function (response) {
-          self.set('verifyResult', response.length > 0);
-          self.set('smartyPayload', response);
+        success: function (data) {
+          self.set('verifyResult', data.length > 0);
+          self.set('smartyPayload', data);
         },
-        error: function () {
+        error: function (jqXHR) {
           self.set('verifyResult', false);
           self.set('smartyPayload', null);
         },
