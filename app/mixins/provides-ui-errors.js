@@ -21,14 +21,14 @@ App.ProvidesUIErrors = Ember.Mixin.create(
   // Trigger `shouldShowValidationError` or `dismissValidationError`
   // with a given property to push/remove that name onto shownValidationProperties
 
-  showValidationError: function (name, id) {
+  showValidationError: function (name) {
     if (this.get('propertiesInUIErrorState').contains(name))
       return;
 
     this.get('propertiesInUIErrorState').pushObject(name);
   }.on('shouldShowValidationError'),
 
-  dismissValidationError: function (name, id) {
+  dismissValidationError: function (name) {
     this.get('propertiesInUIErrorState').removeObject(name);
   }.on('shouldDismissValidationError'),
 
@@ -42,9 +42,9 @@ App.ProvidesUIErrors = Ember.Mixin.create(
     if (!validationErrors || !properties) return;
 
     var errors;
-    var messages = properties.map(function(name){
+    var messages = properties.map(function (name) {
       errors = validationErrors.get(name) || [];
-      return errors.map(function(error){
+      return errors.map(function (error) {
         return name.titleize() + ' ' + error;
       });
     });
