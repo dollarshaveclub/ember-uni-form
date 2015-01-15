@@ -7,6 +7,15 @@ App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.ex
   total: Ember.computed.alias('currentUser.nextBox.total'),
   showPaymentForm: true,
   creditsCoverTotal: false,
+  purchase: 'purchase',
+
+  actions: {
+
+    submit: function () {
+      this.sendAction('purchase');
+    }
+
+  },
 
   // For some reason, property does not work here,
   // so we add observers below.
