@@ -5,7 +5,7 @@ App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.ex
   walletBalance: Ember.computed.alias('currentUser.walletBalance'),
   total: Ember.computed.alias('currentUser.nextBox.total'),
   creditsCoverTotal: Ember.computed.alias('currentUser.nextBox.creditsCoverTotal'),
-  skipPaymentMethod: Ember.computed.alias('currentUser.nextBox.skipPaymentMethod'),
+  skipPaymentMethod: Ember.computed.alias('currentUser.createSubscriptionAction.skipPaymentMethod'),
   purchase: 'purchase',
 
   showPaymentForm: function () {
