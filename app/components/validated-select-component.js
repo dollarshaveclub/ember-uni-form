@@ -1,8 +1,10 @@
 
 require('../mixins/handles-validation-errors-for-inputs');
+require('../mixins/triggers-change');
 
 App.ValidatedSelectComponent = Ember.Select.extend(
   App.HandlesValidationErrorsForInputs,
+  App.TriggersChange,
 {
   classNameBindings: [ 'showError:error', 'required', 'isPlaceholder:placeholder' ],
   attributeBindings: [ 'autocomplete' ],
