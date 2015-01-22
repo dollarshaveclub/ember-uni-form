@@ -14,6 +14,7 @@ App.ValidatedSelectStateComponent = App.ValidatedSelectComponent.extend(
       });
     }
     return options;
-  }.property('currentUser.locale.region')
+    //Don't make this a computed property of user locale regions
+  }.property()
 
 });
