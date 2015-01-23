@@ -1,5 +1,4 @@
 
-
 // {{ checkbox-button checkboxLabel="Billing address same as shipping"
 //                    name='billingSameAsShipping'
 //                    toggleProp=formModel.billingAddressSameAsShippingAddress }}
