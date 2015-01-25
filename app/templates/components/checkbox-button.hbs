@@ -1,12 +1,12 @@
 
-{{#truthiness-toggler toggleProp=toggleProp }}
 
-  <span class="checkbox">
-    {{#if toggleProp }}
+<span class="checkbox">
+  {{#if toggleProp }}
+    <span class='check'>
       &#10004; {{!-- ✔ --}}
-    {{/if}}
-  </span>
+    </span>
+  {{/if}}
+</span>
 
-  <span class="label">{{ checkboxLabel }}</span>
+<span class="label">{{ checkboxLabel }}</span>
 
-{{/truthiness-toggler}}

@@ -3,7 +3,9 @@
 //                    name='billingSameAsShipping'
 //                    toggleProp=formModel.billingAddressSameAsShippingAddress }}
 
-App.CheckboxButtonComponent = Ember.Component.extend({
+require('./truthiness-toggler-component');
+
+App.CheckboxButtonComponent = App.TruthinessTogglerComponent.extend({
 
   attributeBindings: [ 'checkboxLabel', 'name', 'toggleProp' ],
   classNameBindings: [ 'checked' ],
