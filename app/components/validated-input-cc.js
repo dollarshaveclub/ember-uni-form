@@ -1,7 +1,7 @@
+import Ember from 'ember';
+import ValidatedInputComponent from './validated-input';
 
-require('../components/validated-input-component');
-
-App.ValidatedInputCcComponent = App.ValidatedInputComponent.extend({
+export default ValidatedInputComponent.extend({
 
   attributeBindings: [ 'autocomplete', 'pattern' ],
   autocomplete: "cc-number",

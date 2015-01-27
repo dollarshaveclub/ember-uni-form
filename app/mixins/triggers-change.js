@@ -1,10 +1,11 @@
+import Ember from 'ember';
 
 // Used to fix issues with autocomplete on various browsers.
 //
 
 var TRIGGER_INTERVAL = 2500;
 
-App.TriggersChange = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
  triggerChange: function () {
 

@@ -1,8 +1,8 @@
+import Ember from 'ember';
+import ValidatedSelectComponent from './validated-select';
 
-require('../components/validated-select-component');
+export default ValidatedSelectComponent.extend({
 
-App.ValidatedSelectYearComponent = App.ValidatedSelectComponent.extend(
-{
   optionValuePath:'content.value',
   optionLabelPath:'content.label',
 

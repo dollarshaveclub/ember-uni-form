@@ -1,7 +1,8 @@
+import Ember from 'ember';
 //
 // Mixed in to CurrentUserService
 //
-App.HasActionModels = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
   createAccountAction: function () {
     if (this.get('_createAccountAction')) return this.get('_createAccountAction');

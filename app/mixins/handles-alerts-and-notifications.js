@@ -1,5 +1,6 @@
+import Ember from 'ember';
 
-App.HandlesAlertsAndNotifications = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
   initAssertion: function () {
     Ember.assert(

@@ -1,4 +1,6 @@
-Ember.TextField.reopen({
+import Ember from 'ember';
+
+export default Ember.View.extend({
 
   submit: 'submit',
 

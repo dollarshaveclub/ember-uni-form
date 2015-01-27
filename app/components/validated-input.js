@@ -1,9 +1,10 @@
-require('../mixins/handles-validation-errors-for-inputs');
-require('../mixins/triggers-change');
+import Ember from 'ember';
+import HandlesValidationErrorsForInputs from '../mixins/handles-validation-errors-for-inputs';
+import TriggersChange from '../mixins/triggers-change';
 
-App.ValidatedInputComponent = Ember.TextField.extend(
-  App.HandlesValidationErrorsForInputs,
-  App.TriggersChange,
+export default Ember.TextField.extend({
+  HandlesValidationErrorsForInputs,
+  TriggersChange,
 {
   classNameBindings: [ 'error', 'required' ],
   attributeBindings: [ 'type' ],

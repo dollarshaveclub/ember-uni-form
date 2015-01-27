@@ -1,5 +1,6 @@
+import Ember from 'ember';
 
-App.ProvidesUIErrors = Ember.Mixin.create(
+export default Ember.Mixin.create(
   Ember.Evented,
 {
 

@@ -1,6 +1,7 @@
-require('../components/validated-payment-form-component');
+import Ember from 'ember';
+import ValidatedPaymentFormComponent from './validated-payment-form';
 
-App.ValidatedPaymentFormCheckoutComponent = App.ValidatedPaymentFormComponent.extend({
+export default ValidatedPaymentFormComponent.extend({
 
   walletBalance: Ember.computed.alias('currentUser.walletBalance'),
   total: Ember.computed.alias('currentUser.nextBox.total'),

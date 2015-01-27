@@ -1,7 +1,7 @@
+import Ember from 'ember';
+import ValidatedFormComponent from './validated-form';
 
-require('../components/validated-form-component');
-
-App.ValidatedPaymentFormComponent = App.ValidatedFormComponent.extend({
+export default ValidatedFormComponent.extend({
 
   classNameBindings: [ 'cardType' ],
 

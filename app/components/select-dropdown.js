@@ -1,7 +1,8 @@
-require('../mixins/responds-to-esc-keydown');
+import Ember from 'ember';
+import RespondsToEscKeydown from '../mixins/responds-to-esc-keydown';
 
-App.SelectDropdownComponent = Ember.Component.extend(
-  App.RespondsToEscKeydown,
+export default Ember.Component.extend(
+  RespondsToEscKeydown,
 {
   classNameBindings: [ 'active' ],
   attributeBindings:[ 'data-select-dropdown' ],
@@ -102,4 +103,5 @@ App.SelectDropdownComponent = Ember.Component.extend(
       return true;
     }
   }
+
 });

@@ -1,4 +1,6 @@
-App.HandlesValidationErrorsForInputs = Ember.Mixin.create({
+import Ember from 'ember';
+
+export default Ember.Mixin.create({
 
   errors: [],
   showError: false,

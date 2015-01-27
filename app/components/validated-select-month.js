@@ -1,7 +1,8 @@
-require('../components/validated-select-component');
+import Ember from 'ember';
+import ValidatedSelectComponent from './validated-select';
 
-App.ValidatedSelectMonthComponent = App.ValidatedSelectComponent.extend(
-{
+export default ValidatedSelectComponent.extend({
+
   optionValuePath:'content.value',
   optionLabelPath:'content.label',
 

@@ -1,5 +1,6 @@
+import Ember from 'ember';
 
-App.ValidatedFormComponent = Ember.Component.extend({
+export default Ember.Component.extend({
   tagName: 'form',
   classNameBindings: [ 'isValid:valid:invalid' ],
 

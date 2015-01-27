@@ -1,9 +1,10 @@
+import Ember from 'ember';
 
 var DEFAULT_MIN = 1;
 var DEFAULT_MAX = 3;
 var SHOW_MESSAGE_DURATION = 1500;
 
-App.QuantityWidgetComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 
   classNames: [ 'quantity-widget' ],
   classNameBindings: [ 'isDirty', 'isMin', 'isMax', 'isRemoved' ],
@@ -86,6 +87,5 @@ App.QuantityWidgetComponent = Ember.Component.extend({
   quantityText: function () {
     return this.get('quantityString').fmt(this.get('quantity'));
   }.property('quantityString', 'quantity')
-
 
 });

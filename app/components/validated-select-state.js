@@ -1,7 +1,8 @@
-require('../components/validated-select-component');
+import Ember from 'ember';
+import ValidatedSelectComponent from './validated-select';
 
-App.ValidatedSelectStateComponent = App.ValidatedSelectComponent.extend(
-{
+export default ValidatedSelectComponent.extend({
+
   optionValuePath:'content.abbreviation',
   optionLabelPath:'content.name',
 

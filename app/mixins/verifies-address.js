@@ -1,5 +1,6 @@
+import Ember from 'ember';
 
-App.VerifiesAddress = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
   setVerifiability: function () {
     Ember.run.next(this, function () {
