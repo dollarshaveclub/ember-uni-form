@@ -17,6 +17,8 @@ App.ValidatedFormComponent = Ember.Component.extend({
 
     submit: function () {
 
+      this.set('formModel.showInputErrors', true);
+
       if (!this.get('isValid')) {
         console.log('[ValidatedFormComponent] Not submitting invalid formModel.');
         return false;

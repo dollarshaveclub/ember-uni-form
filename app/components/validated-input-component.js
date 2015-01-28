@@ -1,24 +1,28 @@
 require('../mixins/handles-validation-errors-for-inputs');
 require('../mixins/triggers-change');
 
-
 App.ValidatedInputComponent = Ember.TextField.extend(
   App.HandlesValidationErrorsForInputs,
   App.TriggersChange,
 {
-  classNameBindings: [ 'showError:error', 'required' ],
+  classNameBindings: [ 'error', 'required' ],
   attributeBindings: [ 'type' ],
 
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
   type: 'text',
 
+  error: function () {
+    if (this.get('parentModel.showInputErrors') || this.get('showError')) return this.get('isInvalid');
+    return false;
+  }.property('showError', 'parentModel.showInputErrors', 'isInvalid'),
+
   focusOut: function () {
-    this.set('showError', this.get('isInvalid'));
+    this.set('showError', true);
   },
 
   keyUp: function () {
-    if (this.get('isValid')) this.set('showError', false);
+    this.set('showError', false);
   },
 
   required: function () {
