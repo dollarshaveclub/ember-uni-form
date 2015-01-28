@@ -1,10 +1,11 @@
 import DS from 'ember-data';
+import EmberValidations from 'ember-validations';
 import ProvidesUIErrors from '../mixins/provides-ui-errors';
 import VerifiesAddress from '../mixins/verifies-address';
 
 
-export default DS.Model.extend(  
-	Ember.Validations.Mixin,
+export default DS.Model.extend(
+	EmberValidations.Mixin,
   ProvidesUIErrors,
   VerifiesAddress,
 {

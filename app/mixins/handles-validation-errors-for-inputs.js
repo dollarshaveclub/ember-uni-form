@@ -15,7 +15,6 @@ export default Ember.Mixin.create({
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
-  // Propagate showError changes to parentModel
   errorVisibilityForModel: function () {
     var parentModel = this.get('parentModel');
     if (this.get('showError')) {

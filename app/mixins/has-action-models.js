@@ -26,7 +26,7 @@ export default Ember.Mixin.create({
     paymentMethod.set('billingAddress', store.createRecord('address'));
     paymentMethod.set('billingAddressSameAsShippingAddress', true);
 
-    var createSubscriptionAction = store.createRecord('createSubscriptionAction').setProperties({
+    var createSubscriptionAction = store.createRecord('action.create-subscription').setProperties({
       user: this.get('model'),
       shippingAddress: store.createRecord('address'),
       paymentMethod: paymentMethod,
