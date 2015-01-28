@@ -3,6 +3,7 @@ import Ember from 'ember';
 // {{ radio-button name='dish' value='spam' groupValue=dish }} Spam
 // {{ radio-button name='dish' value='eggs' groupValue=dish }} Eggs
 //
+
 export default Ember.Component.extend({
 
   attributeBindings: [ 'checked', 'name', 'type', 'value' ],

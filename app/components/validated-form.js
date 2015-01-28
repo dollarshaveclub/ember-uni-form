@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
   tagName: 'form',
   classNameBindings: [ 'isValid:valid:invalid' ],
 
@@ -17,8 +18,6 @@ export default Ember.Component.extend({
     },
 
     submit: function () {
-
-      this.set('formModel.showInputErrors', true);
 
       if (!this.get('isValid')) {
         console.log('[ValidatedFormComponent] Not submitting invalid formModel.');

@@ -2,11 +2,12 @@ import Ember from 'ember';
 import HandlesValidationErrorsForInputs from '../mixins/handles-validation-errors-for-inputs';
 import TriggersChange from '../mixins/triggers-change';
 
-export default Ember.Select.extend({
+export default Ember.Select.extend(
   HandlesValidationErrorsForInputs,
   TriggersChange,
 {
-  classNameBindings: [ 'error', 'required', 'isPlaceholder:placeholder' ],
+
+  classNameBindings: [ 'showError:error', 'required', 'isPlaceholder:placeholder' ],
   attributeBindings: [ 'autocomplete' ],
 
   autocomplete: true,
@@ -14,13 +15,8 @@ export default Ember.Select.extend({
   isInvalid: Ember.computed.notEmpty('errors'),
   isPlaceholder: Ember.computed.not('value'),
 
-  error: function () {
-    if (this.get('parentModel.showInputErrors') || this.get('showError')) return this.get('isInvalid');
-    return false;
-  }.property('showError', 'parentModel.showInputErrors', 'isInvalid'),
-
   focusOut: function () {
-    this.set('showError', true);
+    this.set('showError', this.get('isInvalid'));
   },
 
   keyUp: function () {

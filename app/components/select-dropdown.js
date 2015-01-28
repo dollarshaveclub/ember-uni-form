@@ -4,6 +4,7 @@ import RespondsToEscKeydown from '../mixins/responds-to-esc-keydown';
 export default Ember.Component.extend(
   RespondsToEscKeydown,
 {
+
   classNameBindings: [ 'active' ],
   attributeBindings:[ 'data-select-dropdown' ],
   'data-select-dropdown' : 1,
