@@ -6,14 +6,14 @@ export default Ember.Mixin.create({
 
   createAccountAction: function () {
     if (this.get('_createAccountAction')) return this.get('_createAccountAction');
-    var createAccountAction = this.get('store').createRecord('createAccountAction');
+    var createAccountAction = this.get('store').createRecord('action.create-account');
     this.set('_createAccountAction', createAccountAction);
     return createAccountAction;
   }.property(),
 
   createSessionAction: function () {
     if (this.get('_createSessionAction')) return this.get('_createSessionAction');
-    var createSessionAction = this.get('store').createRecord('createSessionAction');
+    var createSessionAction = this.get('store').createRecord('action.create-session');
     this.set('_createSessionAction', createSessionAction);
     return createSessionAction;
   }.property(),
