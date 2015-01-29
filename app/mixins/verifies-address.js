@@ -29,7 +29,7 @@ export default Ember.Mixin.create({
       console.info('[SmartyStreets] Verifying address with ID:', this.get('id'));
       var verifyString = this.get('addressString');
 
-      $.ajax({
+      Ember.$.ajax({
         url: 'https://api.smartystreets.com/street-address',
         data: {
           'auth-token': config.APP.smartystreets['auth-token'],
