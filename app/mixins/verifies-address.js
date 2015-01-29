@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Mixin.create({
 
@@ -31,7 +32,7 @@ export default Ember.Mixin.create({
       $.ajax({
         url: 'https://api.smartystreets.com/street-address',
         data: {
-          'auth-token': DSC.CONF.smartystreets['auth-token'],
+          'auth-token': config.APP.smartystreets['auth-token'],
           'street': verifyString
         },
         success: function (data) {
