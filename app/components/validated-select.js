@@ -7,7 +7,7 @@ export default Ember.Select.extend(
   TriggersChange,
 {
 
-  classNameBindings: [ 'showError:error', 'required', 'isPlaceholder:placeholder' ],
+  classNameBindings: [ 'error', 'required', 'isPlaceholder:placeholder' ],
   attributeBindings: [ 'autocomplete' ],
 
   autocomplete: true,
@@ -15,8 +15,13 @@ export default Ember.Select.extend(
   isInvalid: Ember.computed.notEmpty('errors'),
   isPlaceholder: Ember.computed.not('value'),
 
+  error: function () {
+    if (this.get('parentModel.showInputErrors') || this.get('showError')) return this.get('isInvalid');
+    return false;
+  }.property('showError', 'parentModel.showInputErrors', 'isInvalid'),
+
   focusOut: function () {
-    this.set('showError', this.get('isInvalid'));
+    this.set('showError', true);
   },
 
   keyUp: function () {
