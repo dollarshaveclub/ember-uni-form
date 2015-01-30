@@ -1,11 +1,11 @@
+import Ember from 'ember';
+import TruthinessTogglerComponent from './truthiness-toggler';
 
 // {{ checkbox-button checkboxLabel="Billing address same as shipping"
 //                    name='billingSameAsShipping'
 //                    toggleProp=formModel.billingAddressSameAsShippingAddress }}
 
-require('./truthiness-toggler-component');
-
-App.CheckboxButtonComponent = App.TruthinessTogglerComponent.extend({
+export default TruthinessTogglerComponent.extend({
 
   attributeBindings: [ 'checkboxLabel', 'name', 'toggleProp' ],
   classNameBindings: [ 'checked' ],
