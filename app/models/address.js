@@ -61,8 +61,7 @@ export default DS.Model.extend(
       presence: true
     },
     zipCode: {
-      numericality: true,
-      presence: true
+      numericality: true
     }
   }
 
