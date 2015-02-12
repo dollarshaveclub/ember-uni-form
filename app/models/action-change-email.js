@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import EmberValidations from 'ember-validations';
 import HandlesSubmissionEvents from '../mixins/handles-submission-events';
-import RESTAdapter from '../adapters/rest';
+import ApplicationAdapter from '../adapters/application';
 
 export default DS.Model.extend(
   EmberValidations.Mixin,
@@ -26,7 +26,7 @@ export default DS.Model.extend(
     var self = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       Ember.$.ajax({
-        url: RESTAdapter.create().buildURL('user', user.get('id')) + '/change_email',
+        url: ApplicationAdapter.create().buildURL('user', user.get('id')) + '/change_email',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
