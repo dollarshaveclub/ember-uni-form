@@ -4,7 +4,7 @@ import ProvidesUIErrors from '../mixins/provides-ui-errors';
 import VerifiesAddress from '../mixins/verifies-address';
 
 export default DS.Model.extend(
-	EmberValidations.Mixin,
+  EmberValidations.Mixin,
   ProvidesUIErrors,
   VerifiesAddress,
 {
