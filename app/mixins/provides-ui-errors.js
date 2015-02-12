@@ -15,7 +15,7 @@ export default Ember.Mixin.create(
   // or have it be created on initialization of the object.
 
   init: function () {
-    this._super.apply(this, arguments);
+    this._super();
     this.set('propertiesInUIErrorState', []);
   },
 
@@ -23,9 +23,7 @@ export default Ember.Mixin.create(
   // with a given property to push/remove that name onto shownValidationProperties
 
   showValidationError: function (name) {
-    if (this.get('propertiesInUIErrorState').contains(name))
-      return;
-
+    if (this.get('propertiesInUIErrorState').contains(name)) return;
     this.get('propertiesInUIErrorState').pushObject(name);
   }.on('shouldShowValidationError'),
 

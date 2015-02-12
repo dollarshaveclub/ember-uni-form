@@ -3,12 +3,12 @@ import EmberValidations from 'ember-validations';
 import ProvidesUIErrors from '../mixins/provides-ui-errors';
 import VerifiesAddress from '../mixins/verifies-address';
 
-
 export default DS.Model.extend(
 	EmberValidations.Mixin,
   ProvidesUIErrors,
   VerifiesAddress,
 {
+
   firstName: DS.attr('string'),
   lastName: DS.attr('string'),
   addressLine_1: DS.attr('string'),
@@ -29,12 +29,12 @@ export default DS.Model.extend(
 
   addressString: function () {
     return '%@ %@ %@, %@ %@'.fmt(
-        this.get('addressLine_1'),
-        this.get('addressLine_2'),
-        this.get('city'),
-        this.get('state'),
-        this.get('zipCode')
-      );
+      this.get('addressLine_1'),
+      this.get('addressLine_2'),
+      this.get('city'),
+      this.get('state'),
+      this.get('zipCode')
+    );
   }.property('addressLine_1', 'addressLine_2', 'city', 'state', 'zipCode'),
 
   validations: {

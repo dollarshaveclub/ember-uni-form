@@ -1,10 +1,11 @@
-import Ember from 'ember';
 import ValidatedSelectComponent from './validated-select';
+
+var NUM_YEARS = 13;
 
 export default ValidatedSelectComponent.extend({
 
-  optionValuePath:'content.value',
-  optionLabelPath:'content.label',
+  optionValuePath: 'content.value',
+  optionLabelPath: 'content.label',
 
   content: function () {
     var year = new Date().getFullYear();
@@ -12,7 +13,7 @@ export default ValidatedSelectComponent.extend({
       value: '',
       label: 'Year'
     }];
-    for (var i = 0; i < 13; i++) {
+    for (var i = 0; i < NUM_YEARS; i++) {
       var s = (year + i).toString();
       options.push({ value: s, label: s });
     }

@@ -7,6 +7,7 @@ export default DS.Model.extend(
   EmberValidations.Mixin,
   HandlesSubmissionEvents,
 {
+
   newEmail: DS.attr('string'),
   currentPassword: DS.attr('string'),
 

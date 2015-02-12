@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import TruthinessTogglerComponent from './truthiness-toggler';
 
 // {{ checkbox-button checkboxLabel="Billing address same as shipping"

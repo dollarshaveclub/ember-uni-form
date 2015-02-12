@@ -12,10 +12,10 @@ export default Ember.Mixin.create({
     // Recursion.
     Ember.run.later(this, function () {
       if (this.get('isDestroyed')) return;
-      this.$().trigger("change");
+      this.$().trigger('change');
       this.triggerChange();
     }, TRIGGER_INTERVAL);
 
-  }.on("didInsertElement")
+  }.on('didInsertElement')
 
 });

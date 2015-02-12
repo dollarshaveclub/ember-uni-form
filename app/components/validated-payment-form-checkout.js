@@ -3,11 +3,11 @@ import ValidatedPaymentFormComponent from './validated-payment-form';
 
 export default ValidatedPaymentFormComponent.extend({
 
-  walletBalance: Ember.computed.alias('currentUser.walletBalance'),
-  total: Ember.computed.alias('currentUser.nextBox.total'),
   creditsCoverTotal: Ember.computed.alias('currentUser.nextBox.creditsCoverTotal'),
-  skipPaymentMethod: Ember.computed.alias('currentUser.createSubscriptionAction.skipPaymentMethod'),
   purchase: 'purchase',
+  skipPaymentMethod: Ember.computed.alias('currentUser.createSubscriptionAction.skipPaymentMethod'),
+  total: Ember.computed.alias('currentUser.nextBox.total'),
+  walletBalance: Ember.computed.alias('currentUser.walletBalance'),
 
   showPaymentForm: function () {
     if (!this.get('creditsCoverTotal')) return true;

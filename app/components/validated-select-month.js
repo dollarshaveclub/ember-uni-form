@@ -1,10 +1,9 @@
-import Ember from 'ember';
 import ValidatedSelectComponent from './validated-select';
 
 export default ValidatedSelectComponent.extend({
 
-  optionValuePath:'content.value',
-  optionLabelPath:'content.label',
+  optionValuePath: 'content.value',
+  optionLabelPath: 'content.label',
 
   content: function () {
     var options = [{

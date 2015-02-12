@@ -7,9 +7,9 @@ export default Ember.Component.extend({
 
   cancel: 'cancel',
   isValid: Ember.computed.alias('formModel.isValid'),
+  notify: 'notify',
   save: 'save',
   showButtons: true,
-  notify: "notify",
 
   actions: {
 
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
       this.set('formModel.showInputErrors', true);
 
       if (!this.get('isValid')) {
-        console.log('[ValidatedFormComponent] Not submitting invalid formModel.');
+        // console.log('[ValidatedFormComponent] Not submitting invalid formModel.');
         return false;
       }
 

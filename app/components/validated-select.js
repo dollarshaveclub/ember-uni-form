@@ -11,9 +11,9 @@ export default Ember.Select.extend(
   attributeBindings: [ 'autocomplete' ],
 
   autocomplete: true,
-  isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),
   isPlaceholder: Ember.computed.not('value'),
+  isValid: Ember.computed.empty('errors'),
 
   error: function () {
     if (this.get('parentModel.showInputErrors') || this.get('showError')) return this.get('isInvalid');

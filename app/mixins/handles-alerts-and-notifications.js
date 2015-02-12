@@ -1,13 +1,8 @@
 import Ember from 'ember';
 
+// Mixed in to ApplicationRoute
+//
 export default Ember.Mixin.create({
-
-  initAssertion: function () {
-    Ember.assert(
-      'HandlesAlertsAndNotifications must be mixed in to the ApplicationRoute',
-      Object.getPrototypeOf(this)._debugContainerKey === "route:application"
-    );
-  }.on('init'),
 
   actions: {
 
@@ -25,7 +20,7 @@ export default Ember.Mixin.create({
 
       if (opts.type === 'remove') return;
 
-      var message  = (typeof opts === 'string') ? opts : (opts.message || 'No message given.');
+      var message = (typeof opts === 'string') ? opts : (opts.message || 'No message given.');
 
       this.controllerFor('notification').setProperties({
         message: message,
