@@ -1,7 +1,11 @@
-import Ember from 'ember';
+
 import config from '../config/environment';
 
 export default Ember.Mixin.create({
+
+  // Set to true on your model to trigger
+  // verification via SmartyStreets.
+  shouldVerify: false,
 
   setVerifiability: function () {
     Ember.run.next(this, function () {
@@ -17,6 +21,11 @@ export default Ember.Mixin.create({
   }.observes('addressLine_1', 'zipCode', 'city', 'state'),
 
   verify: function () {
+
+    // No verify in development.
+    if (config.environment === 'development') return;
+    if (!this.get('shouldVerify')) return;
+
     var self = this;
 
     Ember.run.cancel(this.verificationTimer);

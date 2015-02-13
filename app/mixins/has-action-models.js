@@ -23,12 +23,18 @@ export default Ember.Mixin.create({
 
     var store = this.get('store');
     var paymentMethod = store.createRecord('paymentMethod');
-    paymentMethod.set('billingAddress', store.createRecord('address'));
+
+    var billing = store.createRecord('address');
+    var shipping = store.createRecord('address');
+    billing.set('shouldVerify', true);
+    shipping.set('shouldVerify', true);
+
+    paymentMethod.set('billingAddress', billing);
     paymentMethod.set('billingAddressSameAsShippingAddress', true);
 
-    var createSubscriptionAction = store.createRecord('actionCreateSubscription').setProperties({
+    var createSubscriptionAction = store.createRecord('createSubscriptionAction').setProperties({
       user: this.get('model'),
-      shippingAddress: store.createRecord('address'),
+      shippingAddress: shipping,
       paymentMethod: paymentMethod,
       coupon: store.createRecord('coupon'),
       giftCard: store.createRecord('giftCard')
@@ -41,6 +47,6 @@ export default Ember.Mixin.create({
   onStatusChange: function () {
     if (!this.get('_createSubscriptionAction')) return;
     this.set('_createSubscriptionAction.user', this.get('model'));
-  }.observes('model.status'),
+  }.observes('model.status')
 
 });
