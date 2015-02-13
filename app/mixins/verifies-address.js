@@ -9,6 +9,8 @@ export default Ember.Mixin.create({
 
   setVerifiability: function () {
     Ember.run.next(this, function () {
+      if (this.get('currentState.stateName') === "root.deleted.saved") return;
+
       var zipAndLine1 = this.get('errors.addressLine_1.length') < 1 &&
                         this.get('errors.zipCode.length') < 1;
 
