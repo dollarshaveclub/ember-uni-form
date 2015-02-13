@@ -11,7 +11,8 @@ export default Ember.Mixin.create({
 
     // Recursion.
     Ember.run.later(this, function () {
-      if (this.get('isDestroyed')) return;
+      var $el = this.$();
+      if (this.get('isDestroyed') || $el.length === 0) return;
       this.$().trigger('change');
       this.triggerChange();
     }, TRIGGER_INTERVAL);
