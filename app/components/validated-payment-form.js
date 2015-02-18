@@ -17,7 +17,7 @@ export default ValidatedFormComponent.extend({
 
   rollbackAddress: function () {
     this.get('address').then(function (address) {
-      address.rollback();
+      if (address.get('id')) address.rollback();
     });
   }.observes('sameAsShipping')
 
