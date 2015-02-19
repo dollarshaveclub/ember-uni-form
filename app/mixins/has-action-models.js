@@ -33,12 +33,14 @@ export default Ember.Mixin.create({
     paymentMethod.set('billingAddressSameAsShippingAddress', true);
 
     var createSubscriptionAction = store.createRecord('actionCreateSubscription').setProperties({
-      currentUser: this.get('currentUser'),
       shippingAddress: shipping,
       paymentMethod: paymentMethod,
       coupon: store.createRecord('coupon'),
       giftCard: store.createRecord('giftCard')
     });
+
+    // Inject service so model remains accessible after changing
+    createSubscriptionAction.set('currentUser', this);
 
     this.set('_createSubscriptionAction', createSubscriptionAction);
     return createSubscriptionAction;
