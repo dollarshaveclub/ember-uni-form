@@ -33,7 +33,7 @@ export default Ember.Mixin.create({
     paymentMethod.set('billingAddressSameAsShippingAddress', true);
 
     var createSubscriptionAction = store.createRecord('actionCreateSubscription').setProperties({
-      user: this.get('model'),
+      currentUser: this.get('currentUser'),
       shippingAddress: shipping,
       paymentMethod: paymentMethod,
       coupon: store.createRecord('coupon'),
@@ -42,11 +42,6 @@ export default Ember.Mixin.create({
 
     this.set('_createSubscriptionAction', createSubscriptionAction);
     return createSubscriptionAction;
-  }.property(),
-
-  onStatusChange: function () {
-    if (!this.get('_createSubscriptionAction')) return;
-    this.set('_createSubscriptionAction.user', this.get('model'));
-  }.observes('model.status')
+  }.property()
 
 });
