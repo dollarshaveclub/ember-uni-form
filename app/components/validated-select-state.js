@@ -4,16 +4,10 @@ export default ValidatedSelectComponent.extend({
 
   optionValuePath: 'content.abbreviation',
   optionLabelPath: 'content.name',
+  prompt: 'State',
 
   content: function () {
-    var options = this.get('currentUser.locale.regions') || [];
-    if (options.get('firstObject.abbreviation')) {
-      options.unshiftObject({
-        abbreviation: '',
-        name: 'State'
-      });
-    }
-    return options;
+    return this.get('currentUser.locale.regions') || [];
     // Don't make this a computed property of user locale regions
   }.property()
 
