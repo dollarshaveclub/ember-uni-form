@@ -27,6 +27,12 @@ export default Ember.TextField.extend(
     this.set('showError', false);
   },
 
+  keyDown: function (e) {
+    if (e.which === 13) {
+      this.sendAction('enterKey');
+    }
+  },
+
   required: function () {
     if (!this.get('parentModel')) return;
     var v = this.get('parentModel.validations');
