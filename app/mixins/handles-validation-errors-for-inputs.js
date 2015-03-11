@@ -36,11 +36,8 @@ export default Ember.Mixin.create({
   // Propagate showError changes to parentModel
   errorVisibilityForModel: function () {
     var parentModel = this.get('parentModel');
-    if (this.get('showError')) {
-      parentModel.trigger('shouldShowValidationError', this.get('name'));
-    } else {
-      parentModel.trigger('shouldDismissValidationError', this.get('name'));
-    }
+    var eventName = this.get('showError') ? 'shouldShowValidationError' : 'shouldDismissValidationError';
+    if (parentModel) parentModel.trigger(eventName, this.get('name'));
   }.observes('showError', 'name'),
 
   focusOut: function () {
@@ -55,6 +52,11 @@ export default Ember.Mixin.create({
     if (!this.get('parentModel')) return;
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
+
+  removeErrorObserver: function () {
+    if (!this.get('parentModel')) return;
+    this.get('parentModel').removeObserver('errors.' + this.get('name'), this, this.syncErrors);
+  }.on('willDestroyElement'),
 
   syncErrors: function () {
     if (this.get('isDestroyed')) return;
