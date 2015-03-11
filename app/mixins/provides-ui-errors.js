@@ -4,7 +4,7 @@ export default Ember.Mixin.create(
   Ember.Evented,
 {
 
-  // Push and remove properties onto `shownValidationProperties`
+  // Push and remove properties onto `propertiesInUIErrorState`
   // to indicate to the model that given property should display a UI
   // error message.
 
@@ -14,13 +14,10 @@ export default Ember.Mixin.create(
   // that is not shared, you can define it either as a computed property
   // or have it be created on initialization of the object.
 
-  init: function () {
-    this._super();
-    this.set('propertiesInUIErrorState', []);
-  },
+  propertiesInUIErrorState: [],
 
   // Trigger `shouldShowValidationError` or `dismissValidationError`
-  // with a given property to push/remove that name onto shownValidationProperties
+  // with a given property to push/remove that name onto propertiesInUIErrorState
 
   showValidationError: function (name) {
     if (this.get('propertiesInUIErrorState').contains(name)) return;
