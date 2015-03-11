@@ -44,7 +44,7 @@ export default Ember.Mixin.create({
   }.observes('showError', 'name'),
 
   focusOut: function () {
-    this.set('showError', true);
+    if (!this.get('empty')) this.set('showError', true);
   },
 
   keyUp: function () {
