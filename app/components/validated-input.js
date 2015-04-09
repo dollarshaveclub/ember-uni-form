@@ -28,7 +28,7 @@ export default Ember.TextField.extend(
   },
 
   keyDown: function (e) {
-    if (e.which === 13) {
+    if (e && e.which === 13) {
       this.sendAction('enterKey');
     }
   },
