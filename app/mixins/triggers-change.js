@@ -13,7 +13,7 @@ export default Ember.Mixin.create({
     Ember.run.later(this, function () {
       var $el = this.$();
       if (this.get('isDestroyed') || $el.length === 0) return;
-      this.$().trigger('change');
+      this.$() && this.$().trigger && this.$().trigger('change');
       this.triggerChange();
     }, TRIGGER_INTERVAL);
 
