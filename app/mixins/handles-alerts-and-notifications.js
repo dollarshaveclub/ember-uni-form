@@ -25,7 +25,8 @@ export default Ember.Mixin.create({
       this.controllerFor('notification').setProperties({
         message: message,
         type: opts.type,
-        dismissable: opts.dismissable
+        dismissable: opts.dismissable,
+        showIndefinitely: opts.showIndefinitely || false
       });
 
       var view = this.render('notification', {
