@@ -26,11 +26,11 @@ export default DS.Model.extend(
 
   minLength: Ember.computed.alias('validations.newPassword.length.minimum'),
 
-  submit: function (user) {
+  submit: function (userService) {
     var self = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       Ember.$.ajax({
-        url: ApplicationAdapter.create().buildURL('user', user.get('id')) + '/change_password',
+        url: ApplicationAdapter.create().buildURL('user', userService.get('model.id')) + '/change_password',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({

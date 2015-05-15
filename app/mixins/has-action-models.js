@@ -39,9 +39,6 @@ export default Ember.Mixin.create({
       giftCard: store.createRecord('giftCard')
     });
 
-    // Inject service so model remains accessible after changing
-    createSubscriptionAction.set('currentUser', this);
-
     this.set('_createSubscriptionAction', createSubscriptionAction);
     return createSubscriptionAction;
   }.property()

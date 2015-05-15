@@ -23,11 +23,11 @@ export default DS.Model.extend(
     }
   },
 
-  submit: function (user) {
+  submit: function (userService) {
     var self = this;
     return new Ember.RSVP.Promise(function (resolve, reject) {
       Ember.$.ajax({
-        url: ApplicationAdapter.create().buildURL('user', user.get('id')) + '/change_email',
+        url: ApplicationAdapter.create().buildURL('user', userService.get('model.id')) + '/change_email',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({

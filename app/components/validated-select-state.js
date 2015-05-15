@@ -7,7 +7,7 @@ export default ValidatedSelectComponent.extend({
   prompt: 'State',
 
   content: function () {
-    return this.get('currentUser.locale.regions') || [];
+    return this.get('currentUser.model.locale.regions') || [];
     // Don't make this a computed property of user locale regions
   }.property()
 
