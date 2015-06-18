@@ -45,7 +45,6 @@ export default Ember.Component.extend(
     this.set('$list', this.$().find('[data-option-list]'));
     this.optionizeChildren();
     this.bindClickAway();
-    this.set('isRendered', 1);
   },
 
   willDestroyElement: function () {
@@ -67,11 +66,11 @@ export default Ember.Component.extend(
   setListHeight: function () {
     var height = this.get('active') ? this.get('listHeightMax') : this.get('itemHeight');
     this.get('$list').height(height);
-  }.observes('isRendered', 'active'),
+  }.observes('active').on('didRender'),
 
   highlightSelected: function () {
-    this.$().find('[value="' + this.get('selection') + '"]').attr('selected', 'selected');
-  }.observes('isRendered', 'selection'),
+    if (this.$()) this.$().find('[value="' + this.get('selection') + '"]').attr('selected', 'selected');
+  }.observes('selection').on('didRender'),
 
   optionizeChildren: function () {
     this.get('$list').find('div').attr('data-option', 1);
