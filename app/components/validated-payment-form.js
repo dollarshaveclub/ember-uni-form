@@ -16,9 +16,14 @@ export default ValidatedFormComponent.extend({
   }.property('payment.isValid', 'address.isValid', 'sameAsShipping'),
 
   rollbackAddress: function () {
+
+    var address = this.get('address');
+    if (!address) return;
+
     this.get('address').then(function (address) {
       if (address.get('id')) address.rollback();
     });
+
   }.observes('sameAsShipping')
 
 });
