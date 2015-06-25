@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
   // Propagate showError changes to parentModel
   errorVisibilityForModel: function () {
     var parentModel = this.get('parentModel');
-    if (!parentModel || !parentModel.trigger) return;
+    if (!parentModel && !parentModel.trigger) return;
 
     if (this.get('showError')) {
       parentModel.trigger('shouldShowValidationError', this.get('name'));
