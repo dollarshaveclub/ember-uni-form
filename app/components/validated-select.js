@@ -15,6 +15,13 @@ export default Ember.Select.extend(
   isPlaceholder: Ember.computed.not('value'),
   isValid: Ember.computed.empty('errors'),
 
+  selectFirst: function () {
+    // Ember's `prompt` is not working as expected as of 1.13
+    // So, I present this hack!
+    if( this.get('value') ) return;
+    this.$('option:first').attr('selected','selected');
+  }.on('didInsertElement'),
+
   error: function () {
     if (this.get('parentModel.showInputErrors') || this.get('showError')) return this.get('isInvalid');
     return false;
