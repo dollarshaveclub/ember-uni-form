@@ -36,7 +36,7 @@ export default Ember.Component.extend(
   selectedOption: function () {
     var selection = this.get('selection');
     return this.get('options').filter(function (option) {
-      return option.value.toString() === selection.toString(); // N.B. html element attribute values are strings
+      return (option.value || '').toString() === (selection || '').toString(); // N.B. html element attribute values are strings
     })[0];
   }.property('selection', 'options'),
 
