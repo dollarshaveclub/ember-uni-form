@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 
       deferred.promise.catch(function (result) {
         // console.log('[ValidatedFormComponent]', result);
-        if (result.unauthorized) self.sendAction('openModal', 'login');
+        if (result.unauthorized) self.sendAction('transitionTo', 'login.screen');
         self.set('errors', result.errors || [ 'Oops! There was a problem.' ]);
       });
 
