@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   notify: 'notify',
   save: 'save',
   showButtons: true,
+  transitionTo: 'transitionTo',
 
   actions: {
 
