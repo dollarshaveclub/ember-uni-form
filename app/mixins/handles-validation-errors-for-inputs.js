@@ -12,6 +12,9 @@ export default Ember.Mixin.create({
 
   observeErrors: function () {
     if (!this.get('parentModel')) return;
+
+    Ember.assert("No name given for input", this.get('name'));
+
     this.get('parentModel').addObserver('errors.' + this.get('name'), this, this.syncErrors);
   }.on('didInsertElement'),
 
