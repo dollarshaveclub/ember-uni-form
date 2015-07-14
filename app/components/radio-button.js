@@ -13,10 +13,6 @@ export default Ember.Component.extend({
     return this.get('value') === this.get('groupValue');
   }.property('value', 'groupValue'),
 
-  isDisabled: function () {
-    return this.get('disabled');
-  }.property('disabled'),
-
   change: function () {
     this.set('groupValue', this.get('value'));
   }
