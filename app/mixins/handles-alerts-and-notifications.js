@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
   actions: {
 
     alert: function (opts) {
-      this.send('removeNotification');
+      this.get('loadingService').stop();
       if (typeof opts === 'string') {
         this.send('openModal', 'alert', Ember.Object.create({ title: opts }));
       } else {
@@ -15,34 +15,21 @@ export default Ember.Mixin.create({
       }
     },
 
+    //
+    // TODO: Remove code that calls this function.
+    // Replace with direct functions calls to these services.
+    //
     notify: function (opts) {
-      this.send('removeNotification');
-
-      if (opts.type === 'remove') return;
-
-      var message = (typeof opts === 'string') ? opts : (opts.message || 'No message given.');
-
-      this.controllerFor('notification').setProperties({
-        message: message,
-        type: opts.type,
-        dismissable: opts.dismissable,
-        showIndefinitely: opts.showIndefinitely || false
-      });
-
-      var view = this.render('notification', {
-        into: 'application',
-        outlet: 'notification',
-        controller: 'notification'
-      });
-    },
-
-    removeNotification: function () {
-      this.controllerFor('notification').set('isShown', false);
-
-      return this.disconnectOutlet({
-        outlet: 'notification',
-        parentView: 'application'
-      });
+      if (opts.type === 'loading') {
+        this.get('loadingService').start();
+      }
+      else if (opts.type === 'remove') {
+        this.get('loadingService').stop();
+      }
+      else {
+        this.get('loadingService').stop();
+        this.get('flashMessages').add(opts);
+      }
     }
 
   }
