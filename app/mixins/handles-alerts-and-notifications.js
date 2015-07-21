@@ -8,11 +8,7 @@ export default Ember.Mixin.create({
 
     alert: function (opts) {
       this.get('loadingService').stop();
-      if (typeof opts === 'string') {
-        this.send('openModal', 'alert', Ember.Object.create({ title: opts }));
-      } else {
-        this.send('openModal', 'alert', Ember.Object.create({ title: opts.get('title'), subtitle: opts.get('subtitle'), body: opts.get('body') }));
-      }
+      this.transitionTo('alert', { queryParams: opts });
     },
 
     //
