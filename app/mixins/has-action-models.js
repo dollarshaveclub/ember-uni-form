@@ -1,6 +1,6 @@
 import Ember from 'ember';
 //
-// Mixed in to CurrentUserService
+// TODO refactor into service:form-data
 //
 export default Ember.Mixin.create({
 
