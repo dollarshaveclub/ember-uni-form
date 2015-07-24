@@ -33,7 +33,7 @@ export default Ember.Component.extend({
       this.set('errors', false);
       this.sendAction('save', deferred);
 
-      deferred.promise.catch(function (result) {
+      deferred.promise.fail(function (result) {
         // console.log('[ValidatedFormComponent]', result);
         if (result.unauthorized) self.sendAction('transitionTo', 'login.screen');
         self.set('errors', result.errors || [ 'Oops! There was a problem.' ]);
