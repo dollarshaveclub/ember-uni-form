@@ -16,6 +16,9 @@ export default Ember.Mixin.create({
     // Replace with direct functions calls to these services.
     //
     notify: function (opts) {
+
+      if (typeof opts !== 'object') opts = { message: opts };
+
       if (opts.type === 'loading') {
         this.get('loadingService').start();
       }
