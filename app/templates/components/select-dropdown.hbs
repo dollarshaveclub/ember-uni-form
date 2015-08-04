@@ -4,14 +4,14 @@
   {{ yield }}
 
   {{!-- This is the selection --}}
-  <div data-selection={{selectedOption.value}}>
+  <div data-option data-selection={{selectedOption.value}}>
     {{ selectedOption.displayName }}
     {{ app-icon name='arrow-down' }}
   </div>
 
   {{!-- These are the options --}}
   {{#each options as |option| }}
-    <div value={{option.value}}>
+    <div data-option value={{option.value}}>
       {{ option.displayName }}
     </div>
   {{/each}}
@@ -19,4 +19,4 @@
 </div>
 
 {{!-- The Overlay, which will be moved to top of page's stacking context. --}}
-<div class='select-dropdown-overlay {{if active 'shown'}}'></div>
+<div class="select-dropdown-overlay {{if active 'shown'}}"></div>

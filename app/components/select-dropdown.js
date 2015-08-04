@@ -26,7 +26,6 @@ export default Ember.Component.extend(
 
     if (value && !isSelection) {
       this.send('select');
-      this.unhighlightAll();
       this.set('selection', value);
     }
 
@@ -41,56 +40,42 @@ export default Ember.Component.extend(
   }.property('selection', 'options'),
 
   didInsertElement: function () {
-    this._super();
-    this.set('$list', this.$().find('[data-option-list]'));
-    this.optionizeChildren();
     this.bindClickAway();
   },
 
   willDestroyElement: function () {
-    $('body').off('click', this.clickAwayFn);
+    this.unbindClickAway();
   },
-
-  length: function () {
-    return this.get('$list').find('[data-option]').length;
-  }.property('isRendered'),
-
-  itemHeight: function () {
-    return this.get('$list').find('[data-option]').first().outerHeight();
-  }.property('isRendered'),
-
-  listHeightMax: function () {
-    return this.get('itemHeight') * this.get('length');
-  }.property('itemHeight'),
 
   setListHeight: function () {
-    var height = this.get('active') ? this.get('listHeightMax') : this.get('itemHeight');
-    this.get('$list').height(height);
-  }.observes('active').on('didRender'),
+    if (!this.$()) return;
+    var itemHeight = this.$().find('[data-option]').first().outerHeight();
+    var length = this.get('active') ? this.get('options.length') + 1 : 1;
+    this.$().find('[data-option-list]').css('height', itemHeight * length + 'px');
+  }.observes('active').on('didInsertElement'),
 
   highlightSelected: function () {
-    if (this.$()) this.$().find('[value="' + this.get('selection') + '"]').attr('selected', 'selected');
-  }.observes('selection').on('didRender'),
-
-  optionizeChildren: function () {
-    this.get('$list').find('div').attr('data-option', 1);
-  },
+    if (!this.$()) return;
+    this.$().find('[value="' + this.get('selection') + '"]')
+    .attr('selected', 'selected')
+    .siblings().removeAttr('selected');
+  }.observes('selection').on('didInsertElement'),
 
   bindClickAway: function () {
     // Select Dropdown has 2 types of 'click-away' dismissal.
     // One bound to the body, and one bound to a dismissal overlay.
-    this.clickAwayFn = function(e){
+    this.clickAwayFn = (e) => {
       if (this.get('isDestroyed')) return;
       var isClickAway = $(e.target).parents('[data-select-dropdown]').length < 1;
       if (isClickAway) this.dismiss();
     };
 
-    $('body').on('click', this.clickAwayFn.bind(this));
+    $('body').on('click', this.clickAwayFn);
   },
 
-  unhighlightAll: function () {
-    this.get('$list').find('[data-option]').removeAttr('selected');
-  }.observes('isRendered'),
+  unbindClickAway: function () {
+    $('body').off('click', this.clickAwayFn);
+  },
 
   dismiss: function () {
     this.set('active', false);
