@@ -4,22 +4,19 @@ import Ember from 'ember';
 //
 export default Ember.Mixin.create({
 
+  expireActionModels: function () {
+    this.set('actionModelsExpiredAt', new Date());
+  },
+
   createAccountAction: function () {
-    if (this.get('_createAccountAction')) return this.get('_createAccountAction');
-    var createAccountAction = this.get('store').createRecord('actionCreateAccount');
-    this.set('_createAccountAction', createAccountAction);
-    return createAccountAction;
-  }.property(),
+    return this.get('store').createRecord('actionCreateAccount');
+  }.property('actionModelsExpiredAt'),
 
   createSessionAction: function () {
-    if (this.get('_createSessionAction')) return this.get('_createSessionAction');
-    var createSessionAction = this.get('store').createRecord('actionCreateSession');
-    this.set('_createSessionAction', createSessionAction);
-    return createSessionAction;
-  }.property(),
+    return this.get('store').createRecord('actionCreateSession');
+  }.property('actionModelsExpiredAt'),
 
   createSubscriptionAction: function () {
-    if (this.get('_createSubscriptionAction')) return this.get('_createSubscriptionAction');
 
     var store = this.get('store');
     var paymentMethod = store.createRecord('paymentMethod');
@@ -32,15 +29,13 @@ export default Ember.Mixin.create({
     paymentMethod.set('billingAddress', billing);
     paymentMethod.set('billingAddressSameAsShippingAddress', true);
 
-    var createSubscriptionAction = store.createRecord('actionCreateSubscription').setProperties({
+    return store.createRecord('actionCreateSubscription').setProperties({
       shippingAddress: shipping,
       paymentMethod: paymentMethod,
       coupon: store.createRecord('coupon'),
       giftCard: store.createRecord('giftCard')
     });
 
-    this.set('_createSubscriptionAction', createSubscriptionAction);
-    return createSubscriptionAction;
-  }.property()
+  }.property('actionModelsExpiredAt')
 
 });
