@@ -4,17 +4,13 @@ import Ember from 'ember';
 //
 export default Ember.Mixin.create({
 
-  expireActionModels: function () {
-    this.set('actionModelsExpiredAt', new Date());
-  },
-
   createAccountAction: function () {
     return this.get('store').createRecord('actionCreateAccount');
-  }.property('actionModelsExpiredAt'),
+  }.property(),
 
   createSessionAction: function () {
     return this.get('store').createRecord('actionCreateSession');
-  }.property('actionModelsExpiredAt'),
+  }.property(),
 
   createSubscriptionAction: function () {
 
@@ -36,6 +32,6 @@ export default Ember.Mixin.create({
       giftCard: store.createRecord('giftCard')
     });
 
-  }.property('actionModelsExpiredAt')
+  }.property(),
 
 });
