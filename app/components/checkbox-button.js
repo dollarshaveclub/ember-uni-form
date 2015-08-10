@@ -6,7 +6,6 @@ import TruthinessTogglerComponent from './truthiness-toggler';
 
 export default TruthinessTogglerComponent.extend({
 
-  tagName: 'label',
   classNames: [ 'checkbox-button' ],
   classNameBindings: [ 'checked' ],
   attributeBindings: [ 'checkboxLabel', 'name', 'toggleProp' ],
