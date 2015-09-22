@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import UniForm from '../models/uni-form';
 
 export default Ember.Mixin.create({
 
