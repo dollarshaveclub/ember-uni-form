@@ -1,13 +1,16 @@
 import Ember from 'ember';
 
-// {{ radio-button name='dish' value='spam' groupValue=dish }} Spam
-// {{ radio-button name='dish' value='eggs' groupValue=dish }} Eggs
+// {{#uni-form-radio name='dish' value='spam' groupValue=dish }} Spam {{/uni-form-radio}}
+// {{#uni-form-radio name='dish' value='eggs' groupValue=dish }} Eggs {{/uni-form-radio}}
 
 export default Ember.Component.extend({
 
-  tagName: 'input',
-  attributeBindings: [ 'checked', 'name', 'type', 'value', 'disabled' ],
-  type: 'radio',
+  tagName: 'label',
+  classNames: [ 'uni-form-radio' ],
+  classNameBindings: [ 'checked', 'disabled' ],
+  attributeBindings: [ 'for' ],
+
+  for: Ember.computed.reads('name'),
 
   checked: function () {
     return this.get('value') === this.get('groupValue');
