@@ -20,10 +20,14 @@ export default Ember.Component.extend(
   required: Ember.computed.bool('validations.presence'),
   validations: dynamicAlias('form.model.validations', 'property'),
 
-  didReceiveAttrs: function (attrs) {
+  didReceiveAttrs: function () {
     this._super(...arguments);
-    if (!this.attrs.errors) this.errors = Ember.computed.alias(`form.model.errors.${this.get('property')}`);
-    if (!this.attrs.value) this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
+    if (!(this.attrs && this.attrs.errors)) {
+      this.errors = Ember.computed.alias(`form.model.errors.${this.get('property')}`);
+    }
+    if (!(this.attrs && this.attrs.value)) {
+      this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
+    }
   },
 
   error: function () {

@@ -3,7 +3,10 @@ import { moduleForComponent, test } from 'ember-qunit';
 moduleForComponent('uni-form-radio', 'Unit | Component | uni form radio', {
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar'],
-  unit: true
+  unit: true,
+
+  needs: [ 'component:uni-form-radio-input' ],
+
 });
 
 test('it renders', function(assert) {
