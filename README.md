@@ -76,6 +76,10 @@ export default DS.Model.extend({
 });
 ```
 
+## Notes
+
+* This addon requires prototype extensions.
+
 ## Installation
 
 * `git clone` this repository
@@ -85,7 +89,7 @@ export default DS.Model.extend({
 ## Running
 
 * `ember server`
-* Visit your app at http://localhost:4200.
+* Visit your app at [localhost:4200](http://localhost:4200).
 
 ## Running Tests
 
