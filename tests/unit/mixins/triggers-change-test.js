@@ -2,7 +2,7 @@ import Ember from 'ember';
 import TriggersChangeMixin from '../../../mixins/triggers-change';
 import { module, test } from 'qunit';
 
-module('Unit | Mixin | triggers change');
+module('mixin:triggers-change');
 
 // Replace this with your real tests.
 test('it works', function(assert) {

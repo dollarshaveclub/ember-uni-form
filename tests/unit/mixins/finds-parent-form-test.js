@@ -2,7 +2,7 @@ import Ember from 'ember';
 import FindsParentFormMixin from '../../../mixins/finds-parent-form';
 import { module, test } from 'qunit';
 
-module('Unit | Mixin | finds parent form');
+module('mixin:finds-parent-form');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
