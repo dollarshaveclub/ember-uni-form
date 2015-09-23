@@ -6,9 +6,9 @@ export default Ember.Controller.extend(
 {
 
   breakfastDish: 'eggs',
-  isBreakfastDishDisabled: false,
+  isDishabled: false,
 
   isPurplePantsFan: true,
-  isPurplePantsDisabled: false,
+  isPantsDisabled: false,
 
 });

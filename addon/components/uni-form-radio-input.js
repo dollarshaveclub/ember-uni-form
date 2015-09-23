@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 
   tagName: 'input',
   classNames: [ 'uni-form-radio-input' ],
-  attributeBindings: [ 'checked', 'name', 'type', 'value', 'disabled' ],
+  attributeBindings: [ 'checked', 'disabled', 'name', 'type', 'value' ],
   type: 'radio',
 
   checked: function () {

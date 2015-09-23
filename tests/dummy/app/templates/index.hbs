@@ -3,42 +3,37 @@
 {{#uni-form
   form=uniForm
 }}
-
-  <ul>
-
-    <li>
-      {{#uni-form-checkbox
-        disabled=isPurplePantsDisabled
-        value=isPurplePantsFan
-      }}
-        Do you like purple pants?
-      {{/uni-form-checkbox}}
-
-      => {{ if isPurplePantsFan 'YES' 'no' }}
-      {{#uni-form-checkbox value=isPurplePantsDisabled }} disable{{/uni-form-checkbox}}
-    </li>
-
-    <li>
-      {{#uni-form-radio
-        disabled=isBreakfastDishDisabled
-        groupValue=breakfastDish
-        value='spam'
-      }}
-        Spam
-      {{/uni-form-radio}}
-
-      {{#uni-form-radio
-        disabled=isBreakfastDishDisabled
-        groupValue=breakfastDish
-        value='eggs'
-      }}
-        Eggs
-      {{/uni-form-radio}}
-
-      => {{ breakfastDish }}
-      {{#uni-form-checkbox value=isBreakfastDishDisabled }} disable{{/uni-form-checkbox}}
-    </li>
-
-  </ul>
-
+  {{ uni-form-input property='addressLine_1' }}
+  {{ uni-form-input property='addressLine_2' }}<br>
+  {{ uni-form-input property='city' }}
+  {{ uni-form-input property='state' }}
+  {{ uni-form-input property='zipCode' }}<br>
+  <address>{{ model.addressString }}</address>
 {{/uni-form}}
+
+
+<ul>
+
+  <li>
+    {{#uni-form-checkbox disabled=isPantsDisabled value=isPurplePantsFan }}
+      Do you like purple pants?
+    {{/uni-form-checkbox}}
+
+    => {{ if isPurplePantsFan 'YES' 'no' }}
+    {{#uni-form-checkbox value=isPantsDisabled }} disable{{/uni-form-checkbox}}
+  </li>
+
+  <li>
+    {{#uni-form-radio disabled=isDishabled groupValue=breakfastDish value='spam' }}
+      Spam
+    {{/uni-form-radio}}
+
+    {{#uni-form-radio disabled=isDishabled groupValue=breakfastDish value='eggs' }}
+      Eggs
+    {{/uni-form-radio}}
+
+    => {{ breakfastDish }}
+    {{#uni-form-checkbox value=isDishabled }} disable{{/uni-form-checkbox}}
+  </li>
+
+</ul>

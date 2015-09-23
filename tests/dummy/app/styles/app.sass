@@ -2,8 +2,28 @@
 @import 'lib/debug'
 
 +labeled-component('uni-form-checkbox')
++labeled-component('uni-form-input', false)
 +labeled-component('uni-form-radio')
 +labeled-component('uni-form', false)
 
+address
+  background: white
+  border: 1px solid #666
+  border-radius: 1rem
+  padding: 1rem
+
+  &::before
+    content: "Address: "
+    font-style: normal
+    opacity: 0.5
+
 li
   margin: 1rem 0
+
+.uni-form-input.required::after
+  bottom: 5px
+  color: red
+  content: "* Required"
+  font-family: monospace
+  opacity: 0.5
+  position: absolute
