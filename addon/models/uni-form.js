@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import dynamicAlias from './utils/dynamic-alias';
+import dynamicAlias from '../utils/dynamic-alias';
 
 export default DS.Model.extend({
 

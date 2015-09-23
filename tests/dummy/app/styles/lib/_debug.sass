@@ -1,0 +1,23 @@
+
+@mixin labeled-component($class, $hoverable: true)
+
+  .#{$class}
+    background: rgba(black, 0.05)
+    border: 1px solid rgba(black, 0.1)
+    border-radius: 1rem
+    display: inline-block
+    padding: 2rem
+    position: relative
+
+    &:after
+      content: $class
+      font-family: monospace
+      opacity: 0.3
+      position: absolute
+      top: 0
+      white-space: nowrap
+
+    @if $hoverable
+
+      &:hover
+        background: rgba(black, 0.08)

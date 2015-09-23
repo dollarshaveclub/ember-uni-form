@@ -1,41 +1,44 @@
 <h1>ember-uni-form</h1>
 
-<ul>
+{{#uni-form
+  form=uniForm
+}}
 
-  <li>
-    {{#uni-form-checkbox
-      disabled=isPurplePantsDisabled
-      name='purple-pants'
-      value=isPurplePantsFan
-    }}
-      Do you like purple pants?
-    {{/uni-form-checkbox}}
+  <ul>
 
-    => {{ if isPurplePantsFan 'YES' 'no' }}
-    <small>Disable {{ uni-form-checkbox value=isPurplePantsDisabled }}</small>
-  </li>
+    <li>
+      {{#uni-form-checkbox
+        disabled=isPurplePantsDisabled
+        value=isPurplePantsFan
+      }}
+        Do you like purple pants?
+      {{/uni-form-checkbox}}
 
-  <li>
-    {{#uni-form-radio
-      disabled=isBreakfastDishDisabled
-      groupValue=breakfastDish
-      name='dish'
-      value='spam'
-    }}
-      Spam
-    {{/uni-form-radio}}
+      => {{ if isPurplePantsFan 'YES' 'no' }}
+      {{#uni-form-checkbox value=isPurplePantsDisabled }} disable{{/uni-form-checkbox}}
+    </li>
 
-    {{#uni-form-radio
-      disabled=isBreakfastDishDisabled
-      groupValue=breakfastDish
-      name='dish'
-      value='eggs'
-    }}
-      Eggs
-    {{/uni-form-radio}}
+    <li>
+      {{#uni-form-radio
+        disabled=isBreakfastDishDisabled
+        groupValue=breakfastDish
+        value='spam'
+      }}
+        Spam
+      {{/uni-form-radio}}
 
-    => {{ breakfastDish }}
-    <small>Disable {{ uni-form-checkbox value=isBreakfastDishDisabled }}</small>
-  </li>
+      {{#uni-form-radio
+        disabled=isBreakfastDishDisabled
+        groupValue=breakfastDish
+        value='eggs'
+      }}
+        Eggs
+      {{/uni-form-radio}}
 
-</ul>
+      => {{ breakfastDish }}
+      {{#uni-form-checkbox value=isBreakfastDishDisabled }} disable{{/uni-form-checkbox}}
+    </li>
+
+  </ul>
+
+{{/uni-form}}
