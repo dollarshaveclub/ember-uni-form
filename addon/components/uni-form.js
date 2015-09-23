@@ -1,9 +1,11 @@
 import Ember from 'ember';
+import layout from '../templates/components/uni-form';
 
 export default Ember.Component.extend({
 
   tagName: 'form',
   classNameBindings: [ 'isValid:valid:invalid' ],
+  layout: layout,
 
   cancel: 'cancel',
   isValid: Ember.computed.alias('formModel.isValid'),

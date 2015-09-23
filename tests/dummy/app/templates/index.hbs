@@ -1,0 +1,41 @@
+<h1>ember-uni-form</h1>
+
+<ul>
+
+  <li>
+    {{#uni-form-checkbox
+      disabled=isPurplePantsDisabled
+      name='purple-pants'
+      value=isPurplePantsFan
+    }}
+      Do you like purple pants?
+    {{/uni-form-checkbox}}
+
+    => {{ if isPurplePantsFan 'YES' 'no' }}
+    <small>Disable {{ uni-form-checkbox value=isPurplePantsDisabled }}</small>
+  </li>
+
+  <li>
+    {{#uni-form-radio
+      disabled=isBreakfastDishDisabled
+      groupValue=breakfastDish
+      name='dish'
+      value='spam'
+    }}
+      Spam
+    {{/uni-form-radio}}
+
+    {{#uni-form-radio
+      disabled=isBreakfastDishDisabled
+      groupValue=breakfastDish
+      name='dish'
+      value='eggs'
+    }}
+      Eggs
+    {{/uni-form-radio}}
+
+    => {{ breakfastDish }}
+    <small>Disable {{ uni-form-checkbox value=isBreakfastDishDisabled }}</small>
+  </li>
+
+</ul>

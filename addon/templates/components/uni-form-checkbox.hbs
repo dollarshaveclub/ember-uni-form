@@ -1,8 +1,9 @@
 
-<span class="checkbox">
-  {{#if value }}
-    <span class="check">✔</span>
-  {{/if}}
-</span>
+{{ input
+  checked=checked
+  disabled=disabled
+  name=name
+  type='checkbox'
+}}
 
-<label class="label">{{ checkboxLabel }}</label>
+{{ yield }}

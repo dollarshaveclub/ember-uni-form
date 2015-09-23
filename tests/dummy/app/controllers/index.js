@@ -5,4 +5,10 @@ export default Ember.Controller.extend(
   HasUniForm,
 {
 
+  breakfastDish: 'eggs',
+  isBreakfastDishDisabled: false,
+
+  isPurplePantsFan: true,
+  isPurplePantsDisabled: false,
+
 });
