@@ -12,7 +12,6 @@ export default Ember.Component.extend(
   classNames: [ 'uni-form-input' ],
   classNameBindings: [ 'required', 'tone' ],
   layout: layout,
-  type: 'text',
 
   isValid: Ember.computed.empty('errors'),
   isInvalid: Ember.computed.notEmpty('errors'),

@@ -17,10 +17,10 @@ It helps you manage multiple sources of user feedback messages—[DS.Errors](htt
   cancel=(action 'cancel')
   submit=(action 'submit')
 }}
-  {{ uni-form-input form=uniForm property='email' type='email' }}
-  {{ uni-form-input form=uniForm property='password' type='password' }}
-  {{ uni-form-messages form=uniForm }}
-  {{ uni-form-buttons form=uniForm cancel=(action 'cancel') submit=(action 'submit') }}
+  {{ uni-form-input property='email' type='email' }}
+  {{ uni-form-input property='password' type='password' }}
+  {{ uni-form-messages }}
+  {{ uni-form-buttons }}
 {{/uni-form}}
 ```
 
