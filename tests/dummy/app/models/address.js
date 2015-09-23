@@ -12,6 +12,7 @@ export default DS.Model.extend(
   city: DS.attr('string'),
   state: DS.attr('string'),
   zipCode: DS.attr('string'),
+  hasMailbox: DS.attr('boolean'),
 
   name: function () {
     return this.get('firstName') + ' ' + this.get('lastName');

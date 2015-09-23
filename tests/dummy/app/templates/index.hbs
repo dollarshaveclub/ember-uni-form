@@ -8,9 +8,9 @@
   {{ uni-form-input property='city' }}
   {{ uni-form-input property='state' }}
   {{ uni-form-input property='zipCode' }}<br>
-  <address>{{ model.addressString }}</address>
+  <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
+  {{#uni-form-checkbox property='hasMailbox' }} has mailbox {{/uni-form-checkbox}}
 {{/uni-form}}
-
 
 <ul>
 
