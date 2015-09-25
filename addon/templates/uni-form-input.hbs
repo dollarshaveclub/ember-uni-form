@@ -1,5 +1,5 @@
 
-<label>{{ label }}</label>
+{{#if label }}<span class="label">{{ label }}</span>{{/if}}
 
 {{ input
   autocomplete=autocomplete
@@ -7,6 +7,7 @@
   name=name
   pattern=pattern
   placeholder=placeholder
+  required=required
   type=type
   value=value
 }}

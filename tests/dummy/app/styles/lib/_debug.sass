@@ -1,16 +1,17 @@
 
-@mixin labeled-component($class, $hoverable: true)
+@mixin labeled-component($selector, $hoverable: true)
 
-  .#{$class}
+  #{$selector}
     background: rgba(black, 0.05)
     border: 1px solid rgba(black, 0.1)
-    border-radius: 1rem
+    border-radius: 5px
     display: inline-block
     padding: 2rem
     position: relative
+    vertical-align: middle
 
     &::before
-      content: $class
+      content: $selector
       font-family: monospace
       opacity: 0.3
       position: absolute
@@ -21,3 +22,21 @@
 
       &:hover
         background: rgba(black, 0.08)
+
+@mixin labeled-inline-tag($selector, $color)
+
+  #{$selector}
+    background: rgba($color, 0.05)
+    display: inline-block
+    padding: 1rem 0
+    position: relative
+    vertical-align: middle
+
+    &:after
+      bottom: 0
+      color: $color
+      content: $selector
+      font: 10px monospace
+      opacity: 0.5
+      position: absolute
+      right: 0

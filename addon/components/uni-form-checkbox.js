@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/uni-form-checkbox';
+import layout from '../templates/uni-form-checkbox';
 import FindsParentForm from '../mixins/finds-parent-form';
 //
 // Standalone:
@@ -26,10 +26,13 @@ export default Ember.Component.extend(
   layout: layout,
 
   checked: Ember.computed.alias('value'),
+  name: Ember.computed.reads('property'),
 
   didReceiveAttrs: function () {
     this._super(...arguments);
-    if (!this.attrs.value) this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
+    if (!(this.attrs && this.attrs.value)) {
+      this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
+    }
   },
 
 });

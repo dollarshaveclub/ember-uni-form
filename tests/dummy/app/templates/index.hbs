@@ -3,38 +3,42 @@
 {{#uni-form
   form=uniForm
 }}
-  {{ uni-form-input property='addressLine_1' }}
-  {{ uni-form-input property='addressLine_2' }}<br>
-  {{ uni-form-input property='city' }}
-  {{ uni-form-input property='state' }}
-  {{ uni-form-input property='zipCode' }}<br>
+  <fieldset>
+    <legend>Fields bound to <b>form.model.&lt;property&gt;</b></legend>
+    {{ uni-form-input property='addressLine_1' label='Label text' }}
+    {{ uni-form-input property='addressLine_2' }}<br>
+    {{ uni-form-input property='city' }}
+    {{ uni-form-input property='state' }}
+    {{ uni-form-input property='zipCode' }}<br>
+  </fieldset>
   <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
-  {{#uni-form-checkbox property='hasMailbox' }} has mailbox {{/uni-form-checkbox}}
-  {{ uni-form-input value=uniForm.model.addressLine_1 label='Direct value binding' }}
+  <fieldset>
+    <legend>Direct value binding</legend>
+    {{#uni-form-input value=uniForm.model.addressLine_1 label='attrs.value is set' }}
+      <small>
+        and this is a <mark>yield block</mark> <br>
+        The label is just text. Use the yield block if you need markup content.
+      </small>
+    {{/uni-form-input}}
+    {{ uni-form-checkbox label='has mailbox' value=uniForm.model.hasMailbox }}
+  </fieldset>
 {{/uni-form}}
 
-<ul>
+<fieldset>
+  <legend>Checkbox</legend>
+  {{#uni-form-checkbox disabled=isPantsDisabled value=isPurplePantsFan }}
+    Do you like <mark>purple</mark> pants?
+  {{/uni-form-checkbox}}
+  => {{ if isPurplePantsFan 'YES' 'no' }}
+  {{ uni-form-checkbox label='disable' value=isPantsDisabled }}
+</fieldset>
 
-  <li>
-    {{#uni-form-checkbox disabled=isPantsDisabled value=isPurplePantsFan }}
-      Do you like purple pants?
-    {{/uni-form-checkbox}}
-
-    => {{ if isPurplePantsFan 'YES' 'no' }}
-    {{#uni-form-checkbox value=isPantsDisabled }} disable{{/uni-form-checkbox}}
-  </li>
-
-  <li>
-    {{#uni-form-radio disabled=isDishabled groupValue=breakfastDish value='spam' }}
-      Spam
-    {{/uni-form-radio}}
-
-    {{#uni-form-radio disabled=isDishabled groupValue=breakfastDish value='eggs' }}
-      Eggs
-    {{/uni-form-radio}}
-
-    => {{ breakfastDish }}
-    {{#uni-form-checkbox value=isDishabled }} disable{{/uni-form-checkbox}}
-  </li>
-
-</ul>
+<fieldset>
+  <legend>Radio</legend>
+  {{ uni-form-radio disabled=isDishabled groupValue=dish label='Eggs, please' value='eggs' }}
+  {{#uni-form-radio disabled=isDishabled groupValue=dish value='spam' }}
+    Hooray for <mark>spam</mark>!
+  {{/uni-form-radio}}
+  => {{ breakfastDish }}
+  {{#uni-form-checkbox value=isDishabled }} disable {{/uni-form-checkbox}}
+</fieldset>
