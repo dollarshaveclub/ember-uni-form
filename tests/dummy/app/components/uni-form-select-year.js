@@ -1,8 +1,8 @@
-import ValidatedSelectComponent from './validated-select';
+import UniFormSelectComponent from './uni-form-select';
 
 var NUM_YEARS = 13;
 
-export default ValidatedSelectComponent.extend({
+export default UniFormSelectComponent.extend({
 
   optionValuePath: 'content.value',
   optionLabelPath: 'content.label',

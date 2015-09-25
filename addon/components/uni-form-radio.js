@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-radio';
+import FindsParentForm from '../mixins/finds-parent-form';
 
-// {{#uni-form-radio name='dish' value='spam' groupValue=dish }} Spam {{/uni-form-radio}}
-// {{#uni-form-radio name='dish' value='eggs' groupValue=dish }} Eggs {{/uni-form-radio}}
+// {{ uni-form-radio value='spam' property='dish' label='Spam' }}
+// {{#uni-form-radio value='eggs' groupValue=form.model.dish }} Eggs {{/uni-form-radio}}
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(
+  FindsParentForm,
+{
 
   tagName: 'label',
   classNames: [ 'uni-form-radio' ],
@@ -20,5 +23,12 @@ export default Ember.Component.extend({
   checked: function () {
     return this.get('value') === this.get('groupValue');
   }.property('value', 'groupValue'),
+
+  didReceiveAttrs: function () {
+    this._super(...arguments);
+    if (!(this.attrs && this.attrs.groupValue)) {
+      this.groupValue = Ember.computed.alias(`form.model.${this.get('property')}`);
+    }
+  },
 
 });

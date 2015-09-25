@@ -13,6 +13,13 @@
   </fieldset>
   <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
   <fieldset>
+    <legend>Zoning</legend>
+    {{ uni-form-radio property='zoning' label='Residential' value='residential' }}
+    {{ uni-form-radio property='zoning' label='Commercial' value='commercial' }}
+    {{ uni-form-radio property='zoning' label='Other' value='other' }}
+    => {{ model.zoning }}
+  </fieldset>
+  <fieldset>
     <legend>Direct value binding</legend>
     {{#uni-form-input value=uniForm.model.addressLine_1 label='attrs.value is set' }}
       <small>
@@ -39,6 +46,6 @@
   {{#uni-form-radio disabled=isDishabled groupValue=dish value='spam' }}
     Hooray for <mark>spam</mark>!
   {{/uni-form-radio}}
-  => {{ breakfastDish }}
+  => {{ dish }}
   {{#uni-form-checkbox value=isDishabled }} disable {{/uni-form-checkbox}}
 </fieldset>

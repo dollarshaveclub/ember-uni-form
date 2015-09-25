@@ -1,3 +1,9 @@
+
+The description below is a sketch of where I think this is headed. The reality is:
+
+* v0.0.1: an interesting README.md
+* v0.0.2: solid input, checkbox and radio components
+
 # Ember-uni-form
 
 The Ember Uni Form addon clears up confusion between:
