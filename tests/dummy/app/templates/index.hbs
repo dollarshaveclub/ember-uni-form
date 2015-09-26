@@ -17,7 +17,8 @@
     {{ uni-form-radio property='zoning' label='Residential' value='residential' }}
     {{ uni-form-radio property='zoning' label='Commercial' value='commercial' }}
     {{ uni-form-radio property='zoning' label='Other' value='other' }}
-    => {{ model.zoning }}
+    => "{{ model.zoning }}"<br>
+    {{ uni-form-select content=model.zoningOptions label='or with a select' prompt='prompt text' property='zoning' }}
   </fieldset>
   <fieldset>
     <legend>Direct value binding</legend>
@@ -36,7 +37,7 @@
   {{#uni-form-checkbox disabled=isPantsDisabled value=isPurplePantsFan }}
     Do you like <mark>purple</mark> pants?
   {{/uni-form-checkbox}}
-  => {{ if isPurplePantsFan 'YES' 'no' }}
+  => "{{ if isPurplePantsFan 'YES' 'no' }}"
   {{ uni-form-checkbox label='disable' value=isPantsDisabled }}
 </fieldset>
 
@@ -46,6 +47,12 @@
   {{#uni-form-radio disabled=isDishabled groupValue=dish value='spam' }}
     Hooray for <mark>spam</mark>!
   {{/uni-form-radio}}
-  => {{ dish }}
+  => "{{ dish }}"
   {{#uni-form-checkbox value=isDishabled }} disable {{/uni-form-checkbox}}
+</fieldset>
+
+<fieldset>
+  <legend>Select</legend>
+  {{ uni-form-select-month label='month select label' value=month }} => "{{ month }}"
+  {{ uni-form-select-year label='year select label' value=year }} => "{{ year }}"
 </fieldset>

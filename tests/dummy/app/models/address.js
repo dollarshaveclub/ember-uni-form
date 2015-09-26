@@ -15,6 +15,12 @@ export default DS.Model.extend(
   hasMailbox: DS.attr('boolean'),
   zoning: DS.attr('string'), // residential, commercial, other
 
+  zoningOptions: [
+    { label: 'Residential', value: 'residential' },
+    { label: 'Commercial', value: 'commercial' },
+    { label: 'Other', value: 'other' },
+  ],
+
   name: function () {
     return this.get('firstName') + ' ' + this.get('lastName');
   }.property('firstName', 'lastName'),

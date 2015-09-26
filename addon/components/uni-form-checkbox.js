@@ -22,7 +22,7 @@ export default Ember.Component.extend(
 
   tagName: 'label',
   classNames: [ 'uni-form-checkbox' ],
-  classNameBindings: [ 'checked', 'disabled' ],
+  classNameBindings: [ 'checked', 'disabled', 'required', 'tone' ],
   layout: layout,
 
   checked: Ember.computed.alias('value'),
@@ -30,7 +30,7 @@ export default Ember.Component.extend(
 
   didReceiveAttrs: function () {
     this._super(...arguments);
-    if (!(this.attrs && this.attrs.value)) {
+    if (this.attrs && this.attrs.property && !this.attrs.value) {
       this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
     }
   },

@@ -2,8 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-// @see yapplabs/ember-radio-button
-
 moduleForComponent('uni-form-radio', {
   integration: true
 });
@@ -28,17 +26,17 @@ test('it should update groupValue on change', function (assert) {
   assert.equal(this.get('x'), 'updated by component');
 });
 
-//
-// Property binding
-//
-
 test('it should be checked when groupValue = value', function (assert) {
   this.set('x', 'initial');
   this.render(hbs`{{ uni-form-radio groupValue=x value='component value' }}`);
-  assert.equal(this.$('input').prop('checked'), false);
+  assert.equal(this.$('input').is(':checked'), false);
   this.set('x', 'component value');
-  assert.equal(this.$('input').prop('checked'), true);
+  assert.equal(this.$('input').is(':checked'), true);
 });
+
+//
+// Property binding
+//
 
 test('it should have class="checked" when checked', function (assert) {
   this.set('x', 'initial');
@@ -50,9 +48,9 @@ test('it should have class="checked" when checked', function (assert) {
 
 test('it should bind input[disabled] to attrs.disabled', function (assert) {
   this.render(hbs`{{ uni-form-radio disabled=isDisabled }}`);
-  assert.equal(this.$('input').prop('disabled'), false);
+  assert.equal(this.$('input').is(':disabled'), false);
   this.set('isDisabled', true);
-  assert.equal(this.$('input').prop('disabled'), true);
+  assert.equal(this.$('input').is(':disabled'), true);
 });
 
 //

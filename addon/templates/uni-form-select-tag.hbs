@@ -1,0 +1,8 @@
+
+{{#if prompt }}
+  <option class="prompt" value="">{{ prompt }}</option>
+{{/if}}
+
+{{#each content as |o| }}
+  <option value="{{ o.value }}">{{ o.label }}</option>
+{{/each}}

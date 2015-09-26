@@ -1,7 +1,10 @@
 
-{{#if label }}<span class="label">{{ label }}</span>{{/if}}
+{{#if label }}
+  <span class="label">{{ label }}</span>
+{{/if}}
 
 {{ input
+  autofocus=autofocus
   checked=checked
   disabled=disabled
   name=name

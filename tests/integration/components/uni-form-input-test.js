@@ -25,9 +25,9 @@ test('it should bind the input[value] to attrs.value', function (assert) {
 
 test('it should bind input[disabled] to attrs.disabled', function (assert) {
   this.render(hbs`{{ uni-form-input disabled=isDisabled }}`);
-  assert.equal(this.$('input').prop('disabled'), false);
+  assert.equal(this.$('input').is(':disabled'), false);
   this.set('isDisabled', true);
-  assert.equal(this.$('input').prop('disabled'), true);
+  assert.equal(this.$('input').is(':disabled'), true);
 });
 
 //

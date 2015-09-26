@@ -31,9 +31,9 @@ test('it should update value on change', function (assert) {
 test('it should be checked when value is truthy and not checked when it is falsey', function (assert) {
   this.set('x', 'a truthy string');
   this.render(hbs`{{ uni-form-checkbox value=x }}`);
-  assert.equal(this.$('input').prop('checked'), true);
+  assert.equal(this.$('input').is(':checked'), true);
   this.set('x', null);
-  assert.equal(this.$('input').prop('checked'), false);
+  assert.equal(this.$('input').is(':checked'), false);
 });
 
 test('it should have class="checked" when checked', function (assert) {

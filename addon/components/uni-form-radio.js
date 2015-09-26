@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 
   tagName: 'label',
   classNames: [ 'uni-form-radio' ],
-  classNameBindings: [ 'checked', 'disabled' ],
+  classNameBindings: [ 'checked', 'disabled', 'required', 'tone' ],
   layout: layout,
 
   name: Ember.computed.reads('property'),
@@ -26,7 +26,7 @@ export default Ember.Component.extend(
 
   didReceiveAttrs: function () {
     this._super(...arguments);
-    if (!(this.attrs && this.attrs.groupValue)) {
+    if (this.attrs && this.attrs.property && !this.attrs.groupValue) {
       this.groupValue = Ember.computed.alias(`form.model.${this.get('property')}`);
     }
   },

@@ -1,7 +1,10 @@
 
-{{#if label }}<span class="label">{{ label }}</span>{{/if}}
+{{#if label }}
+  <span class="label">{{ label }}</span>
+{{/if}}
 
-{{ uni-form-radio-input
+{{ uni-form-radio-tag
+  autofocus=autofocus
   disabled=disabled
   groupValue=groupValue
   name=name
