@@ -31,7 +31,7 @@ export default Ember.Component.extend(
   didReceiveAttrs: function () {
     this._super(...arguments);
     if (this.attrs && this.attrs.property && !this.attrs.value) {
-      this.value = Ember.computed.alias(`form.model.${this.get('property')}`);
+      this.value = Ember.computed.alias(`parentFormView.model.${this.get('property')}`);
     }
   },
 

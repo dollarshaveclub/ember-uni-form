@@ -4,7 +4,7 @@ import Ember from 'ember';
 //
 export default Ember.Mixin.create({
 
-  form: function () {
+  parentFormView: function () {
     var parentView = this;
     while (parentView = parentView.get('parentView')) {
       if (parentView.get('tagName') === 'form') return parentView;

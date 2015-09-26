@@ -25,6 +25,20 @@ test('it should update value on change', function (assert) {
 });
 
 //
+// Dynamic binding
+//
+
+test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
+  this.set('x', { model: { isColor: true } });
+  this.render(hbs`{{#uni-form form=x }}{{ uni-form-checkbox property='isColor' }}{{/uni-form}}`);
+  assert.equal(this.$('input').is(':checked'), true);
+  this.set('x.model.isColor', false);
+  assert.equal(this.$('input').is(':checked'), false);
+  this.$('input').prop('checked', true).trigger('change');
+  assert.equal(this.get('x.model.isColor'), true);
+});
+
+//
 // Property binding
 //
 

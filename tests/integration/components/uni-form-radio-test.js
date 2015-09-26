@@ -35,6 +35,18 @@ test('it should be checked when groupValue = value', function (assert) {
 });
 
 //
+// Dynamic binding
+//
+
+test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
+  this.set('x', { model: { color: 'blue' } });
+  this.render(hbs`{{#uni-form form=x }}{{ uni-form-radio property='color' value='red' }}{{/uni-form}}`);
+  this.$('input').prop('checked', true).trigger('change');
+  // this.$('input').trigger('click');
+  assert.equal(this.get('x.model.color'), 'red');
+});
+
+//
 // Property binding
 //
 

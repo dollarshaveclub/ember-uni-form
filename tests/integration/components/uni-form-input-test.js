@@ -20,6 +20,20 @@ test('it should bind the input[value] to attrs.value', function (assert) {
 });
 
 //
+// Dynamic binding
+//
+
+test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
+  this.set('x', { model: { color: 'blue' } });
+  this.render(hbs`{{#uni-form form=x }}{{ uni-form-input property='color' }}{{/uni-form}}`);
+  assert.equal(this.$('input').val(), 'blue');
+  this.set('x.model.color', 'red');
+  assert.equal(this.$('input').val(), 'red');
+  this.$('input').val('green').trigger('change');
+  assert.equal(this.get('x.model.color'), 'green');
+});
+
+//
 // Property binding
 //
 

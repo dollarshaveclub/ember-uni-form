@@ -35,6 +35,25 @@ test('it should change selection on value update', function (assert) {
 });
 
 //
+// Dynamic binding
+//
+
+test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
+  this.set('x', { model: { color: 'blue' } });
+  this.set('y', [
+    { label: 'red', value: 'red' },
+    { label: 'green', value: 'green' },
+    { label: 'blue', value: 'blue' },
+  ]);
+  this.render(hbs`{{#uni-form form=x }}{{ uni-form-select content=y prompt='(.___.)' property='color' }}{{/uni-form}}`);
+  assert.equal(this.$('option[value="blue"]').is(':selected'), true);
+  this.set('x.model.color', 'red');
+  assert.equal(this.$('option[value="red"]').is(':selected'), true);
+  this.$('option[value="green"]').prop('selected', true).trigger('change');
+  assert.equal(this.get('x.model.color'), 'green');
+});
+
+//
 // Property binding
 //
 
