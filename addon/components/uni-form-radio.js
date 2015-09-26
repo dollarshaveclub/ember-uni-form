@@ -15,6 +15,7 @@ export default Ember.Component.extend(
   layout: layout,
 
   name: Ember.computed.reads('property'),
+  required: Ember.computed.bool('validations.presence'),
 
   change: function () {
     this.set('groupValue', this.get('value'));
@@ -26,8 +27,11 @@ export default Ember.Component.extend(
 
   didReceiveAttrs: function () {
     this._super(...arguments);
-    if (this.attrs && this.attrs.property && !this.attrs.groupValue) {
-      this.groupValue = Ember.computed.alias(`parentFormView.model.${this.get('property')}`);
+    if (this.attrs && this.attrs.property) {
+      this.validations = Ember.computed.reads(`parentFormView.model.validations.${this.get('property')}`);
+      if (!this.attrs.groupValue) {
+        this.groupValue = Ember.computed.alias(`parentFormView.model.${this.get('property')}`);
+      }
     }
   },
 

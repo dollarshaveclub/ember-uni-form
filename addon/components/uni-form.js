@@ -7,4 +7,8 @@ export default Ember.Component.extend({
 
   model: Ember.computed.alias('form.model'),
 
+  // DEBUG_EXPORT: function () {
+  //   window.parentFormView = this;
+  // }.on('didInsertElement'),
+
 });

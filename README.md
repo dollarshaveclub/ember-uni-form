@@ -1,9 +1,10 @@
 
 The description below is a sketch of where I think this is headed. The reality is:
 
-* v0.0.1: an interesting README.md
-* v0.0.2: solid input, checkbox and radio components
-* v0.0.3: solid select component
+* v0.0.1: README.md
+* v0.0.2: input, checkbox and radio components
+* v0.0.3: select component
+* v0.0.4: forked ember-validations
 
 # Ember-uni-form
 

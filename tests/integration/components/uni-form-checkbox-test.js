@@ -38,6 +38,12 @@ test('it should bind value to parentFormView.model.<attrs.property>', function (
   assert.equal(this.get('x.model.isColor'), true);
 });
 
+test('it should bind class="required" to parentFormView.model.validations.<attrs.property>.presence', function (assert) {
+  this.set('x', { model: { validations: { isColor: { presence: true } } } });
+  this.render(hbs`{{#uni-form form=x }}{{ uni-form-checkbox property='isColor' }}{{/uni-form}}`);
+  assert.equal(this.$('.uni-form-checkbox').hasClass('required'), true);
+});
+
 //
 // Property binding
 //

@@ -40,7 +40,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.3",
     "ember-cli-htmlbars": "0.7.9",
-    "ember-validations": "git://github.com/dockyard/ember-validations.git#ef9f6eb"
+    "ember-validations": "git://github.com/dollarshaveclub/ember-validations.git#d1b7321"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

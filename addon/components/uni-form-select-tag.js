@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 
   change: function () {
     this.set('value', this.$('option:selected').val());
-  }.on('didInsertElement'),
+  },
 
   initSelected: function () {
     (this.$(`option[value="${this.get('value')}"]`) || this.$('option:first'))
