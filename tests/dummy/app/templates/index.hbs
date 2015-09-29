@@ -2,6 +2,8 @@
 
 {{#uni-form
   form=uniForm
+  cancel=(action 'cancel')
+  submit=(action 'submit')
 }}
   <fieldset>
     <legend>Fields bound to <b>form.model.&lt;property&gt;</b></legend>
@@ -31,6 +33,7 @@
     {{ uni-form-checkbox label='has mailbox' value=uniForm.model.hasMailbox }}
   </fieldset>
   {{ uni-form-messages }}
+  {{ uni-form-buttons cancel='Forget it' submit='Save' }}
 {{/uni-form}}
 
 <fieldset>

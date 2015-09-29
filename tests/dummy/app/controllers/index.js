@@ -12,4 +12,16 @@ export default Ember.Controller.extend({
   isPurplePantsFan: true,
   isPantsDisabled: false,
 
+  actions: {
+
+    cancel: function () {
+      console.log('cancel');
+    },
+
+    submit: function () {
+      console.log('submit');
+    },
+
+  },
+
 });
