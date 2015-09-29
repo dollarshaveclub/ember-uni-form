@@ -5,8 +5,8 @@
 }}
   <fieldset>
     <legend>Fields bound to <b>form.model.&lt;property&gt;</b></legend>
-    {{ uni-form-input property='addressLine_1' label='Label text' }}
-    {{ uni-form-input property='addressLine_2' }}<br>
+    {{ uni-form-input property='addressLine1' label='Label text' }}
+    {{ uni-form-input property='addressLine2' }}<br>
     {{ uni-form-input property='city' }}
     {{ uni-form-input property='state' }}
     {{ uni-form-input property='zipCode' }}<br>
@@ -14,15 +14,15 @@
   <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
   <fieldset>
     <legend>Zoning</legend>
-    {{ uni-form-radio property='zoning' label='Residential' value='residential' }}
-    {{ uni-form-radio property='zoning' label='Commercial' value='commercial' }}
-    {{ uni-form-radio property='zoning' label='Other' value='other' }}
+    {{ uni-form-radio label='Residential' property='zoning' value='residential' }}
+    {{ uni-form-radio label='Commercial' property='zoning' value='commercial' }}
+    {{ uni-form-radio label='Other' property='zoning' value='other' }}
     => "{{ model.zoning }}"<br>
     {{ uni-form-select content=model.zoningOptions label='or with a select' prompt='prompt text' property='zoning' }}
   </fieldset>
   <fieldset>
     <legend>Direct value binding</legend>
-    {{#uni-form-input value=uniForm.model.addressLine_1 label='attrs.value is set' }}
+    {{#uni-form-input label='attrs.value is set' value=uniForm.model.addressLine1 }}
       <small>
         and this is a <mark>yield block</mark> <br>
         The label is just text. Use the yield block if you need markup content.
@@ -30,6 +30,7 @@
     {{/uni-form-input}}
     {{ uni-form-checkbox label='has mailbox' value=uniForm.model.hasMailbox }}
   </fieldset>
+  {{ uni-form-messages }}
 {{/uni-form}}
 
 <fieldset>

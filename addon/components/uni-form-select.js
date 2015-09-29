@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-select';
-import FindsParentForm from '../mixins/finds-parent-form';
+import FindsFieldByName from '../mixins/finds-field-by-name';
 import TriggersChange from '../mixins/triggers-change';
 //
 // Empty string value is reserved for the prompt option.
@@ -14,7 +14,7 @@ var PROMPT_VALUE = '';
 // ]
 //
 export default Ember.Component.extend(
-  FindsParentForm,
+  FindsFieldByName,
   TriggersChange,
 {
 
@@ -24,7 +24,6 @@ export default Ember.Component.extend(
   layout: layout,
 
   name: Ember.computed.reads('property'),
-  prompting: Ember.computed.equal('value', PROMPT_VALUE),
   required: Ember.computed.bool('validations.presence'),
 
   didReceiveAttrs: function () {
@@ -36,5 +35,10 @@ export default Ember.Component.extend(
       }
     }
   },
+
+  prompting: function () {
+    var value = this.get('value');
+    return typeof value !== 'string' || value === PROMPT_VALUE;
+  }.property('value'),
 
 });

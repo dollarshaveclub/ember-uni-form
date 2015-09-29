@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-input';
-import FindsParentForm from '../mixins/finds-parent-form';
+import FindsFieldByName from '../mixins/finds-field-by-name';
 import TriggersChange from '../mixins/triggers-change';
 
 export default Ember.Component.extend(
-  FindsParentForm,
+  FindsFieldByName,
   TriggersChange,
 {
 

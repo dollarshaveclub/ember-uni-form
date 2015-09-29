@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import TriggersChangeMixin from '../../../mixins/triggers-change';
+import TriggersChangeMixin from 'ember-uni-form/mixins/triggers-change';
 import { module, test } from 'qunit';
 
 module('mixin:triggers-change');

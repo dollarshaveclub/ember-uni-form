@@ -1,28 +1,52 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import dynamicAlias from '../utils/dynamic-alias';
 
 export default DS.Model.extend({
 
-  fields: DS.hasMany('uni-form-field'),
-  messages: DS.hasMany('uni-form-message'),
+  model: DS.attr(),
+  messages: [],
 
-  clientErrorsKey: 'model.validator.errors',
-  clientErrorsData: dynamicAlias(null, 'clientErrorsKey'),
-  clientErrors: Ember.computed.filterBy('messages', 'source', 'client'),
+  fieldNames: function () {
+    return Object.keys(this.get('model').serialize().data.attributes).map(Ember.String.camelize);
+  }.property('model'),
 
-  serverErrorsKey: 'model.errors',
-  serverErrorsData: dynamicAlias(null, 'serverErrorsKey'),
-  serverErrors: Ember.computed.filterBy('messages', 'source', 'server'),
+  fieldsByName: function () {
+    var result = {};
+    this.get('fieldNames').map(name => {
+      result[name] = this.store.createRecord('uni-form-field', {
+        form: this,
+        name: name
+      });
+    });
+    return result;
+  }.property('model'),
 
-  clientErrorsChanged: function () {
-    var data = this.get('clientErrorsData');
-    console.log('[clientErrorsChanged]', data);
-  }.observes('clientErrorsData'),
+  watchClientErrors: function () {
+    var validationErrors = this.get('model.validationErrors');
+    if (!validationErrors) return;
+    this.get('fieldNames').forEach(name => {
+      validationErrors.addObserver(name, this, this.parseClientErrors);
+    });
+  }.observes('model'),
 
-  serverErrorsChanged: function () {
-    var data = this.get('serverErrorsData');
-    console.log('[serverErrorsChanged]', data);
-  }.observes('serverErrorsData'),
+  //
+  // Parses output of ember-validations
+  //
+  parseClientErrors: function () {
+    var errors = this.get('model.validationErrors');
+    if (!errors) return;
+    var messages = this.get('messages').filter(message => message.source !== 'client');
+    Object.keys(errors).forEach(key => {
+      errors[key].forEach(errorString => {
+        messages.push({
+          field: key,
+          body: errorString,
+          source: 'client',
+          tone: 'error',
+        });
+      });
+    });
+    this.set('messages', messages);
+  },
 
 });

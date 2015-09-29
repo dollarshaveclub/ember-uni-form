@@ -1,9 +1,9 @@
 import { moduleForModel, test } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleForModel('uni-form', {
-  // Specify the other units that are required for this test.
-  needs: [ 'model:uni-form-field', 'model:uni-form-message' ],
-
+  needs: [ 'model:uni-form-field' ],
+  unit: true,
 });
 
 test('it exists', function(assert) {

@@ -1,0 +1,8 @@
+
+<ul>
+  {{#each messages as |o| }}
+    <li>{{ o.field }} {{ o.body }}</li>
+  {{/each}}
+</ul>
+
+{{ yield }}

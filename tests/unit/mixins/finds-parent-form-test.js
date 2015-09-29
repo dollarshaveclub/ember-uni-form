@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import FindsParentFormMixin from '../../../mixins/finds-parent-form';
+import FindsParentFormMixin from 'ember-uni-form/mixins/finds-parent-form';
 import { module, test } from 'qunit';
 
 module('mixin:finds-parent-form');

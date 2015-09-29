@@ -1,13 +1,10 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import dynamicAlias from '../utils/dynamic-alias';
 
 export default DS.Model.extend({
 
   name: DS.attr('string'),
-  form: DS.belongsTo('uni-form'),
-
-  value: dynamicAlias('form.model', 'name'),
+  form: DS.belongsTo('uni-form', { inverse: null }),
 
   messages: Ember.computed.filter('form.messages', function (message) {
     return message.field === this.get('name');

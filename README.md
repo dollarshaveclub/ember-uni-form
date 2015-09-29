@@ -35,15 +35,12 @@ It helps you manage multiple sources of user feedback messages—[DS.Errors](htt
 ```javascript
 // controllers/user/new.js
 import Ember from 'ember';
-import HasUniForm from 'ember-uni-forms/mixins/has-uni-form';
 
-export default Ember.Controller.extend(
-  HasUniForm, // this.get('uniForm') is a `model:uni-form` for this.get('model')
-{
-  uniFormOptions: {
-    clientErrors: 'model.validator.errors', // default
-    serverErrors: 'model.errors',           // default
-  },
+export default Ember.Controller.extend({
+
+  uniForm: function () {
+    return this.store.createRecord('uni-form', { model: this.get('model') });
+  }.property('model'),
 
   actions: {
 
@@ -71,17 +68,15 @@ export default Ember.Controller.extend(
 
 A `model:uni-form` has a data model, fields and messages.
 
-A `model:uni-form-message` has a body, field, source, and tone.
+A `message` has a field, body, source, and tone.
 
 ```javascript
-// addon/models/uni-form-message.js
-import DS from 'ember-data';
-export default DS.Model.extend({
-  body: DS.attr('string'),              // Please enter a valid email address.
-  field: DS.attr('string'),             // null, email, password, firstName
-  source: DS.attr('string'),            // null, client, server
-  tone: DS.attr('string'),              // null, error, warning, success, info, muted
-});
+var msg = {
+  field: 'email',
+  body: 'Please enter a valid email address.',
+  source: 'client',
+  tone: 'error',
+};
 ```
 
 ## Notes

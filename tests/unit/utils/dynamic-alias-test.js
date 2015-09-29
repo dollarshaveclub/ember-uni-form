@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import dynamicAlias from '../../../utils/dynamic-alias';
+import dynamicAlias from 'ember-uni-form/utils/dynamic-alias';
 import { module, test } from 'qunit';
 
 module('util:dynamic-alias');

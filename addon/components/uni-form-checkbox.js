@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-checkbox';
-import FindsParentForm from '../mixins/finds-parent-form';
+import FindsFieldByName from '../mixins/finds-field-by-name';
 //
 // Standalone:
 //
@@ -17,7 +17,7 @@ import FindsParentForm from '../mixins/finds-parent-form';
 // {{/uni-form}}
 //
 export default Ember.Component.extend(
-  FindsParentForm,
+  FindsFieldByName,
 {
 
   tagName: 'label',

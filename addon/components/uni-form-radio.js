@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-radio';
-import FindsParentForm from '../mixins/finds-parent-form';
+import FindsFieldByName from '../mixins/finds-field-by-name';
 
 // {{ uni-form-radio value='spam' property='dish' label='Spam' }}
 // {{#uni-form-radio value='eggs' groupValue=form.model.dish }} Eggs {{/uni-form-radio}}
 
 export default Ember.Component.extend(
-  FindsParentForm,
+  FindsFieldByName,
 {
 
   tagName: 'label',

@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import HasUniForm from '../mixins/has-uni-form';
 
-export default Ember.Controller.extend(
-  HasUniForm,
-{
+export default Ember.Controller.extend({
+
+  uniForm: function () {
+    return this.store.createRecord('uni-form', { model: this.get('model') });
+  }.property('model'),
 
   dish: 'eggs',
   isDishabled: false,
