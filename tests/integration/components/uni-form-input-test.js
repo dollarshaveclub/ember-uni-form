@@ -23,19 +23,19 @@ test('it should bind the input[value] to attrs.value', function (assert) {
 // Dynamic binding
 //
 
-test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
-  this.set('x', { model: { color: 'blue' } });
-  this.render(hbs`{{#uni-form form=x }}{{ uni-form-input property='color' }}{{/uni-form}}`);
+test('it should bind value to field.value', function (assert) {
+  this.set('x', { value: 'blue' });
+  this.render(hbs`{{ uni-form-input field=x }}`);
   assert.equal(this.$('input').val(), 'blue');
-  this.set('x.model.color', 'red');
+  this.set('x.value', 'red');
   assert.equal(this.$('input').val(), 'red');
   this.$('input').val('green').trigger('change');
-  assert.equal(this.get('x.model.color'), 'green');
+  assert.equal(this.get('x.value'), 'green');
 });
 
-test('it should bind class="required" to parentFormView.model.validations.<attrs.property>.presence', function (assert) {
-  this.set('x', { model: { validations: { color: { presence: true } } } });
-  this.render(hbs`{{#uni-form form=x }}{{ uni-form-input property='color' }}{{/uni-form}}`);
+test('it should bind class="required" to field.required', function (assert) {
+  this.set('x', { required: true });
+  this.render(hbs`{{ uni-form-input field=x }}`);
   assert.equal(this.$('.uni-form-input').hasClass('required'), true);
 });
 

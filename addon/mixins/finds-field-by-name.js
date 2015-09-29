@@ -6,7 +6,7 @@ export default Ember.Mixin.create(
 {
 
   field: function () {
-    return this.get(`parentFormView.form.fieldsByName.${this.get('property')}`);
+    return this.get(`parentFormView.form.fieldsByName.${this.get('property')}`) || {};
   }.property('parentFormView', 'property'),
 
 });

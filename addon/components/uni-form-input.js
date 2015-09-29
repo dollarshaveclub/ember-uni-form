@@ -14,17 +14,8 @@ export default Ember.Component.extend(
   layout: layout,
 
   name: Ember.computed.reads('property'),
-  required: Ember.computed.bool('validations.presence'),
-
-  didReceiveAttrs: function () {
-    this._super(...arguments);
-    if (this.attrs && this.attrs.property) {
-      this.validations = Ember.computed.reads(`parentFormView.model.validations.${this.get('property')}`);
-      if (!this.attrs.value) {
-        this.value = Ember.computed.alias(`parentFormView.model.${this.get('property')}`);
-      }
-    }
-  },
+  required: Ember.computed.reads('field.required'),
+  value: Ember.computed.alias('field.value'),
 
   placeholder: function () {
     return (this.get('property') || '').dasherize().replace(/-/g, ' ').capitalize();

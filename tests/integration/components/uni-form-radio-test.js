@@ -38,17 +38,16 @@ test('it should be checked when groupValue = value', function (assert) {
 // Dynamic binding
 //
 
-test('it should bind value to parentFormView.model.<attrs.property>', function (assert) {
-  this.set('x', { model: { color: 'blue' } });
-  this.render(hbs`{{#uni-form form=x }}{{ uni-form-radio property='color' value='red' }}{{/uni-form}}`);
+test('it should bind value to field.value', function (assert) {
+  this.set('x', { value: 'blue' });
+  this.render(hbs`{{ uni-form-radio field=x value='red' }}`);
   this.$('input').prop('checked', true).trigger('change');
-  // this.$('input').trigger('click');
-  assert.equal(this.get('x.model.color'), 'red');
+  assert.equal(this.get('x.value'), 'red');
 });
 
-test('it should bind class="required" to parentFormView.model.validations.<attrs.property>.presence', function (assert) {
-  this.set('x', { model: { validations: { color: { presence: true } } } });
-  this.render(hbs`{{#uni-form form=x }}{{ uni-form-radio property='color' }}{{/uni-form}}`);
+test('it should bind class="required" to field.required', function (assert) {
+  this.set('x', { required: true });
+  this.render(hbs`{{ uni-form-radio field=x }}`);
   assert.equal(this.$('.uni-form-radio').hasClass('required'), true);
 });
 

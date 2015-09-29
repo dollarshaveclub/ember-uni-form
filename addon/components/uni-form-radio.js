@@ -14,8 +14,9 @@ export default Ember.Component.extend(
   classNameBindings: [ 'checked', 'disabled', 'required', 'tone' ],
   layout: layout,
 
+  groupValue: Ember.computed.alias('field.value'),
   name: Ember.computed.reads('property'),
-  required: Ember.computed.bool('validations.presence'),
+  required: Ember.computed.reads('field.required'),
 
   change: function () {
     this.set('groupValue', this.get('value'));
@@ -24,15 +25,5 @@ export default Ember.Component.extend(
   checked: function () {
     return this.get('value') === this.get('groupValue');
   }.property('value', 'groupValue'),
-
-  didReceiveAttrs: function () {
-    this._super(...arguments);
-    if (this.attrs && this.attrs.property) {
-      this.validations = Ember.computed.reads(`parentFormView.model.validations.${this.get('property')}`);
-      if (!this.attrs.groupValue) {
-        this.groupValue = Ember.computed.alias(`parentFormView.model.${this.get('property')}`);
-      }
-    }
-  },
 
 });
