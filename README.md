@@ -5,6 +5,7 @@ The description below is a sketch of where I think this is headed. The reality i
 * v0.0.2: input, checkbox and radio components
 * v0.0.3: select component
 * v0.0.4: forked ember-validations
+* v0.0.5: field.value, form.submit
 
 # Ember-uni-form
 
@@ -22,13 +23,12 @@ It helps you manage multiple sources of user feedback messages—[DS.Errors](htt
 {{!-- templates/user/new.hbs --}}
 {{#uni-form
   form=uniForm
-  cancel=(action 'cancel')
-  submit=(action 'submit')
+  action=(action 'submit')
 }}
   {{ uni-form-input property='email' type='email' }}
   {{ uni-form-input property='password' type='password' }}
   {{ uni-form-messages }}
-  {{ uni-form-buttons }}
+  {{ uni-form-submit label='Save' }}
 {{/uni-form}}
 ```
 
@@ -43,10 +43,6 @@ export default Ember.Controller.extend({
   }.property('model'),
 
   actions: {
-
-    cancel: function () {
-      this.send('exitRouteLayer'); // addon: ember-route-layers
-    },
 
     submit: function () {
       this.get('model').save()

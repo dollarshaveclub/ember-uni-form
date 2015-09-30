@@ -14,12 +14,8 @@ export default Ember.Controller.extend({
 
   actions: {
 
-    cancel: function () {
-      console.log('cancel');
-    },
-
     submit: function () {
-      console.log('submit');
+      console.log('[controller:index submit]');
     },
 
   },
