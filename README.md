@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/dollarshaveclub/ember-uni-form.svg)](https://travis-ci.org/dollarshaveclub/ember-uni-form)
+
 The description below is a sketch of where I think this is headed. The reality is:
 
 * v0.0.1: README.md
