@@ -1,5 +1,6 @@
 
 [![Build Status](https://travis-ci.org/dollarshaveclub/ember-uni-form.svg)](https://travis-ci.org/dollarshaveclub/ember-uni-form)
+[![Coverage Status](https://coveralls.io/repos/dollarshaveclub/ember-uni-form/badge.svg)](https://coveralls.io/github/dollarshaveclub/ember-uni-form)
 
 The description below is a sketch of where I think this is headed. The reality is:
 
@@ -32,7 +33,7 @@ It helps you manage multiple sources of user feedback messages—[DS.Errors](htt
   {{ uni-form-input property='email' type='email' }}
   {{ uni-form-input property='password' type='password' }}
   {{ uni-form-messages }}
-  {{ uni-form-submit label='Save' }}
+  <button type="submit">Save</button>
 {{/uni-form}}
 ```
 
