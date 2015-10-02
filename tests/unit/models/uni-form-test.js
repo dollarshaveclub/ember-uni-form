@@ -7,6 +7,20 @@ moduleForModel('uni-form', {
 });
 
 //
+// Properties
+//
+
+test('it should parse fieldNames from JSONAPISerializer output', function (assert) {
+  this.subject({ model: { serialize: () => ({ data: { attributes: { email: 'me@example.com', password: 'secret' }, id: 1, relationships: {}, type: 'action-create-sessions' } }) } });
+  assert.deepEqual(this.subject().get('fieldNames'), [ 'email', 'password' ]);
+});
+
+test('it should parse fieldNames from ActiveModelSerializer output', function (assert) {
+  this.subject({ model: { serialize: () => ({ email: 'me@example.com', password: 'secret' }) } });
+  assert.deepEqual(this.subject().get('fieldNames'), [ 'email', 'password' ]);
+});
+
+//
 // Methods
 //
 

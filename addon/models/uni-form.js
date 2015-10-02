@@ -12,7 +12,10 @@ export default DS.Model.extend({
   //
 
   fieldNames: function () {
-    return Object.keys(this.get('model').serialize().data.attributes).map(Ember.String.camelize);
+    var payload = this.get('model').serialize();
+    payload = payload.data ? payload.data : payload;
+    payload = payload.attributes ? payload.attributes : payload;
+    return Object.keys(payload).map(Ember.String.camelize);
   }.property('model'),
 
   fieldsByName: function () {

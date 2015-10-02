@@ -4,7 +4,9 @@ export default Ember.Component.extend({
 
   tagName: 'form',
   classNames: [ 'uni-form' ],
+  classNameBindings: [ 'invalid' ],
 
+  invalid: Ember.computed.reads('model.isInvalid'),
   model: Ember.computed.alias('form.model'),
 
   submitWithErrors: false,
