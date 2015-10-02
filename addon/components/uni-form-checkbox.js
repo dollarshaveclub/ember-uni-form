@@ -26,8 +26,10 @@ export default Ember.Component.extend(
   layout: layout,
 
   checked: Ember.computed.alias('value'),
+  message: Ember.computed.reads('field.message'),
   name: Ember.computed.reads('property'),
   required: Ember.computed.reads('field.required'),
+  tone: Ember.computed.reads('field.tone'),
   value: Ember.computed.alias('field.value'),
 
 });

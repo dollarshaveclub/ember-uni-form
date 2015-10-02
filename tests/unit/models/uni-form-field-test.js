@@ -1,13 +1,13 @@
 import { moduleForModel, test } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleForModel('uni-form-field', {
-  // Specify the other units that are required for this test.
   needs: [ 'model:uni-form' ],
-
 });
 
-test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
-  assert.ok(!!model);
+test('it should have "form", a belongsTo relationship to a uni-form', function(assert) {
+  var UniFormField = this.store().modelFor('uni-form-field');
+  var relationship = Ember.get(UniFormField, 'relationshipsByName').get('form');
+  assert.equal(relationship.type, 'uni-form');
+  assert.equal(relationship.kind, 'belongsTo');
 });

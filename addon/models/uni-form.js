@@ -1,10 +1,15 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import messagePriority from '../utils/message-priority';
 
 export default DS.Model.extend({
 
   model: DS.attr(),
-  messages: [],
+  messages: (() => []).property(),
+
+  //
+  // Computed properties
+  //
 
   fieldNames: function () {
     return Object.keys(this.get('model').serialize().data.attributes).map(Ember.String.camelize);
@@ -21,6 +26,10 @@ export default DS.Model.extend({
     return result;
   }.property('model'),
 
+  //
+  // Observers
+  //
+
   watchClientErrors: function () {
     var validationErrors = this.get('model.validationErrors');
     if (!validationErrors) return;
@@ -30,8 +39,21 @@ export default DS.Model.extend({
   }.observes('model'),
 
   //
-  // Parses output of ember-validations
+  // Methods
   //
+
+  addMessage: function (o) {
+    var messages = this.get('messages');
+    if (typeof o === 'string') {
+      messages.push({ body: o });
+    }
+    if (typeof o === 'object') {
+      o.priority = messagePriority(o);
+      messages.push(o);
+    }
+  },
+
+  // Parses output of ember-validations
   parseClientErrors: function () {
     var errors = this.get('model.validationErrors');
     if (!errors) return;

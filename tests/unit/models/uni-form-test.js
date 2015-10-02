@@ -6,8 +6,16 @@ moduleForModel('uni-form', {
   unit: true,
 });
 
-test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
-  assert.ok(!!model);
+//
+// Methods
+//
+
+test('it should add a message with a priority when addMessage is given an object', function (assert) {
+  this.subject().addMessage({ body: 'test message' });
+  assert.deepEqual(this.subject().get('messages')[0], { body: 'test message', priority: 0 });
+});
+
+test('it should add a message when addMessage is given a string', function (assert) {
+  this.subject().addMessage('test message');
+  assert.deepEqual(this.subject().get('messages')[0], { body: 'test message' });
 });

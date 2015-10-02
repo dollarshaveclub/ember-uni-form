@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import dynamicAlias from '../utils/dynamic-alias';
+import messagePriority from '../utils/message-priority';
 
 export default DS.Model.extend({
 
@@ -14,15 +15,20 @@ export default DS.Model.extend({
     Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('name')}`));
   },
 
+  tone: Ember.computed.reads('message.tone'),
+
+  message: Ember.computed.reads('sortedMessages.firstObject'),
+
   messages: Ember.computed.filter('form.messages', function (message) {
     return message.field === this.get('name');
   }),
 
-  error: Ember.computed.reads('errors.firstObject'),
-  errors: Ember.computed.filterBy('messages', 'tone', 'error'),
-  success: Ember.computed.reads('successes.firstObject'),
-  successes: Ember.computed.filterBy('messages', 'tone', 'success'),
-  warning: Ember.computed.reads('warnings.firstObject'),
-  warnings: Ember.computed.filterBy('messages', 'tone', 'warning'),
+  sortedMessages: Ember.computed.sort('messages', function (a, b) {
+    var p1 = messagePriority(a);
+    var p2 = messagePriority(b);
+    if (p1 > p2) return 1;
+    if (p1 < p2) return -1;
+    return 0;
+  }),
 
 });

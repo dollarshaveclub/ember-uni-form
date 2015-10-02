@@ -34,6 +34,9 @@ fieldset
 label
   display: inline-block
 
+  &.error
+    border-color: red
+
 li
   margin: 1rem 0
 
@@ -54,3 +57,14 @@ li
   font-family: monospace
   opacity: 0.5
   position: absolute
+
+.message
+  background: #DDD
+  border: 1px solid currentColor
+  border-radius: 5px
+  color: #333
+  padding: 0.5rem
+
+  &.error
+    background-color: #FCC
+    color: #911

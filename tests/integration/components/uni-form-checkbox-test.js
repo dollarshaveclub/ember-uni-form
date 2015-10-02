@@ -70,3 +70,9 @@ test('it should render the contents of the yield block', function (assert) {
   this.render(hbs`{{#uni-form-checkbox}}<hr class="yielded-content">{{/uni-form-checkbox}}`);
   assert.equal(this.$('.yielded-content').length, 1);
 });
+
+test('it should render field.message as .message', function (assert) {
+  this.set('x', { message: { body: 'message content' } });
+  this.render(hbs`{{ uni-form-input field=x }}`);
+  assert.equal(this.$('.message').html(), 'message content');
+});

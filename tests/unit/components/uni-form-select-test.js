@@ -37,6 +37,11 @@ test('it sets select[name] to attrs.property (for autocomplete)', function (asse
   assert.equal(this.$('select').attr('name'), 'property name');
 });
 
+test('it should render .message.<tone>', function (assert) {
+  this.subject({ message: { body: 'message content', tone: 'snarky' } });
+  assert.equal(this.$('.snarky.message').html(), 'message content');
+});
+
 //
 // Property binding
 //

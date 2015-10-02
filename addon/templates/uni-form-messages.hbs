@@ -1,7 +1,10 @@
 
 <ul>
   {{#each messages as |o| }}
-    <li>{{ o.field }} {{ o.body }}</li>
+    <li class="{{ o.tone }} message">
+      <code>{{ o.field }}</code>
+      <span>{{ o.body }}</span>
+    </li>
   {{/each}}
 </ul>
 
