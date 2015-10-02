@@ -1,24 +1,21 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-radio';
-import FindsFieldByName from '../mixins/finds-field-by-name';
+import HasFieldStatus from '../mixins/has-field-status';
 
 // {{ uni-form-radio value='spam' property='dish' label='Spam' }}
 // {{#uni-form-radio value='eggs' groupValue=form.model.dish }} Eggs {{/uni-form-radio}}
 
 export default Ember.Component.extend(
-  FindsFieldByName,
+  HasFieldStatus,
 {
 
   tagName: 'label',
   classNames: [ 'uni-form-radio' ],
-  classNameBindings: [ 'checked', 'disabled', 'required', 'tone' ],
+  classNameBindings: [ 'checked', 'disabled' ],
   layout: layout,
 
   groupValue: Ember.computed.alias('field.value'),
-  message: Ember.computed.reads('field.message'),
   name: Ember.computed.reads('property'),
-  required: Ember.computed.reads('field.required'),
-  tone: Ember.computed.reads('field.tone'),
 
   change: function () {
     this.set('groupValue', this.get('value'));

@@ -1,12 +1,9 @@
 import Ember from 'ember';
-import TriggersChangeMixin from 'ember-uni-form/mixins/triggers-change';
+import TriggersChange from 'ember-uni-form/mixins/triggers-change';
 import { module, test } from 'qunit';
 
 module('mixin:triggers-change');
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  var TriggersChangeObject = Ember.Object.extend(TriggersChangeMixin);
-  var subject = TriggersChangeObject.create();
-  assert.ok(subject);
+test('it works', function (assert) {
+  assert.ok(Ember.Object.extend(TriggersChange).create());
 });

@@ -9,6 +9,7 @@ The description below is a sketch of where I think this is headed. The reality i
 * v0.0.4: forked ember-validations
 * v0.0.5: field.value, form.submit
 * v0.0.6: field.message, field.tone
+* v1.0.0: HasFieldStatus
 
 # Ember-uni-form
 

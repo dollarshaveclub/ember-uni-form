@@ -56,8 +56,8 @@ test('its input should be disabled when attrs.disabled is truthy', function (ass
   assert.equal(this.$('input').is(':disabled'), true);
 });
 
-test('it should have class="error" when attrs.tone=error', function (assert) {
-  this.subject({ tone: 'error' });
+test('it should have class="error" when attrs.tone=error and showStatus=true', function (assert) {
+  this.subject({ tone: 'error', showStatus: true });
   assert.equal(this.$().hasClass('error'), true);
 });
 

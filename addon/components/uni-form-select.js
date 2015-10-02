@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-select';
-import FindsFieldByName from '../mixins/finds-field-by-name';
+import HasFieldStatus from '../mixins/has-field-status';
 import TriggersChange from '../mixins/triggers-change';
 //
 // Empty string value is reserved for the prompt option.
@@ -14,19 +14,16 @@ var PROMPT_VALUE = '';
 // ]
 //
 export default Ember.Component.extend(
-  FindsFieldByName,
+  HasFieldStatus,
   TriggersChange,
 {
 
   tagName: 'label',
   classNames: [ 'uni-form-select' ],
-  classNameBindings: [ 'disabled', 'prompting', 'required', 'tone' ],
+  classNameBindings: [ 'disabled', 'prompting' ],
   layout: layout,
 
-  message: Ember.computed.reads('field.message'),
   name: Ember.computed.reads('property'),
-  required: Ember.computed.reads('field.required'),
-  tone: Ember.computed.reads('field.tone'),
   value: Ember.computed.alias('field.value'),
 
   prompting: function () {

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/uni-form-checkbox';
-import FindsFieldByName from '../mixins/finds-field-by-name';
+import HasFieldStatus from '../mixins/has-field-status';
 //
 // Standalone:
 //
@@ -17,19 +17,16 @@ import FindsFieldByName from '../mixins/finds-field-by-name';
 // {{/uni-form}}
 //
 export default Ember.Component.extend(
-  FindsFieldByName,
+  HasFieldStatus,
 {
 
   tagName: 'label',
   classNames: [ 'uni-form-checkbox' ],
-  classNameBindings: [ 'checked', 'disabled', 'required', 'tone' ],
+  classNameBindings: [ 'checked', 'disabled' ],
   layout: layout,
 
   checked: Ember.computed.alias('value'),
-  message: Ember.computed.reads('field.message'),
   name: Ember.computed.reads('property'),
-  required: Ember.computed.reads('field.required'),
-  tone: Ember.computed.reads('field.tone'),
   value: Ember.computed.alias('field.value'),
 
 });
