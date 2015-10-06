@@ -14,6 +14,12 @@
   </fieldset>
   <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
   <fieldset>
+    <legend>Textarea</legend>
+    {{ uni-form-textarea disabled=isNotesDisabled label='Notes' property='notes' }}
+    <pre>{{ model.notes }}</pre>
+    {{ uni-form-checkbox label='disable' value=isNotesDisabled }}
+  </fieldset>
+  <fieldset>
     <legend>Zoning</legend>
     {{ uni-form-radio label='Residential' property='zoning' value='residential' }}
     {{ uni-form-radio label='Commercial' property='zoning' value='commercial' }}

@@ -8,6 +8,7 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   form: DS.belongsTo('uni-form', { inverse: null }),
 
+  maxlength: Ember.computed.reads('validations.length.maximum'),
   required: Ember.computed.reads('validations.presence'),
   validations: dynamicAlias('form.model.validations', 'name'),
 

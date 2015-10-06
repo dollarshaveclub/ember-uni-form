@@ -23,7 +23,7 @@ test('it should bind the input[value] to attrs.value', function (assert) {
 // Dynamic binding
 //
 
-test('it should bind value to field.value', function (assert) {
+test('it should two-way bind value to field.value', function (assert) {
   this.set('x', { value: 'blue' });
   this.render(hbs`{{ uni-form-input field=x }}`);
   assert.equal(this.$('input').val(), 'blue');
@@ -48,6 +48,14 @@ test('it should bind input[disabled] to attrs.disabled', function (assert) {
   assert.equal(this.$('input').is(':disabled'), false);
   this.set('isDisabled', true);
   assert.equal(this.$('input').is(':disabled'), true);
+});
+
+test('it should one-way bind input[maxlength] to field.maxlength', function (assert) {
+  this.set('x', { maxlength: 42 });
+  this.render(hbs`{{ uni-form-input field=x }}`);
+  assert.equal(this.$('input').attr('maxlength'), 42);
+  this.set('x.maxlength', 37);
+  assert.equal(this.$('input').attr('maxlength'), 37);
 });
 
 //

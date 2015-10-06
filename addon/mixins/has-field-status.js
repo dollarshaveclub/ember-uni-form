@@ -8,6 +8,7 @@ export default Ember.Mixin.create(
   classNameBindings: [ 'required', 'status' ],
 
   editing: null, // first null, then boolean
+  maxlength: Ember.computed.reads('field.maxlength'),
   required: Ember.computed.reads('field.required'),
   tone: Ember.computed.reads('field.tone'),
 

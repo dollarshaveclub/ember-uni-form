@@ -38,7 +38,7 @@ test('it should change selection on value update', function (assert) {
 // Dynamic binding
 //
 
-test('it should bind value to field.value', function (assert) {
+test('it should two-way bind value to field.value', function (assert) {
   this.set('x', { value: 'blue' });
   this.set('y', [
     { label: 'red', value: 'red' },

@@ -9,9 +9,10 @@ export default DS.Model.extend(
   addressLine1: DS.attr('string'),
   addressLine2: DS.attr('string'),
   city: DS.attr('string'),
+  hasMailbox: DS.attr('boolean'),
+  notes: DS.attr('string'),
   state: DS.attr('string'),
   zipCode: DS.attr('string'),
-  hasMailbox: DS.attr('boolean'),
   zoning: DS.attr('string'), // residential, commercial, other
 
   zoningOptions: [

@@ -28,7 +28,7 @@ test('it should update value on change', function (assert) {
 // Dynamic binding
 //
 
-test('it should bind value to field.value', function (assert) {
+test('it should two-way bind value to field.value', function (assert) {
   this.set('x', { value: true });
   this.render(hbs`{{ uni-form-checkbox field=x }}`);
   assert.equal(this.$('input').is(':checked'), true);
