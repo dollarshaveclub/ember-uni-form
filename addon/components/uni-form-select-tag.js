@@ -12,16 +12,18 @@ export default Ember.Component.extend({
   layout: layout,
 
   change: function () {
-    this.set('value', this.$('option:selected').val());
+    var option = this.$('option:selected');
+    if (option) this.set('value', option.val());
   },
 
   initSelected: function () {
-    (this.$(`option[value="${this.get('value')}"]`) || this.$('option:first'))
-    .prop('selected', true);
+    var option = (this.$(`option[value="${this.get('value')}"]`) || this.$('option:first'));
+    if (option) option.prop('selected', true);
   }.on('didInsertElement'),
 
   valueChanged: function () {
-    this.$().val(this.get('value'));
+    var select = this.$();
+    if (select) select.val(this.get('value'));
   }.observes('value'),
 
 });
