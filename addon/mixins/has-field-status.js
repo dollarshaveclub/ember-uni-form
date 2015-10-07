@@ -5,14 +5,19 @@ export default Ember.Mixin.create(
   FindsFieldByName,
 {
 
-  classNameBindings: [ 'required', 'status' ],
+  classNameBindings: [ 'focus', 'required', 'status' ],
 
   editing: null, // first null, then boolean
   maxlength: Ember.computed.reads('field.maxlength'),
   required: Ember.computed.reads('field.required'),
   tone: Ember.computed.reads('field.tone'),
 
+  focusIn: function () {
+    this.set('focus', true);
+  },
+
   focusOut: function () {
+    this.set('focus', false);
     if (this.get('editing')) this.set('editing', false);
   },
 
