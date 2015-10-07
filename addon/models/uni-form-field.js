@@ -1,6 +1,5 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import dynamicAlias from '../utils/dynamic-alias';
 import messagePriority from '../utils/message-priority';
 
 export default DS.Model.extend({
@@ -10,9 +9,9 @@ export default DS.Model.extend({
 
   maxlength: Ember.computed.reads('validations.length.maximum'),
   required: Ember.computed.reads('validations.presence'),
-  validations: dynamicAlias('form.model.validations', 'name'),
 
   ready: function () {
+    Ember.defineProperty(this, 'validations', Ember.computed.reads(`form.model.validations.${this.get('name')}`));
     Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('name')}`));
   },
 

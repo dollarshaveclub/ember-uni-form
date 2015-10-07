@@ -6,7 +6,12 @@ export default Ember.Mixin.create(
 {
 
   field: function () {
-    return this.get(`parentFormView.form.fieldsByName.${this.get('property')}`) || {};
+    var form = this.get('parentFormView.form');
+    if (!form) return {};
+    if (form.then) return form.then(form => {
+      this.set('field', form.get(`fieldsByName.${this.get('property')}`) || {});
+    });
+    return form.get(`fieldsByName.${this.get('property')}`) || {};
   }.property('parentFormView', 'property'),
 
 });
