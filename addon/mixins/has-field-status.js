@@ -21,6 +21,10 @@ export default Ember.Mixin.create(
     if (this.get('editing')) this.set('editing', false);
   },
 
+  initNodeValue: function () {
+    this.$('input, select, textarea').val(this.get('value')).trigger('change');
+  }.on('didInsertElement'),
+
   message: function () {
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
