@@ -6,19 +6,19 @@ export default Ember.Component.extend({
   classNames: [ 'uni-form' ],
   classNameBindings: [ 'invalid' ],
 
-  invalid: Ember.computed.reads('model.isInvalid'),
-  model: Ember.computed.alias('form.model'),
+  invalid: Ember.computed.reads('form.model.isInvalid'),
 
   submitAborted: false,
   submitWithErrors: false,
 
   submit: function (e) {
-    var model = this.get('model');
-    var action = this.attrs && this.attrs.action || Ember.$.noop;
+    if (e) e.preventDefault();
 
-    e.preventDefault();
+    var model = this.get('form.model');
+    var action = this.get('action');
+    if (!(model && action)) return;
 
-    new Ember.RSVP.Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
       if (model.validate) model.validate.call(model).then(resolve, reject);
       else resolve();
     })

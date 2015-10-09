@@ -22,7 +22,9 @@ export default Ember.Mixin.create(
   },
 
   initNodeValue: function () {
-    this.$('input, select, textarea').val(this.get('value')).trigger('change');
+    this.$('input, select, textarea')
+    .not('[type="radio"]')
+    .val(this.get('value')).trigger('change');
   }.on('didInsertElement'),
 
   message: function () {

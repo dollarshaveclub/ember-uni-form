@@ -20,6 +20,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-sass": "0.6.6",
+    "ember-aupac-mocks": "1.0.1",
     "ember-cli": "0.2.7",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-blanket": "0.6.0",

@@ -1,6 +1,7 @@
 
 [![Build Status](https://travis-ci.org/dollarshaveclub/ember-uni-form.svg)](https://travis-ci.org/dollarshaveclub/ember-uni-form)
 [![Coverage Status](https://coveralls.io/repos/dollarshaveclub/ember-uni-form/badge.svg)](https://coveralls.io/github/dollarshaveclub/ember-uni-form)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-uni-form.svg)](http://emberobserver.com/addons/ember-uni-form)
 
 The description below is a sketch of where I think this is headed. The reality is:
 

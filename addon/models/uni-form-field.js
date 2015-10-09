@@ -26,8 +26,8 @@ export default DS.Model.extend({
   sortedMessages: Ember.computed.sort('messages', function (a, b) {
     var p1 = messagePriority(a);
     var p2 = messagePriority(b);
-    if (p1 > p2) return 1;
-    if (p1 < p2) return -1;
+    if (p1 < p2) return 1;
+    if (p1 > p2) return -1;
     return 0;
   }),
 

@@ -39,6 +39,7 @@ export default DS.Model.extend({
     this.get('fieldNames').forEach(name => {
       validationErrors.addObserver(name, this, this.parseClientErrors);
     });
+    this.parseClientErrors();
   }.observes('model'),
 
   //
