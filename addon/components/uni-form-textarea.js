@@ -8,7 +8,6 @@ export default Ember.Component.extend(
 
   tagName: 'label',
   classNames: [ 'uni-form-textarea' ],
-  classNameBindings: [ 'disabled' ],
   layout: layout,
 
   name: Ember.computed.reads('property'),

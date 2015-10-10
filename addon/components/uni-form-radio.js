@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 
   tagName: 'label',
   classNames: [ 'uni-form-radio' ],
-  classNameBindings: [ 'checked', 'disabled' ],
+  classNameBindings: [ 'checked' ],
   layout: layout,
 
   groupValue: Ember.computed.alias('field.value'),

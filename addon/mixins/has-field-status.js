@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import FindsFieldByName from './finds-field-by-name';
 
+var PROMPT_VALUE  = '';
+
 export default Ember.Mixin.create(
   FindsFieldByName,
 {
 
-  classNameBindings: [ 'focus', 'optional', 'required', 'status' ],
+  classNameBindings: [ 'disabled', 'focus', 'optional', 'prompting', 'required', 'status' ],
 
   editing: null, // first null, then boolean
   maxlength: Ember.computed.reads('field.maxlength'),
@@ -31,6 +33,11 @@ export default Ember.Mixin.create(
   message: function () {
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
+
+  prompting: function () {
+    var value = this.get('value');
+    return typeof value !== 'string' || value === PROMPT_VALUE;
+  }.property('value'),
 
   showStatus: function () {
     return this.get('parentFormView.submitAborted') || this.get('editing') === false;

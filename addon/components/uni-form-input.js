@@ -10,7 +10,6 @@ export default Ember.Component.extend(
 
   tagName: 'label',
   classNames: [ 'uni-form-input' ],
-  classNameBindings: [ 'disabled' ],
   layout: layout,
   type: 'text',
 
