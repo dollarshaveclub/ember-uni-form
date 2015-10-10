@@ -5,10 +5,11 @@ export default Ember.Mixin.create(
   FindsFieldByName,
 {
 
-  classNameBindings: [ 'focus', 'required', 'status' ],
+  classNameBindings: [ 'focus', 'optional', 'required', 'status' ],
 
   editing: null, // first null, then boolean
   maxlength: Ember.computed.reads('field.maxlength'),
+  optional: Ember.computed.reads('field.optional'),
   required: Ember.computed.reads('field.required'),
   tone: Ember.computed.reads('field.tone'),
 

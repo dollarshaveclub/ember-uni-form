@@ -49,3 +49,8 @@ test('it should filter form.messages by field name', function (assert) {
     ]);
   });
 });
+
+test('it should have "required" which reads form.model.validations.<name>.presence', function (assert) {
+  this.subject({ name: 'email' }).form = { model: { validations: { email: { presence: true } } } };
+  Ember.run(() => assert.equal(this.subject().get('required'), true));
+});
