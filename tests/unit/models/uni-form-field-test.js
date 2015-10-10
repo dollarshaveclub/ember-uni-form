@@ -39,7 +39,6 @@ test('it should filter form.messages by field name', function (assert) {
     { field: 'email', priority: 1 },
     { field: 'email', priority: 4 },
   ] };
-  console.log(this.subject().get('form.messages'));
   Ember.run(() => {
     assert.deepEqual(this.subject().get('sortedMessages'), [
       { field: 'email', priority: 5 },
