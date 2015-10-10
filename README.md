@@ -3,16 +3,6 @@
 [![Coverage Status](https://coveralls.io/repos/dollarshaveclub/ember-uni-form/badge.svg)](https://coveralls.io/github/dollarshaveclub/ember-uni-form)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-uni-form.svg)](http://emberobserver.com/addons/ember-uni-form)
 
-The description below is a sketch of where I think this is headed. The reality is:
-
-* v0.0.1: README.md
-* v0.0.2: input, checkbox and radio components
-* v0.0.3: select component
-* v0.0.4: forked ember-validations
-* v0.0.5: field.value, form.submit
-* v0.0.6: field.message, field.tone
-* v1.0.0: HasFieldStatus
-
 # Ember-uni-form
 
 The Ember Uni Form addon clears up confusion between:
@@ -34,7 +24,7 @@ It helps you manage multiple sources of user feedback messages—[DS.Errors](htt
   {{ uni-form-input property='email' type='email' }}
   {{ uni-form-input property='password' type='password' }}
   {{ uni-form-messages }}
-  <button type="submit">Save</button>
+  <input type="submit" value="Save">
 {{/uni-form}}
 ```
 

@@ -17,7 +17,7 @@ export default Ember.Component.extend(
   name: Ember.computed.reads('property'),
   value: Ember.computed.alias('field.value'),
 
-  placeholder: function () {
+  label: function () {
     return (this.get('property') || '').dasherize().replace(/-/g, ' ').capitalize();
   }.property('property'),
 
