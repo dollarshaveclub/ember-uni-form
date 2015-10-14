@@ -48,8 +48,8 @@ export default Ember.Mixin.create(
   }.property('showStatus', 'tone'),
 
   statusText: function () {
-    var message = this.get('message'), label = this.get('label').replace(/\(.*$/, '').trim();
-    return message ? `<code>${label}</code> ${message.body}` : label;
+    var message = this.get('message'), label = this.get('label'), labelTrim = label.replace(/\(.*$/, '').trim();
+    return message ? `<code>${labelTrim}</code> ${message.body}` : label;
   }.property('message', 'label', 'showStatus'),
 
   valueChange: function () {
