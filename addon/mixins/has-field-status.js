@@ -47,6 +47,11 @@ export default Ember.Mixin.create(
     return this.get('showStatus') && this.get('tone');
   }.property('showStatus', 'tone'),
 
+  statusText: function () {
+    var message = this.get('message'), label = this.get('label').replace(/\(.*$/, '').trim();
+    return message ? `<code>${label}</code> ${message.body}` : label;
+  }.property('message', 'label', 'showStatus'),
+
   valueChange: function () {
     if (this._hasValueChanged() && this.$(':focus')) this.set('editing', true);
   }.observes('value', 'groupValue'),

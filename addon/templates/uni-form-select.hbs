@@ -1,10 +1,6 @@
 
 {{#if label }}
-  <span class="label">{{ label }}</span>
-{{/if}}
-
-{{#if message }}
-  <span class="{{ message.tone }} message">{{ message.body }}</span>
+  <span class="label">{{ statusText }}</span>
 {{/if}}
 
 {{ uni-form-select-tag
