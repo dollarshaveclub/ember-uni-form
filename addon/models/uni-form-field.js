@@ -35,7 +35,7 @@ export default DS.Model.extend({
 
   optional: Ember.computed.and('hasEmberValidations', 'notRequired'),
 
-  required: Ember.computed.reads('validations.presence'),
+  required: Ember.computed.bool('validations.presence'),
 
   sortedMessages: Ember.computed.sort('messages', function (a, b) {
     var p1 = messagePriority(a);

@@ -1,0 +1,8 @@
+
+{{#if label }}
+  <span class="label" data-text="{{ label }}">{{ label }}</span>
+{{/if}}
+
+{{#if message }}
+  <span class="{{ message.tone }} message" data-text="{{ message.body }}">{{ message.body }}</span>
+{{/if}}

@@ -1,11 +1,5 @@
 
-{{#if label }}
-  <span class="label">{{ label }}</span>
-{{/if}}
-
-{{#if message }}
-  <span class="{{ message.tone }} message">{{ message.body }}</span>
-{{/if}}
+{{ partial 'uni-form-label-and-message' }}
 
 {{ uni-form-select-tag
   autofocus=autofocus
