@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
   invalid: Ember.computed.reads('form.model.isInvalid'),
 
-  submitAborted: false,
+  submitAborted: Ember.computed.alias('form.submitAborted'),
   submitWithErrors: false,
 
   submit: function (e) {
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     })
     .catch(() => {
       if (this.get('submitWithErrors')) action();
-      else this.set('submitAborted', true);
+      else this.set('form.submitAborted', true);
     });
   },
 

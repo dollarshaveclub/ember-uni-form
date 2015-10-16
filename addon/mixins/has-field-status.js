@@ -44,13 +44,8 @@ export default Ember.Mixin.create(
   }.property('editing', 'parentFormView.submitAborted'),
 
   status: function () {
-    return this.get('showStatus') && this.get('tone');
+    return this.get('showStatus') && this.get('tone') || 'default';
   }.property('showStatus', 'tone'),
-
-  statusText: function () {
-    var message = this.get('message'), label = this.get('label'), labelTrim = label.replace(/\(.*$/, '').trim();
-    return message ? `<code>${labelTrim}</code> ${message.body}` : label;
-  }.property('message', 'label', 'showStatus'),
 
   valueChange: function () {
     if (this._hasValueChanged() && this.$(':focus')) this.set('editing', true);

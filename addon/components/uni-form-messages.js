@@ -9,6 +9,9 @@ export default Ember.Component.extend(
   classNames: [ 'uni-form-messages' ],
   layout: layout,
 
+  errors: Ember.computed.filterBy('messages', 'tone', 'error'),
+  message: Ember.computed.reads('messages.firstObject'),
   messages: Ember.computed.reads('parentFormView.form.messages'),
+  multipleErrors: Ember.computed.gt('errors.length', 1),
 
 });

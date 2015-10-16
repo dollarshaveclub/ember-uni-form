@@ -1,11 +1,15 @@
 
 <ul>
-  {{#each messages as |o| }}
-    <li class="{{ o.tone }} message">
-      <code>{{ o.field }}</code>
-      <span>{{ o.body }}</span>
+  {{#if multipleErrors }}
+    <li class="error message">
+      <span>Multiple fields have errors. Please fix them to submit your review.</span>
     </li>
-  {{/each}}
+  {{ else }}
+    <li class="{{ message.tone }} message">
+      <code>{{ message.field }}</code>
+      <span>{{ message.body }}</span>
+    </li>
+  {{/if}}
 </ul>
 
 {{ yield }}

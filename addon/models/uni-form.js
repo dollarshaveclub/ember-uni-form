@@ -6,6 +6,7 @@ export default DS.Model.extend({
 
   model: DS.attr(),
   messages: (() => []).property(),
+  submitAborted: false,
 
   //
   // Computed properties

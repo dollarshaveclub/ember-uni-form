@@ -1,6 +1,10 @@
 
 {{#if label }}
-  <span class="label">{{{ statusText }}}</span>
+  <span class="label">{{ label }}</span>
+{{/if}}
+
+{{#if message }}
+  <span class="{{ message.tone }} message">{{ message.body }}</span>
 {{/if}}
 
 {{ uni-form-radio-tag
