@@ -58,6 +58,14 @@ test('it should one-way bind input[maxlength] to field.maxlength', function (ass
   assert.equal(this.$('input').attr('maxlength'), 37);
 });
 
+test('it should bind input[autocomplete] to attrs.autocomplete', function (assert) {
+  this.set('autocomplete', 'off');
+  this.render(hbs`{{ uni-form-input autocomplete=autocomplete }}`);
+  assert.equal(this.$('input').attr('autocomplete'), 'off');
+  this.set('autocomplete', 'on');
+  assert.equal(this.$('input').attr('autocomplete'), 'on');
+});
+
 //
 // Content
 //

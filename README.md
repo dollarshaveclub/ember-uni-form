@@ -60,6 +60,8 @@ export default Ember.Controller.extend({
 
 A `model:uni-form` has a data model, fields and messages.
 
+A `model:uni-form-field` has a value alias and computed properties for message, tone, required, etc.
+
 A `message` has a field, body, source, and tone.
 
 ```javascript
