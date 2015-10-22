@@ -1,5 +1,8 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+
+var INPUT_DEBOUNCE_DELAY = 300;
 
 moduleForComponent('uni-form-input', {
   integration: true,
@@ -16,7 +19,11 @@ test('it should bind the input[value] to attrs.value', function (assert) {
   this.set('x', 'updated via context');
   assert.equal(this.$('input').val(), 'updated via context');
   this.$('input').val('updated via input').trigger('change');
-  assert.equal(this.get('x'), 'updated via input');
+  var done = assert.async();
+  Ember.run.later(() => {
+    assert.equal(this.get('x'), 'updated via input');
+    done();
+  }, INPUT_DEBOUNCE_DELAY + 100);
 });
 
 //
@@ -30,7 +37,11 @@ test('it should two-way bind value to field.value', function (assert) {
   this.set('x.value', 'red');
   assert.equal(this.$('input').val(), 'red');
   this.$('input').val('green').trigger('change');
-  assert.equal(this.get('x.value'), 'green');
+  var done = assert.async();
+  Ember.run.later(() => {
+    assert.equal(this.get('x.value'), 'green');
+    done();
+  }, INPUT_DEBOUNCE_DELAY + 100);
 });
 
 test('it should bind class="required" to field.required', function (assert) {

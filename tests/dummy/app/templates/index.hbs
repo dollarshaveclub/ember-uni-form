@@ -35,6 +35,7 @@
         The label is just text. Use the yield block if you need markup content.
       </small>
     {{/uni-form-input}}
+    {{ uni-form-textarea label='Notes by value' value=uniForm.model.notes }}
     {{ uni-form-checkbox label='has mailbox' value=uniForm.model.hasMailbox }}
   </fieldset>
   {{ uni-form-messages }}
