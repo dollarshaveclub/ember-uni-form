@@ -28,7 +28,7 @@ export default Ember.Mixin.create(
     this.$('input, select, textarea')
     .not('[type="radio"]')
     .val(this.get('value')).trigger('change');
-  }.on('didInsertElement'),
+  }.on('didInsertElement').observes('field.dynamicAliasReady'),
 
   message: function () {
     return this.get('showStatus') && this.get('field.message');
@@ -37,7 +37,7 @@ export default Ember.Mixin.create(
   prompting: function () {
     var value = this.get('value');
     return typeof value !== 'string' || value === PROMPT_VALUE;
-  }.property('value'),
+  }.property('value', 'field.dynamicAliasReady'),
 
   showStatus: function () {
     return this.get('parentFormView.submitAborted') || this.get('editing') === false;

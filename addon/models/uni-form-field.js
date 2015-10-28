@@ -5,6 +5,7 @@ import messagePriority from '../utils/message-priority';
 
 export default DS.Model.extend({
 
+  dynamicAliasReady: false,
   name: DS.attr('string'),
   form: DS.belongsTo('uni-form', { inverse: null }),
   validations: dynamicAlias('form.model.validations', 'name'),
@@ -15,6 +16,7 @@ export default DS.Model.extend({
 
   ready: function () {
     Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('name')}`));
+    this.set('dynamicAliasReady', true);
   },
 
   //
