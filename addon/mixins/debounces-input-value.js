@@ -12,6 +12,11 @@ export default Ember.Mixin.create(
     this.set('value', this.get('debouncedInputValue'));
   }.observes('debouncedInputValue'),
 
+  focusOut: function () {
+    this._super(...arguments);
+    this.set('value', this.get('inputValue'));
+  },
+
   valueChanged: function () {
     this.set('inputValue', this.get('value'));
   }.observes('value'),

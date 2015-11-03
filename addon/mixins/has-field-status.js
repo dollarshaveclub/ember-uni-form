@@ -16,10 +16,12 @@ export default Ember.Mixin.create(
   tone: Ember.computed.reads('field.tone'),
 
   focusIn: function () {
+    this._super(...arguments);
     this.set('focus', true);
   },
 
   focusOut: function () {
+    this._super(...arguments);
     this.set('focus', false);
     if (this.get('editing')) this.set('editing', false);
   },
