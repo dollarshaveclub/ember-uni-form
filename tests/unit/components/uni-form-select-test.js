@@ -29,6 +29,7 @@ test('it should render attrs.label inside .label', function (assert) {
 });
 
 test('it should not render .label if attrs.label is empty', function (assert) {
+  this.subject({ label: '' });
   assert.equal(this.$('.label').length, 0);
 });
 

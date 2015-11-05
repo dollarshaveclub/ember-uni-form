@@ -32,9 +32,15 @@ export default Ember.Mixin.create(
     .val(this.get('value')).trigger('change');
   }.on('didInsertElement').observes('field.dynamicAliasReady'),
 
+  label: function () {
+    return ('' + this.get('property')).split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
+  }.property('property'),
+
   message: function () {
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
+
+  prompt: Ember.computed.reads('label'),
 
   prompting: function () {
     var value = this.get('value');

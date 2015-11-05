@@ -6,7 +6,7 @@ export default Ember.Mixin.create(
 {
 
   debouncedProperties: [ 'inputValue' ],
-  inputValueDelay: 300,
+  inputValueDelay: 100,
 
   debouncedInputValueChanged: function () {
     this.set('value', this.get('debouncedInputValue'));
