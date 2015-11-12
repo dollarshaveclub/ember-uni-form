@@ -33,7 +33,7 @@ export default Ember.Mixin.create(
   }.on('didInsertElement').observes('field.dynamicAliasReady'),
 
   label: function () {
-    return ('' + this.get('property')).split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
+    return (this.get('property') || '').split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
   }.property('property'),
 
   message: function () {
