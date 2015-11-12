@@ -15,6 +15,7 @@ export default Ember.Component.extend(
   layout: layout,
 
   groupValue: Ember.computed.alias('field.value'),
+  label: '',
   name: Ember.computed.reads('property'),
 
   change: function () {
