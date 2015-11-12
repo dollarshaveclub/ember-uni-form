@@ -2,7 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/uni-form-select-tag';
 //
 // This is not the component you are looking for.
-// It‘s just a helper. You want {{ uni-form-select }}.
+// It's just a helper. You want {{ uni-form-select }}.
 //
 export default Ember.Component.extend({
 
@@ -16,14 +16,17 @@ export default Ember.Component.extend({
     if (option) this.set('value', option.val());
   },
 
-  initSelected: function () {
-    var option = (this.$(`option[value="${this.get('value')}"]`) || this.$('option:first'));
-    if (option) option.prop('selected', true);
-  }.on('didInsertElement'),
-
   valueChanged: function () {
     var select = this.$();
     if (select) select.val(this.get('value'));
   }.observes('value'),
+
+  didReceiveAttrs (o) {
+    var value = this.get('value');
+    this.set('content', o.newAttrs.content.value.map(o => {
+      Ember.set(o, 'selected', o.value === value);
+      return o;
+    }));
+  },
 
 });
