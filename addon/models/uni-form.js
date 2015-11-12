@@ -64,7 +64,8 @@ export default DS.Model.extend({
     if (!errors) return;
     var messages = this.get('messages').filter(message => message.source !== 'client');
     Object.keys(errors).forEach(key => {
-      errors[key].forEach(errorString => {
+      var o = errors[key];
+      if (o && o.forEach) o.forEach(errorString => {
         messages.push({
           field: key,
           body: errorString,
