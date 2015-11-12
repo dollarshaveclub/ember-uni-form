@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 
   didReceiveAttrs (o) {
     var value = this.get('value');
-    this.set('content', o.newAttrs.content.value.map(o => {
+    this.set('content', (Ember.get(o, 'newAttrs.content.value') || []).map(o => {
       Ember.set(o, 'selected', o.value === value);
       return o;
     }));
