@@ -1,14 +1,23 @@
 
 <ul>
-  {{#if multipleErrors }}
-    <li class="error message">
-      <span>Multiple fields have errors. Please fix them to submit this form.</span>
-    </li>
-  {{ else }}
-    <li class="{{ message.tone }} message">
-      <code>{{ message.field }}</code>
-      <span>{{ message.body }}</span>
-    </li>
+  {{#if showAllMessages }}
+    {{#each messages as |message| }}
+      <li class="{{ message.tone }} message">
+        <code>{{ message.field }}</code>
+        <span>{{ message.body }}</span>
+      </li>
+    {{/each}}
+  {{else}}
+    {{#if multipleErrors }}
+      <li class="error message">
+        <span>Multiple fields have errors. Please fix them to submit this form.</span>
+      </li>
+    {{else}}
+      <li class="{{ message.tone }} message">
+        <code>{{ message.field }}</code>
+        <span>{{ message.body }}</span>
+      </li>
+    {{/if}}
   {{/if}}
 </ul>
 
