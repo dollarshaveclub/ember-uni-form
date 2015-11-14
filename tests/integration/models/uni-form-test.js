@@ -15,6 +15,6 @@ test('it should add client error messages when validationErrors change', functio
   this.subject({ fieldNames: [ 'color' ], model: { validationErrors: validationErrors } });
   validationErrors.set('color', [ 'is ugly' ]);
   assert.deepEqual(this.subject().get('messages')[0], {
-    field: 'color', body: 'is ugly', source: 'client', tone: 'error'
+    field: 'color', body: 'is ugly', path: '', source: 'client', tone: 'error'
   });
 });

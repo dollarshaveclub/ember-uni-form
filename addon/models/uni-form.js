@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import messagePriority from '../utils/message-priority';
+import pathify from '../utils/pathify';
 
 export default DS.Model.extend({
 
@@ -12,12 +13,15 @@ export default DS.Model.extend({
   // Computed properties
   //
 
+  // TODO interrogate model for attributes and relationships (to support custom serializers)
   fieldNames: function () {
     var payload = this.get('model').serialize();
     payload = payload.data ? payload.data : payload;
     payload = payload.attributes ? payload.attributes : payload;
-    return Object.keys(payload).map(Ember.String.camelize);
+    return pathify(payload).map(s => s.replace(/\./g, '_'));
   }.property('model'),
+
+  fieldPaths: Ember.computed.map('fieldNames', name => name.replace(/_/g, '.')),
 
   fieldsByName: function () {
     var result = {};
@@ -35,12 +39,19 @@ export default DS.Model.extend({
   //
 
   watchClientErrors: function () {
-    var validationErrors = this.get('model.validationErrors');
-    if (!validationErrors) return;
-    this.get('fieldNames').forEach(name => {
-      validationErrors.addObserver(name, this, this.parseClientErrors);
+    this.get('fieldPaths').forEach(fieldPath => {
+      var lastDot = fieldPath.lastIndexOf('.');
+      var basename = fieldPath.slice(lastDot + 1);
+      var childPath = lastDot === -1 ? '' : fieldPath.slice(0, lastDot);
+      var modelPath = childPath ? `model.${childPath}` : 'model';
+      var errorsPath = `${modelPath}.validationErrors.${basename}`;
+      var syncErrors = () => {
+        var errors = this.get(errorsPath);
+        this.updateFieldMessages(errors, basename, childPath, 'client', 'error');
+      };
+      this.addObserver(errorsPath, this, syncErrors);
+      syncErrors();
     });
-    this.parseClientErrors();
   }.observes('model'),
 
   //
@@ -59,19 +70,18 @@ export default DS.Model.extend({
   },
 
   // Parses output of ember-validations
-  parseClientErrors: function () {
-    var errors = this.get('model.validationErrors');
-    if (!errors) return;
-    var messages = this.get('messages').filter(message => message.source !== 'client');
-    Object.keys(errors).forEach(key => {
-      var o = errors[key];
-      if (o && o.forEach) o.forEach(errorString => {
-        messages.push({
-          field: key,
-          body: errorString,
-          source: 'client',
-          tone: 'error',
-        });
+  updateFieldMessages: function (strings, field, path, source, tone) {
+    var messages = this.get('messages').filter(o => o.field  !== field   ||
+                                                    o.path   !== path    ||
+                                                    o.tone   !== tone    ||
+                                                    o.source !== source  );
+    Ember.makeArray(strings).forEach(body => {
+      messages.push({
+        field: field,
+        body: body,
+        path: path,
+        source: source,
+        tone: tone,
       });
     });
     this.set('messages', messages);

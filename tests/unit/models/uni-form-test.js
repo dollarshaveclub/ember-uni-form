@@ -50,7 +50,11 @@ test('it should update client errors when model.validationErrors.<fieldName> cha
     serialize: () => ({ email: 'me@example.com', password: 'secret' }),
     validationErrors: Ember.Object.create({ email: [ 'original error' ] }),
   } });
-  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], { body: 'original error', field: 'email', source: 'client', tone: 'error' }));
+  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], {
+    body: 'original error', field: 'email', path: '', source: 'client', tone: 'error'
+   }));
   this.subject().set('model.validationErrors.email', [ 'updated error' ]);
-  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], { body: 'updated error', field: 'email', source: 'client', tone: 'error' }));
+  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], {
+    body: 'updated error', field: 'email', path: '', source: 'client', tone: 'error'
+  }));
 });

@@ -1,1 +1,0 @@
-export { default } from 'ember-uni-form/utils/dynamic-alias';

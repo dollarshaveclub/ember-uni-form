@@ -1,6 +1,5 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import dynamicAlias from '../utils/dynamic-alias';
 import messagePriority from '../utils/message-priority';
 
 export default DS.Model.extend({
@@ -8,14 +7,33 @@ export default DS.Model.extend({
   dynamicAliasReady: false,
   name: DS.attr('string'),
   form: DS.belongsTo('uni-form', { inverse: null }),
-  validations: dynamicAlias('form.model.validations', 'name'),
+
+  // i.e. "firstName"
+  basename: function () {
+    return (this.get('path') || '').split('.').pop();
+  }.property('path'),
+
+  // i.e. "model" or "model.billingAddress"
+  modelPath: function () {
+    var path = this.get('path');
+    var lastDot = path.lastIndexOf('.');
+    return lastDot === -1 ? 'model' : `model.${path.slice(0, lastDot)}`;
+  }.property('path'),
+
+  // i.e. "billingAddress_firstName" for model.billingAddress.firstName
+  path: function () {
+    return (this.get('name') || '').replace(/_/g, '.');
+  }.property('name'),
 
   //
   // Events
   //
 
   ready: function () {
-    Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('name')}`));
+    var validationsKey = `form.${this.get('modelPath')}.validations.${this.get('basename')}`;
+    Ember.defineProperty(this, 'validations', Ember.computed.reads(validationsKey));
+    var valueKey = `form.model.${this.get('path')}`;
+    Ember.defineProperty(this, 'value', Ember.computed.alias(valueKey));
     this.set('dynamicAliasReady', true);
   },
 
@@ -23,7 +41,7 @@ export default DS.Model.extend({
   // Properties
   //
 
-  hasEmberValidations: Ember.computed.bool('form.model.validations'),
+  hasEmberValidations: Ember.computed.bool('validations'),
 
   maxlength: Ember.computed.reads('validations.length.maximum'),
 
