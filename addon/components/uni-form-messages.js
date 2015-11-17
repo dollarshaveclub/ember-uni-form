@@ -12,6 +12,6 @@ export default Ember.Component.extend(
   errors: Ember.computed.filterBy('messages', 'tone', 'error'),
   message: Ember.computed.reads('messages.firstObject'),
   messages: Ember.computed.reads('parentFormView.form.messages'),
-  showAllMessages: false,
+  showAll: false,
 
 });

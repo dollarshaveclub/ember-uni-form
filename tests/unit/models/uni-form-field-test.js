@@ -39,15 +39,13 @@ test('it should filter form.messages by field name', function (assert) {
     { field: 'email', priority: 1 },
     { field: 'email', priority: 4 },
   ] };
-  Ember.run(() => {
-    assert.deepEqual(this.subject().get('sortedMessages'), [
-      { field: 'email', priority: 5 },
-      { field: 'email', priority: 4 },
-      { field: 'email', priority: 3 },
-      { field: 'email', priority: 2 },
-      { field: 'email', priority: 1 },
-    ]);
-  });
+  assert.deepEqual(this.subject().get('sortedMessages'), [
+    { field: 'email', priority: 5 },
+    { field: 'email', priority: 4 },
+    { field: 'email', priority: 3 },
+    { field: 'email', priority: 2 },
+    { field: 'email', priority: 1 },
+  ]);
 });
 
 test('it should have "required" which reads form.model.validations.<name>.presence', function (assert) {

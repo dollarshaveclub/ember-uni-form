@@ -15,9 +15,15 @@ export default DS.Model.extend({
 
   // i.e. "model" or "model.billingAddress"
   modelPath: function () {
+    var parentPath = this.get('parentPath');
+    return parentPath ? `model.${parentPath}` : 'model';
+  }.property('parentPath'),
+
+  // i.e. "" or "billingAddress"
+  parentPath: function () {
     var path = this.get('path');
     var lastDot = path.lastIndexOf('.');
-    return lastDot === -1 ? 'model' : `model.${path.slice(0, lastDot)}`;
+    return lastDot === -1 ? '' : `${path.slice(0, lastDot)}`;
   }.property('path'),
 
   // i.e. "billingAddress_firstName" for model.billingAddress.firstName
@@ -48,7 +54,7 @@ export default DS.Model.extend({
   message: Ember.computed.reads('sortedMessages.firstObject'),
 
   messages: Ember.computed.filter('form.messages', function (message) {
-    return message.field === this.get('name');
+    return message.field === this.get('basename') && (message.path || '') === this.get('parentPath');
   }),
 
   notRequired: Ember.computed.not('required'),

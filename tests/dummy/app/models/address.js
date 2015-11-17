@@ -4,7 +4,7 @@ import EmberValidations from 'ember-validations';
 export default DS.Model.extend(
   EmberValidations,
 {
-  errors: null,
+  errors: null, // prevent EmberValidations from aliasing errors to validationErrors
 
   addressLine1: DS.attr('string'),
   addressLine2: DS.attr('string'),
@@ -22,32 +22,39 @@ export default DS.Model.extend(
   ],
 
   addressString: function () {
-    return '%@ %@ %@, %@ %@'.fmt(
-      this.get('addressLine1'),
-      this.get('addressLine2'),
-      this.get('city'),
-      this.get('state'),
-      this.get('zipCode')
-    );
+    return `${this.get('addressLine1')} ${this.get('addressLine2')} ${this.get('city')}, ${this.get('state')} ${this.get('zipCode')}`;
   }.property('addressLine1', 'addressLine2', 'city', 'state', 'zipCode'),
 
   validations: {
     addressLine1: {
-      length: { maximum: 35 },
-      presence: true
+      length: {
+        maximum: 35,
+        messages: { tooLong: 'Address line 1 is too long' },
+      },
+      presence: { message: 'Address line 1 is required' }
     },
     addressLine2: {
-      length: { maximum: 35 }
+      length: {
+        maximum: 35,
+        messages: { tooLong: 'Address line 2 is too long' },
+      }
     },
     city: {
-      length: { maximum: 40 },
-      presence: true
+      length: {
+        maximum: 40,
+        messages: { tooLong: 'City is too long' },
+      },
+      presence: { message: 'City is required' }
     },
     state: {
-      presence: true
+      presence: { message: 'State is required' }
     },
     zipCode: {
-      numericality: true
+      numericality: {
+        messages: {
+          numericality: 'Zip code must be a number'
+        }
+      }
     }
   }
 

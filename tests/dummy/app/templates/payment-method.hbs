@@ -1,0 +1,30 @@
+<h1>Nested model support</h1>
+
+{{#uni-form
+  form=uniForm
+  action=(action 'submit')
+}}
+  <fieldset>
+    <legend>paymentMethod</legend>
+    {{ uni-form-input property='number' }}
+    {{ uni-form-select content=model.monthOptions property='expMonth' }}
+    {{ uni-form-select content=model.yearOptions property='expYear' }}
+    {{ uni-form-input label='CVV' property='cvv' }}
+  </fieldset>
+  <fieldset>
+    <legend>paymentMethod.billingAddress</legend>
+    {{ uni-form-input property='billingAddress.addressLine1' }}
+    {{ uni-form-input property='billingAddress.addressLine2' }}<br>
+    {{ uni-form-input property='billingAddress.city' }}
+    {{ uni-form-input property='billingAddress.state' }}
+    {{ uni-form-input property='billingAddress.zipCode' }}<br>
+    {{ uni-form-radio label='Residential' property='billingAddress.zoning' value='residential' }}
+    {{ uni-form-radio label='Commercial' property='billingAddress.zoning' value='commercial' }}
+    {{ uni-form-radio label='Other' property='billingAddress.zoning' value='other' }}
+    => "{{ model.billingAddress.zoning }}"<br>
+    {{ uni-form-select content=model.billingAddress.zoningOptions property='billingAddress.zoning' }}
+  </fieldset>
+  <address>{{ model.billingAddress.addressString }}</address>
+  {{ uni-form-messages showAll=true }}
+  <input type="submit">
+{{/uni-form}}
