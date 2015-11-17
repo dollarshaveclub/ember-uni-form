@@ -13,15 +13,12 @@ export default DS.Model.extend({
   // Computed properties
   //
 
-  // TODO interrogate model for attributes and relationships (to support custom serializers)
-  fieldNames: function () {
-    var payload = this.get('model').serialize();
-    payload = payload.data ? payload.data : payload;
-    payload = payload.attributes ? payload.attributes : payload;
-    return pathify(payload).map(s => s.replace(/\./g, '_'));
-  }.property('model'),
+  fieldNames: Ember.computed.map('fieldPaths', name => name.replace(/\./g, '_')),
 
-  fieldPaths: Ember.computed.map('fieldNames', name => name.replace(/_/g, '.')),
+  fieldPaths: function () {
+    if (!this.get('model')) return [];
+    return pathify(this.get('model'), '', this.get('store'));
+  }.property('model'),
 
   fieldsByName: function () {
     var result = {};

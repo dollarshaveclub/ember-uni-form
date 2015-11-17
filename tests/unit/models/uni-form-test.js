@@ -1,8 +1,10 @@
 import { moduleForModel, test } from 'ember-qunit';
 import Ember from 'ember';
 
+var addressFieldPaths = [ 'addressLine1', 'addressLine2', 'city', 'hasMailbox', 'notes', 'state', 'zipCode', 'zoning' ];
+
 moduleForModel('uni-form', {
-  needs: [ 'model:uni-form-field' ],
+  needs: [ 'model:uni-form-field', 'model:address' ],
   unit: true,
 });
 
@@ -10,20 +12,20 @@ moduleForModel('uni-form', {
 // Properties
 //
 
-test('it should parse fieldNames from JSONAPISerializer output', function (assert) {
-  this.subject({ model: { serialize: () => ({ data: { attributes: { email: 'me@example.com', password: 'secret' }, id: 1, relationships: {}, type: 'action-create-sessions' } }) } });
-  assert.deepEqual(this.subject().get('fieldNames'), [ 'email', 'password' ]);
+test('it should parse fieldPaths from its model', function (assert) {
+  Ember.run(() => this.subject({ model: this.store().createRecord('address') }));
+  assert.deepEqual(this.subject().get('fieldPaths'), addressFieldPaths);
 });
 
-test('it should parse fieldNames from ActiveModelSerializer output', function (assert) {
-  this.subject({ model: { serialize: () => ({ email: 'me@example.com', password: 'secret' }) } });
-  assert.deepEqual(this.subject().get('fieldNames'), [ 'email', 'password' ]);
+test('it should map fieldPaths to fieldNames', function (assert) {
+  Ember.run(() => this.subject({ model: this.store().createRecord('address') }));
+  assert.deepEqual(this.subject().get('fieldNames'), addressFieldPaths);
 });
 
-test('it should populate fieldsByName for keys in serialized output', function (assert) {
-  this.subject({ model: { serialize: () => ({ email: 'me@example.com', password: 'secret' }) } });
+test('it should populate fieldsByName for attributes on its model', function (assert) {
+  Ember.run(() => this.subject({ model: this.store().createRecord('address') }));
   Ember.run(() => {
-    assert.deepEqual(Object.keys(this.subject().get('fieldsByName')), [ 'email', 'password' ]);
+    assert.deepEqual(Object.keys(this.subject().get('fieldsByName')), addressFieldPaths);
   });
 });
 
@@ -45,16 +47,31 @@ test('it should add a message when addMessage is given a string', function (asse
 // Observers
 //
 
-test('it should update client errors when model.validationErrors.<fieldName> changes', function (assert) {
-  this.subject({ model: {
-    serialize: () => ({ email: 'me@example.com', password: 'secret' }),
-    validationErrors: Ember.Object.create({ email: [ 'original error' ] }),
-  } });
-  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], {
-    body: 'original error', field: 'email', path: '', source: 'client', tone: 'error'
-   }));
-  this.subject().set('model.validationErrors.email', [ 'updated error' ]);
-  Ember.run(() => assert.deepEqual(this.subject().get('messages')[0], {
-    body: 'updated error', field: 'email', path: '', source: 'client', tone: 'error'
-  }));
+test('it should update client errors when model.validationErrors.<fieldPath> changes', function (assert) {
+  Ember.run(() => {
+    this.subject({ model: this.store().createRecord('address') });
+    this.subject().set('model.validationErrors', Ember.Object.create({ zipCode: [ 'original error' ] }));
+    assert.deepEqual(this.subject().get('messages')[0], {
+      body: 'original error', field: 'zipCode', path: '', source: 'client', tone: 'error'
+    });
+    this.subject().set('model.validationErrors.zipCode', [ 'updated error' ]);
+    assert.deepEqual(this.subject().get('messages')[0], {
+      body: 'updated error', field: 'zipCode', path: '', source: 'client', tone: 'error'
+    });
+  });
+});
+
+test('it should update client errors when model.validationErrors.<fieldPath> changes', function (assert) {
+  Ember.run(() => {
+    this.subject({ fieldPaths: [ 'color' ], model: {
+      validationErrors: Ember.Object.create({ color: [ 'original error' ] })
+    } });
+    assert.deepEqual(this.subject().get('messages')[0], {
+      body: 'original error', field: 'color', path: '', source: 'client', tone: 'error'
+    });
+    this.subject().set('model.validationErrors.color', [ 'updated error' ]);
+    assert.deepEqual(this.subject().get('messages')[0], {
+      body: 'updated error', field: 'color', path: '', source: 'client', tone: 'error'
+    });
+  });
 });

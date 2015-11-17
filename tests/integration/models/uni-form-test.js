@@ -11,9 +11,9 @@ moduleForModel('uni-form', {
 //
 
 test('it should add client error messages when validationErrors change', function (assert) {
-  var validationErrors = Ember.Object.create();
-  this.subject({ fieldNames: [ 'color' ], model: { validationErrors: validationErrors } });
-  validationErrors.set('color', [ 'is ugly' ]);
+  this.subject({ fieldPaths: [ 'color' ], model: {
+    validationErrors: Ember.Object.create({ color: [ 'is ugly' ] })
+  } });
   assert.deepEqual(this.subject().get('messages')[0], {
     field: 'color', body: 'is ugly', path: '', source: 'client', tone: 'error'
   });
