@@ -36,10 +36,19 @@ export default DS.Model.extend({
   //
 
   ready: function () {
-    var validationsKey = `form.${this.get('modelPath')}.validations.${this.get('basename')}`;
-    Ember.defineProperty(this, 'validations', Ember.computed.reads(validationsKey));
-    var valueKey = `form.model.${this.get('path')}`;
-    Ember.defineProperty(this, 'value', Ember.computed.alias(valueKey));
+
+    Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('path')}`));
+
+    Ember.defineProperty(this, 'parentValidations', Ember.computed.reads(`form.${this.get('modelPath')}.validations`));
+    Ember.defineProperty(this, 'validations', Ember.computed.reads(`parentValidations.${this.get('basename')}`));
+
+    Ember.defineProperty(this, 'maxlength', Ember.computed.bool('validations.length.maximum'));
+    Ember.defineProperty(this, 'required', Ember.computed.bool('validations.presence'));
+
+    Ember.defineProperty(this, 'hasEmberValidations', Ember.computed.bool('parentValidations'));
+    Ember.defineProperty(this, 'notRequired', Ember.computed.not('required'));
+    Ember.defineProperty(this, 'optional', Ember.computed.and('hasEmberValidations', 'notRequired'));
+
     this.set('dynamicAliasReady', true);
   },
 
@@ -47,21 +56,11 @@ export default DS.Model.extend({
   // Properties
   //
 
-  hasEmberValidations: Ember.computed.bool('validations'),
-
-  maxlength: Ember.computed.reads('validations.length.maximum'),
-
   message: Ember.computed.reads('sortedMessages.firstObject'),
 
   messages: Ember.computed.filter('form.messages', function (message) {
     return message.field === this.get('basename') && (message.path || '') === this.get('parentPath');
   }),
-
-  notRequired: Ember.computed.not('required'),
-
-  optional: Ember.computed.and('hasEmberValidations', 'notRequired'),
-
-  required: Ember.computed.bool('validations.presence'),
 
   sortedMessages: Ember.computed.sort('messages', function (a, b) {
     var p1 = messagePriority(a);

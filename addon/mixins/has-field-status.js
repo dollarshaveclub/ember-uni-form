@@ -10,9 +10,6 @@ export default Ember.Mixin.create(
   classNameBindings: [ 'disabled', 'focus', 'optional', 'prompting', 'required', 'status' ],
 
   editing: null, // first null, then boolean
-  maxlength: Ember.computed.reads('field.maxlength'),
-  optional: Ember.computed.reads('field.optional'),
-  required: Ember.computed.reads('field.required'),
   tone: Ember.computed.reads('field.tone'),
 
   focusIn: function () {
@@ -36,9 +33,17 @@ export default Ember.Mixin.create(
     return (this.get('property') || '').split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
   }.property('property'),
 
+  maxlength: function () {
+    return this.get('field.maxlength');
+  }.property('field.maxlength', 'field.dynamicAliasReady'),
+
   message: function () {
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
+
+  optional: function () {
+    return this.get('field.optional');
+  }.property('field.optional', 'field.dynamicAliasReady'),
 
   prompt: Ember.computed.reads('label'),
 
@@ -46,6 +51,10 @@ export default Ember.Mixin.create(
     var value = this.get('value');
     return typeof value !== 'string' || value === PROMPT_VALUE;
   }.property('value', 'field.dynamicAliasReady'),
+
+  required: function () {
+    return this.get('field.required');
+  }.property('field.required', 'field.dynamicAliasReady'),
 
   showStatus: function () {
     return this.get('parentFormView.submitAborted') || this.get('editing') === false;
