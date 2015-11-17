@@ -42,7 +42,7 @@ export default DS.Model.extend({
     Ember.defineProperty(this, 'parentValidations', Ember.computed.reads(`form.${this.get('modelPath')}.validations`));
     Ember.defineProperty(this, 'validations', Ember.computed.reads(`parentValidations.${this.get('basename')}`));
 
-    Ember.defineProperty(this, 'maxlength', Ember.computed.bool('validations.length.maximum'));
+    Ember.defineProperty(this, 'maxlength', Ember.computed.reads('validations.length.maximum'));
     Ember.defineProperty(this, 'required', Ember.computed.bool('validations.presence'));
 
     Ember.defineProperty(this, 'hasEmberValidations', Ember.computed.bool('parentValidations'));
