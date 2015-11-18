@@ -20,6 +20,6 @@ export default Ember.Component.extend(
 
   checked: function () {
     return this.get('value') === this.get('groupValue');
-  }.property('value', 'groupValue'),
+  }.property('value', 'groupValue', 'field.dynamicAliasReady'),
 
 });
