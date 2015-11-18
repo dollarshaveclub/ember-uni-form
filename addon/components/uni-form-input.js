@@ -15,7 +15,4 @@ export default Ember.Component.extend(
   layout: layout,
   type: 'text',
 
-  name: Ember.computed.reads('property'),
-  value: Ember.computed.alias('field.value'),
-
 });

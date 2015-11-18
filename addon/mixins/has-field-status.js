@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import FindsFieldByName from './finds-field-by-name';
 
-var PROMPT_VALUE  = '';
+var PROMPT_VALUE = '';
 
 export default Ember.Mixin.create(
   FindsFieldByName,
@@ -41,6 +41,8 @@ export default Ember.Mixin.create(
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
 
+  name: Ember.computed.reads('property'),
+
   optional: function () {
     return this.get('field.optional');
   }.property('field.optional', 'field.dynamicAliasReady'),
@@ -63,6 +65,8 @@ export default Ember.Mixin.create(
   status: function () {
     return this.get('showStatus') && this.get('tone') || 'default';
   }.property('showStatus', 'tone'),
+
+  value: Ember.computed.alias('field.value'),
 
   valueChange: function () {
     if (this._hasValueChanged() && this.$(':focus')) this.set('editing', true);

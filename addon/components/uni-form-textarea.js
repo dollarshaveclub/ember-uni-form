@@ -12,7 +12,4 @@ export default Ember.Component.extend(
   classNames: [ 'uni-form-textarea' ],
   layout: layout,
 
-  name: Ember.computed.reads('property'),
-  value: Ember.computed.alias('field.value'),
-
 });

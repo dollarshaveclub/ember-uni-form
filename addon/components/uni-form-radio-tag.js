@@ -14,8 +14,4 @@ export default Ember.Component.extend({
     this.set('groupValue', this.get('value'));
   },
 
-  checked: function () {
-    return this.get('value') === this.get('groupValue');
-  }.property('value', 'groupValue'),
-
 });

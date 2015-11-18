@@ -18,7 +18,4 @@ export default Ember.Component.extend(
   classNames: [ 'uni-form-select' ],
   layout: layout,
 
-  name: Ember.computed.reads('property'),
-  value: Ember.computed.alias('field.value'),
-
 });

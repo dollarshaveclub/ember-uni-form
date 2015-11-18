@@ -27,8 +27,6 @@ export default Ember.Component.extend(
 
   checked: Ember.computed.alias('value'),
   label: '',
-  name: Ember.computed.reads('property'),
   prompting: false,
-  value: Ember.computed.alias('field.value'),
 
 });

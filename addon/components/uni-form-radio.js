@@ -16,11 +16,7 @@ export default Ember.Component.extend(
 
   groupValue: Ember.computed.alias('field.value'),
   label: '',
-  name: Ember.computed.reads('property'),
-
-  change: function () {
-    this.set('groupValue', this.get('value'));
-  },
+  value: '',
 
   checked: function () {
     return this.get('value') === this.get('groupValue');
