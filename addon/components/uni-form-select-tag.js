@@ -12,21 +12,17 @@ export default Ember.Component.extend({
   layout: layout,
 
   change: function () {
-    var option = this.$('option:selected');
-    if (option) this.set('value', option.val());
+    if (this.$()) this.set('value', this.$().val());
   },
 
-  valueChanged: function () {
-    var select = this.$();
-    if (select) select.val(this.get('value'));
+  _content: function () {
+    return Ember.makeArray(this.get('content')).map(o => {
+      return { label: o.label, selected: o.value === this.get('value'), value: o.value };
+    });
+  }.property('content', 'value'),
+
+  valueChange: function () {
+    if (this.$()) this.$().val(this.get('value'));
   }.observes('value'),
-
-  didReceiveAttrs (o) {
-    var value = this.get('value');
-    this.set('content', (Ember.get(o, 'newAttrs.content.value') || []).map(o => {
-      Ember.set(o, 'selected', o.value === value);
-      return o;
-    }));
-  },
 
 });

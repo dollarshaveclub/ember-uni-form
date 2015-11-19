@@ -3,6 +3,6 @@
   <option class="prompt" value="">{{ prompt }}</option>
 {{/if}}
 
-{{#each content as |o| }}
+{{#each _content as |o| }}
   <option value="{{ o.value }}" selected={{ if o.selected 'selected' null }}>{{ o.label }}</option>
 {{/each}}
