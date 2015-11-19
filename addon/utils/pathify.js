@@ -9,17 +9,27 @@ export default function pathify (o, store) {
 function pathifyObject (o, prefix) {
   var result = [];
   if (prefix) result.push(prefix);
-  if (o && typeof o === 'object')
-    for (var p in o)
-      if (o.hasOwnProperty(p) && /^[a-z_$][a-z0-9_$]*$/i.test(p))
-        result = result.concat(pathifyObject(o[p], propertyPath(p, prefix)));
+  if (o && typeof o === 'object') Object.keys(o).forEach(key => {
+    result = result.concat(pathifyObject(o[key], propertyPath(key, prefix)));
+  });
   return result;
 }
 
+// Belt-and-suspenders approach gets field paths from both the ultimate payload
+// and the model data structure in memory.
 function pathifyModel (model, store, prefix) {
+
   var result = [];
-  var serializer = store.serializerFor(Ember.get(model, '_internalModel.modelName'));
   if (prefix) result.push(prefix);
+
+  // Pathify serializer output
+  var payload = model.serialize();
+  payload = payload.data ? payload.data : payload;
+  payload = payload.attributes ? payload.attributes : payload;
+  result = result.concat(pathifyObject(payload, prefix));
+
+  // Pathify model attributes and child models which will be serialized
+  var serializer = store.serializerFor(Ember.get(model, '_internalModel.modelName'));
   model.eachAttribute(name => result.push(propertyPath(name, prefix)));
   model.eachRelationship((name, meta) => {
     if (meta.kind === 'hasMany') return; // not supported
@@ -33,7 +43,9 @@ function pathifyModel (model, store, prefix) {
       store.deleteRecord(instance);
     }
   });
-  return result;
+
+  return result.uniq();
+
 }
 
 function propertyPath (name, prefix) {
