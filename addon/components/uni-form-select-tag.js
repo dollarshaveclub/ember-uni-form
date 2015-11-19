@@ -22,7 +22,7 @@ export default Ember.Component.extend({
   }.property('content', 'value'),
 
   valueChange: function () {
-    if (this.$()) this.$().val(this.get('value'));
+    Ember.run.next(() => { if (this.$()) this.$().val(this.get('value')); });
   }.observes('value'),
 
 });
