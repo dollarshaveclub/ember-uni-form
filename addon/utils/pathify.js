@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-export default function pathify (o, prefix, store) {
-  if (o instanceof DS.Model) return pathifyModel(o, prefix, store);
-  else return pathifyObject(o, prefix);
+export default function pathify (o, store) {
+  if (o instanceof DS.Model) return pathifyModel(o, store);
+  else return pathifyObject(o);
 }
 
 function pathifyObject (o, prefix) {
@@ -12,11 +12,11 @@ function pathifyObject (o, prefix) {
   if (o && typeof o === 'object')
     for (var p in o)
       if (o.hasOwnProperty(p) && /^[a-z_$][a-z0-9_$]*$/i.test(p))
-        result = result.concat(pathify(o[p], propertyPath(p, prefix)));
+        result = result.concat(pathifyObject(o[p], propertyPath(p, prefix)));
   return result;
 }
 
-function pathifyModel (model, prefix, store) {
+function pathifyModel (model, store, prefix) {
   var result = [];
   var serializer = store.serializerFor(Ember.get(model, '_internalModel.modelName'));
   if (prefix) result.push(prefix);
@@ -29,7 +29,7 @@ function pathifyModel (model, prefix, store) {
     if (!willSerialize) result.push(childPath);
     else {
       var instance = store.createRecord(meta.type);
-      result = result.concat(pathify(instance, childPath, store));
+      result = result.concat(pathifyModel(instance, store, childPath));
       store.deleteRecord(instance);
     }
   });

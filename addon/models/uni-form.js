@@ -17,7 +17,7 @@ export default DS.Model.extend({
 
   fieldPaths: function () {
     if (!this.get('model')) return [];
-    return pathify(this.get('model'), '', this.get('store'));
+    return pathify(this.get('model'), this.get('store'));
   }.property('model'),
 
   fieldsByName: function () {
