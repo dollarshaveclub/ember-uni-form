@@ -64,6 +64,7 @@ export default DS.Model.extend({
       o.priority = messagePriority(o);
       messages.push(o);
     }
+    this.set('messages', messages);
   },
 
   // Parses output of ember-validations
