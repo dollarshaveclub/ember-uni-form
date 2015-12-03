@@ -5,25 +5,30 @@
 
 # Ember-uni-form
 
+Find this readme insufficient? It is! This is just an overview.
+The real documentation is the example code in `/tests/dummy/app`!
+
 The Ember Uni Form addon clears up confusion between:
 
  * client-side and server-side errors
  * field-specific and form-level messages
  * error messages, warnings and other feedback
 
-It helps you manage multiple sources of user feedback messages—[DS.Errors](http://emberjs.com/api/data/classes/DS.Errors.html), [Ember Validations](https://github.com/dockyard/ember-validations) and your code—without creating a maintenance nightmare.
+Uni-Form helps you manage multiple sources of user feedback messages—[DS.Errors](http://emberjs.com/api/data/classes/DS.Errors.html), [Ember Validations](https://github.com/dockyard/ember-validations) and your code—without creating a maintenance nightmare.
 
 ## Usage
 
 ```handlebars
 {{!-- templates/user/new.hbs --}}
 {{#uni-form
-  form=uniForm
   action=(action 'submit')
+  form=uniForm
 }}
-  {{ uni-form-input property='email' type='email' }}
-  {{ uni-form-input property='password' type='password' }}
-  {{ uni-form-messages }}
+  {{ uni-form-input payloadKey='email' type='email' }}
+  {{ uni-form-input payloadKey='password' type='password' }}
+  {{#if uniForm.submitFailed }}
+    {{ uni-form-messages }}
+  {{/if}}
   <input type="submit" value="Save">
 {{/uni-form}}
 ```
@@ -35,7 +40,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   uniForm: function () {
-    return this.store.createRecord('uni-form', { model: this.get('model') });
+    return this.store.createRecord('uni-form', { payload: this.get('model') });
   }.property('model'),
 
   actions: {
@@ -49,24 +54,29 @@ export default Ember.Controller.extend({
           body: 'The internet gods are angry. Connection failed.',
           tone: 'error'
         });
+        // Show errors
+        this.get('uniForm').set('submitFailed', true);
       });
     }
 
   }
+
 }
 ```
 
 ## How It Works
 
-A `model:uni-form` has a data model, fields and messages.
+A `model:uni-form` has a payload model, fieldsByName (a hash of field models) and messages.
 
 A `model:uni-form-field` has a value alias and computed properties for message, tone, required, etc.
 
-A `message` has a field, body, source, and tone.
+A `message` has a field, path, body, source, and tone.
 
 ```javascript
+// Client error for form.payload.user.email
 var msg = {
   field: 'email',
+  path: 'user',
   body: 'Please enter a valid email address.',
   source: 'client',
   tone: 'error',

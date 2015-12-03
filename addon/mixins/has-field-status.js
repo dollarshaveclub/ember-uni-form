@@ -30,8 +30,8 @@ export default Ember.Mixin.create(
   }.on('didInsertElement').observes('field.dynamicAliasReady'),
 
   label: function () {
-    return (this.get('property') || '').split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
-  }.property('property'),
+    return (this.get('payloadKey') || '').split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
+  }.property('payloadKey'),
 
   maxlength: function () {
     return this.get('field.maxlength');
@@ -41,7 +41,7 @@ export default Ember.Mixin.create(
     return this.get('showStatus') && this.get('field.message');
   }.property('showStatus', 'field.message'),
 
-  name: Ember.computed.reads('property'),
+  name: Ember.computed.reads('payloadKey'),
 
   optional: function () {
     return this.get('field.optional');
@@ -59,8 +59,8 @@ export default Ember.Mixin.create(
   }.property('field.required', 'field.dynamicAliasReady'),
 
   showStatus: function () {
-    return this.get('parentFormView.submitAborted') || this.get('editing') === false;
-  }.property('editing', 'parentFormView.submitAborted'),
+    return this.get('parentFormView.submitFailed') || this.get('editing') === false;
+  }.property('editing', 'parentFormView.submitFailed'),
 
   status: function () {
     return this.get('showStatus') && this.get('tone') || 'default';

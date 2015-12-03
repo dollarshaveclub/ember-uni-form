@@ -10,26 +10,26 @@ export default DS.Model.extend({
 
   // i.e. "firstName"
   basename: function () {
-    return (this.get('path') || '').split('.').pop();
-  }.property('path'),
+    return (this.get('payloadKey') || '').split('.').pop();
+  }.property('payloadKey'),
 
-  // i.e. "model" or "model.billingAddress"
-  modelPath: function () {
-    var parentPath = this.get('parentPath');
-    return parentPath ? `model.${parentPath}` : 'model';
-  }.property('parentPath'),
-
-  // i.e. "" or "billingAddress"
-  parentPath: function () {
-    var path = this.get('path');
-    var lastDot = path.lastIndexOf('.');
-    return lastDot === -1 ? '' : `${path.slice(0, lastDot)}`;
-  }.property('path'),
-
-  // i.e. "billingAddress_firstName" for model.billingAddress.firstName
-  path: function () {
+  // i.e. "billingAddress_firstName" for payload.billingAddress.firstName
+  payloadKey: function () {
     return (this.get('name') || '').replace(/_/g, '.');
   }.property('name'),
+
+  // i.e. "" or "billingAddress"
+  parentKey: function () {
+    var key = this.get('payloadKey');
+    var lastDot = key.lastIndexOf('.');
+    return lastDot === -1 ? '' : `${key.slice(0, lastDot)}`;
+  }.property('payloadKey'),
+
+  // i.e. "payload" or "payload.billingAddress"
+  parentPath: function () {
+    var parentKey = this.get('parentKey');
+    return parentKey ? `payload.${parentKey}` : 'payload';
+  }.property('parentPath'),
 
   //
   // Events
@@ -37,9 +37,9 @@ export default DS.Model.extend({
 
   ready: function () {
 
-    Ember.defineProperty(this, 'value', Ember.computed.alias(`form.model.${this.get('path')}`));
+    Ember.defineProperty(this, 'value', Ember.computed.alias(`form.payload.${this.get('payloadKey')}`));
 
-    Ember.defineProperty(this, 'parentValidations', Ember.computed.reads(`form.${this.get('modelPath')}.validations`));
+    Ember.defineProperty(this, 'parentValidations', Ember.computed.reads(`form.${this.get('parentPath')}.validations`));
     Ember.defineProperty(this, 'validations', Ember.computed.reads(`parentValidations.${this.get('basename')}`));
 
     Ember.defineProperty(this, 'maxlength', Ember.computed.reads('validations.length.maximum'));
@@ -59,7 +59,7 @@ export default DS.Model.extend({
   message: Ember.computed.reads('sortedMessages.firstObject'),
 
   messages: Ember.computed.filter('form.messages', function (message) {
-    return message.field === this.get('basename') && (message.path || '') === this.get('parentPath');
+    return message.field === this.get('basename') && (message.path || '') === this.get('parentKey');
   }),
 
   sortedMessages: Ember.computed.sort('messages', function (a, b) {

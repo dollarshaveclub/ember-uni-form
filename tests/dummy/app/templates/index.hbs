@@ -1,32 +1,37 @@
 <h1>ember-uni-form</h1>
 
 {{#uni-form
-  form=uniForm
   action=(action 'submit')
+  form=uniForm
 }}
+
   <fieldset>
-    <legend>Fields bound to <b>form.model.&lt;property&gt;</b></legend>
-    {{ uni-form-input property='addressLine1' label='Label text' }}
-    {{ uni-form-input property='addressLine2' }}<br>
-    {{ uni-form-input property='city' }}
-    {{ uni-form-input property='state' }}
-    {{ uni-form-input property='zipCode' }}<br>
+    <legend>Fields bound to <b>form.payload.&lt;property&gt;</b></legend>
+    {{ uni-form-input payloadKey='addressLine1' label='Label text' }}
+    {{ uni-form-input payloadKey='addressLine2' }}<br>
+    {{ uni-form-input payloadKey='city' }}
+    {{ uni-form-input payloadKey='state' }}
+    {{ uni-form-input payloadKey='zipCode' }}<br>
   </fieldset>
+
   <address>{{ model.addressString }} {{ if model.hasMailbox '[BOX]' }}</address>
+
   <fieldset>
     <legend>Textarea</legend>
-    {{ uni-form-textarea disabled=isNotesDisabled label='Notes' property='notes' }}
+    {{ uni-form-textarea disabled=isNotesDisabled label='Notes' payloadKey='notes' }}
     <pre>{{ model.notes }}</pre>
     {{ uni-form-checkbox label='disable' value=isNotesDisabled }}
   </fieldset>
+
   <fieldset>
     <legend>Zoning</legend>
-    {{ uni-form-radio label='Residential' property='zoning' value='residential' }}
-    {{ uni-form-radio label='Commercial' property='zoning' value='commercial' }}
-    {{ uni-form-radio label='Other' property='zoning' value='other' }}
+    {{ uni-form-radio label='Residential' payloadKey='zoning' value='residential' }}
+    {{ uni-form-radio label='Commercial' payloadKey='zoning' value='commercial' }}
+    {{ uni-form-radio label='Other' payloadKey='zoning' value='other' }}
     => "{{ model.zoning }}"<br>
-    {{ uni-form-select content=model.zoningOptions label='or with a select' prompt='prompt text' property='zoning' }}
+    {{ uni-form-select content=model.zoningOptions label='or with a select' prompt='prompt text' payloadKey='zoning' }}
   </fieldset>
+
   <fieldset>
     <legend>Direct value binding</legend>
     {{#uni-form-input label='attrs.value is set' value=uniForm.model.addressLine1 }}
@@ -38,8 +43,11 @@
     {{ uni-form-textarea label='Notes by value' value=uniForm.model.notes }}
     {{ uni-form-checkbox label='has mailbox' value=uniForm.model.hasMailbox }}
   </fieldset>
+
   {{ uni-form-messages showAll=true }}
+
   <input type="submit">
+
 {{/uni-form}}
 
 <fieldset>

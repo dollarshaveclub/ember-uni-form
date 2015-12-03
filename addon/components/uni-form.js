@@ -6,15 +6,15 @@ export default Ember.Component.extend({
   classNames: [ 'uni-form' ],
   classNameBindings: [ 'invalid' ],
 
-  invalid: Ember.computed.reads('form.model.isInvalid'),
+  invalid: Ember.computed.reads('form.payload.isInvalid'),
 
-  submitAborted: Ember.computed.alias('form.submitAborted'),
+  submitFailed: Ember.computed.alias('form.submitFailed'),
   submitWithErrors: false,
 
   submit: function (e) {
     if (e) e.preventDefault();
 
-    var model = this.get('form.model');
+    var model = this.get('form.payload');
     var action = this.get('action');
     if (!(model && action)) return;
 
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     })
     .catch(() => {
       if (this.get('submitWithErrors')) action();
-      else this.set('form.submitAborted', true);
+      else this.set('form.submitFailed', true);
     });
   },
 

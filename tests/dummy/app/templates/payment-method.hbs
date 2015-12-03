@@ -1,30 +1,36 @@
 <h1>Nested model support</h1>
 
 {{#uni-form
-  form=uniForm
   action=(action 'submit')
+  form=uniForm
 }}
+
   <fieldset>
     <legend>paymentMethod</legend>
-    {{ uni-form-input property='number' }}
-    {{ uni-form-select content=model.monthOptions property='expMonth' }}
-    {{ uni-form-select content=model.yearOptions property='expYear' }}
-    {{ uni-form-input label='CVV' property='cvv' }}
+    {{ uni-form-input payloadKey='number' }}
+    {{ uni-form-select payloadKey='expMonth' content=model.monthOptions }}
+    {{ uni-form-select payloadKey='expYear' content=model.yearOptions }}
+    {{ uni-form-input payloadKey='cvv' label='CVV' }}
   </fieldset>
+
   <fieldset>
     <legend>paymentMethod.billingAddress</legend>
-    {{ uni-form-input property='billingAddress.addressLine1' }}
-    {{ uni-form-input property='billingAddress.addressLine2' }}<br>
-    {{ uni-form-input property='billingAddress.city' }}
-    {{ uni-form-input property='billingAddress.state' }}
-    {{ uni-form-input property='billingAddress.zipCode' }}<br>
-    {{ uni-form-radio label='Residential' property='billingAddress.zoning' value='residential' }}
-    {{ uni-form-radio label='Commercial' property='billingAddress.zoning' value='commercial' }}
-    {{ uni-form-radio label='Other' property='billingAddress.zoning' value='other' }}
+    {{ uni-form-input payloadKey='billingAddress.addressLine1' }}
+    {{ uni-form-input payloadKey='billingAddress.addressLine2' }}<br>
+    {{ uni-form-input payloadKey='billingAddress.city' }}
+    {{ uni-form-input payloadKey='billingAddress.state' }}
+    {{ uni-form-input payloadKey='billingAddress.zipCode' }}<br>
+    {{ uni-form-radio payloadKey='billingAddress.zoning' label='Residential' value='residential' }}
+    {{ uni-form-radio payloadKey='billingAddress.zoning' label='Commercial' value='commercial' }}
+    {{ uni-form-radio payloadKey='billingAddress.zoning' label='Other' value='other' }}
     => "{{ model.billingAddress.zoning }}"<br>
-    {{ uni-form-select content=model.billingAddress.zoningOptions property='billingAddress.zoning' }}
+    {{ uni-form-select payloadKey='billingAddress.zoning' content=model.billingAddress.zoningOptions }}
   </fieldset>
+
   <address>{{ model.billingAddress.addressString }}</address>
+
   {{ uni-form-messages showAll=true }}
+
   <input type="submit">
+
 {{/uni-form}}

@@ -11,7 +11,7 @@ import HasFieldStatus from '../mixins/has-field-status';
 // Within a uni-form component:
 //
 // {{#uni-form form=uniForm }}
-//   {{#uni-form-checkbox property='billingSameAsShipping' }}
+//   {{#uni-form-checkbox payloadKey='billingSameAsShipping' }}
 //     Billing same as shipping
 //   {{/uni-form-checkbox}}
 // {{/uni-form}}

@@ -10,10 +10,10 @@ export default DS.Model.extend(
 
   billingAddress: DS.belongsTo('address'),
   billingAddressSameAsShippingAddress: DS.attr('boolean'),
-  number: DS.attr('string'),
   cvv: DS.attr('string'),
   expMonth: DS.attr('string'),
   expYear: DS.attr('string'),
+  number: DS.attr('string'),
 
   validations: {
     cvv: {

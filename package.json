@@ -1,7 +1,7 @@
 {
   "name": "ember-uni-form",
-  "version": "2.1.5",
-  "description": "Powerful forms without the confusion.",
+  "version": "3.0.0",
+  "description": "Powerful forms, cleanly built.",
   "directories": {
     "doc": "doc",
     "test": "tests"

@@ -1,4 +1,4 @@
-import messagePriority from '../../../utils/message-priority';
+import messagePriority from 'ember-uni-form/utils/message-priority';
 import { module, test } from 'qunit';
 
 var ERROR_PRIORITY = 50;

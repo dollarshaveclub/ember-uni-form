@@ -2,7 +2,7 @@ import Ember from 'ember';
 import layout from '../templates/uni-form-radio';
 import HasFieldStatus from '../mixins/has-field-status';
 
-// {{ uni-form-radio value='spam' property='dish' label='Spam' }}
+// {{ uni-form-radio value='spam' payloadKey='dish' label='Spam' }}
 // {{#uni-form-radio value='eggs' groupValue=form.model.dish }} Eggs {{/uni-form-radio}}
 
 export default Ember.Component.extend(

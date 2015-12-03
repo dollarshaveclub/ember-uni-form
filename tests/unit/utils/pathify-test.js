@@ -1,4 +1,4 @@
-import pathify from '../../../utils/pathify';
+import pathify from 'ember-uni-form/utils/pathify';
 import { module, test } from 'qunit';
 
 module('util:pathify');

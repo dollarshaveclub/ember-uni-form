@@ -33,9 +33,9 @@ test('it should not render .label if attrs.label is empty', function (assert) {
   assert.equal(this.$('.label').length, 0);
 });
 
-test('it sets select[name] to attrs.property (for autocomplete)', function (assert) {
-  this.subject({ property: 'property name' });
-  assert.equal(this.$('select').attr('name'), 'property name');
+test('it sets select[name] to attrs.payloadKey (for autocomplete)', function (assert) {
+  this.subject({ payloadKey: 'foo.bar' });
+  assert.equal(this.$('select').attr('name'), 'foo.bar');
 });
 
 test('it should render .message.<tone>', function (assert) {

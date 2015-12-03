@@ -1,24 +1,22 @@
 import DS from 'ember-data';
 import Ember from 'ember';
-import messagePriority from '../utils/message-priority';
-import pathify from '../utils/pathify';
+import messagePriority from 'ember-uni-form/utils/message-priority';
+import pathify from 'ember-uni-form/utils/pathify';
 
 export default DS.Model.extend({
 
-  model: DS.attr(),
   messages: (() => []).property(),
-  submitAborted: false,
+  payload: DS.attr(),
+
+  // Set by component:uni-form.submit when validation fails
+  // May be set by client code (form action) on server error
+  submitFailed: false,
 
   //
   // Computed properties
   //
 
-  fieldNames: Ember.computed.map('fieldPaths', name => name.replace(/\./g, '_')),
-
-  fieldPaths: function () {
-    if (!this.get('model')) return [];
-    return pathify(this.get('model'), this.get('store'));
-  }.property('model'),
+  fieldNames: Ember.computed.map('payloadKeys', name => name.replace(/\./g, '_')),
 
   fieldsByName: function () {
     var result = {};
@@ -29,27 +27,32 @@ export default DS.Model.extend({
       });
     });
     return result;
-  }.property('model'),
+  }.property('payload'),
+
+  payloadKeys: function () {
+    if (!this.get('payload')) return [];
+    return pathify(this.get('payload'), this.get('store'));
+  }.property('payload'),
 
   //
   // Observers
   //
 
   watchClientErrors: function () {
-    this.get('fieldPaths').forEach(fieldPath => {
-      var lastDot = fieldPath.lastIndexOf('.');
-      var basename = fieldPath.slice(lastDot + 1);
-      var childPath = lastDot === -1 ? '' : fieldPath.slice(0, lastDot);
-      var modelPath = childPath ? `model.${childPath}` : 'model';
-      var errorsPath = `${modelPath}.validationErrors.${basename}`;
+    this.get('payloadKeys').forEach(payloadKey => {
+      var lastDot = payloadKey.lastIndexOf('.');
+      var basename = payloadKey.slice(lastDot + 1);
+      var parentKey = lastDot === -1 ? '' : payloadKey.slice(0, lastDot);
+      var parentPath = parentKey ? `payload.${parentKey}` : 'payload';
+      var errorsPath = `${parentPath}.validationErrors.${basename}`;
       var syncErrors = () => {
         var errors = this.get(errorsPath);
-        this.updateFieldMessages(errors, basename, childPath, 'client', 'error');
+        this.updateFieldMessages(errors, basename, parentKey, 'client', 'error');
       };
       this.addObserver(errorsPath, this, syncErrors);
       syncErrors();
     });
-  }.observes('model'),
+  }.observes('payload'),
 
   //
   // Methods

@@ -5,6 +5,7 @@
 // var msg = {
 //   field: 'email',
 //   body: 'Please enter a valid email address.',
+//   path: 'childModel',
 //   source: 'client',
 //   tone: 'error',
 //   priority: 50,
