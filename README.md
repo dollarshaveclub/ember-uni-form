@@ -5,66 +5,84 @@
 
 # Ember-uni-form
 
-Find this readme insufficient? It is! This is just an overview.
-The real documentation is the example code in `/tests/dummy/app`!
+The Ember Uni-Form addon makes it easy to wire up complex, validated forms.
 
-The Ember Uni Form addon clears up confusion between:
-
- * client-side and server-side errors
- * field-specific and form-level messages
- * error messages, warnings and other feedback
-
-Uni-Form helps you manage multiple sources of user feedback messages—[DS.Errors](http://emberjs.com/api/data/classes/DS.Errors.html), [Ember Validations](https://github.com/dockyard/ember-validations) and your code—without creating a maintenance nightmare.
+Uni-Form
+* minimizes boilerplate with sensible defaults
+* provides a conventional structure for your form code
+* supports validation of nested models within the payload
 
 ## Usage
 
 ```handlebars
-{{!-- templates/user/new.hbs --}}
-{{#uni-form
-  action=(action 'submit')
-  form=uniForm
-}}
+{{#uni-form action=(action 'mySubmit') form=myForm }}
   {{ uni-form-input payloadKey='email' type='email' }}
   {{ uni-form-input payloadKey='password' type='password' }}
-  {{#if uniForm.submitFailed }}
-    {{ uni-form-messages }}
-  {{/if}}
+  {{#if myForm.submitFailed }} {{ uni-form-messages }} {{/if}}
   <input type="submit" value="Save">
 {{/uni-form}}
 ```
 
 ```javascript
-// controllers/user/new.js
 import Ember from 'ember';
-
 export default Ember.Controller.extend({
 
-  uniForm: function () {
+  myForm: function () {
     return this.store.createRecord('uni-form', { payload: this.get('model') });
   }.property('model'),
 
   actions: {
-
-    submit: function () {
+    mySubmit: function () {
       this.get('model').save()
       .then(() => this.transitionTo('user', this.get('model')))
-      .fail(() => {
+      .catch(() => {
         // Set a form-level error message
-        this.get('uniForm').addMessage({
+        this.get('myForm').addMessage({
           body: 'The internet gods are angry. Connection failed.',
           tone: 'error'
         });
-        // Show errors
-        this.get('uniForm').set('submitFailed', true);
+        // Show uni-form-messages
+        this.get('myForm').set('submitFailed', true);
       });
     }
-
   }
-
 }
 ```
 
+_Find this example insufficient? It is! The real documentation is the example code in `/tests/dummy/app`!_
+
 ## How It Works
+
+Uni-Form provides a conventional structure for your form code.
+
+The data:
+* form model
+* field models
+* message objects
+
+The views:
+* form component
+* field components
+
+You provide:
+* payload model
+* submit action
+
+You can directly bind a `value` to an input (e.g. a checkbox for a controller property), but Uni-Form really shines when you put your fields within a form and specify the `payloadKey`.
+
+Uni-Form field components will take the `payloadKey` and parse validations and error messages on `parentFormView.form.payload` to give you:
+* `field.label`
+* `field.maxlength`
+* `field.messages`
+* `field.name`
+* `field.optional`
+* `field.prompt`
+* `field.required`
+* `field.status`
+* `field.tone`
+* `field.value`
+
+Binding by `payloadKey` works with nested models in the payload. __Check out the example in the dummy app.__
 
 A `model:uni-form` has a payload model, fieldsByName (a hash of field models) and messages.
 
@@ -85,7 +103,10 @@ var msg = {
 
 ## Notes
 
+Uni-Form is the one form library to rule them all. And in the darkness, bind them.
+
 * This addon requires prototype extensions.
+* __You should really read the code in the dummy app.__
 
 ## Installation
 

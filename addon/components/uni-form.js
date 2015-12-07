@@ -14,6 +14,9 @@ export default Ember.Component.extend({
   submit: function (e) {
     if (e) e.preventDefault();
 
+    // Blur on submit so pressing enter twice will not submit twice.
+    this.$(':focus').blur();
+
     var model = this.get('form.payload');
     var action = this.get('action');
     if (!(model && action)) return;
