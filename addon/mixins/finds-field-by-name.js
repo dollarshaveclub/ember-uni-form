@@ -6,12 +6,13 @@ export default Ember.Mixin.create(
 {
 
   field: function () {
-    var form = this.get('parentFormView.form');
+    var form = this.get('form');
     var name = (this.get('payloadKey') || '').replace(/\./g, '_');
     var path = `fieldsByName.${name}`;
     if (!form || !name) return {};
-    if (form.then) return form.then(form => this.set('field', form.get(path) || {}));
     return form.get(path) || {};
-  }.property('parentFormView', 'payloadKey'),
+  }.property('form', 'payloadKey'),
+
+  form: Ember.computed.reads('parentFormView.form'),
 
 });
