@@ -12,6 +12,7 @@ export default Ember.Component.extend({
   submitWithErrors: false,
 
   // Manually wire what should work out of the box (and did, except when it didn't)
+  // The binding fails if you have invalid markup with nested forms.
   bindSubmit: function () {
     this.$().on('submit', e => { this.submit(e); });
   }.on('didInsertElement'),
