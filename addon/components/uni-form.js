@@ -11,6 +11,11 @@ export default Ember.Component.extend({
   submitFailed: Ember.computed.alias('form.submitFailed'),
   submitWithErrors: false,
 
+  // Manually wire what should work out of the box (and did, except when it didn't)
+  bindSubmit: function () {
+    this.$().on('submit', e => { this.submit(e); });
+  }.on('didInsertElement'),
+
   submit: function (e) {
     if (e) e.preventDefault();
 
