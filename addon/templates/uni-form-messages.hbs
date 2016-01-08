@@ -1,10 +1,11 @@
 
 <ul>
   {{#if showAll }}
-    {{#each messages as |message| }}
+    {{#each errors as |message| }}
       <li class="{{ message.tone }} message">
-        <code>{{ message.field }}</code>
-        <span>{{ message.body }}</span>
+        {{#if message.path}}<code class="path">{{ pretty-path message.path }}</code>{{/if}}
+        <code class="field">{{ message.field }}</code>
+        <span class="body">{{ message.body }}</span>
       </li>
     {{/each}}
   {{else}}
@@ -14,8 +15,9 @@
       </li>
     {{else}}
       <li class="{{ message.tone }} message">
-        <code>{{ message.field }}</code>
-        <span>{{ message.body }}</span>
+        {{#if message.path}}<code class="path">{{ pretty-path message.path }}</code>{{/if}}
+        <code class="field">{{ message.field }}</code>
+        <span class="body">{{ message.body }}</span>
       </li>
     {{/if}}
   {{/if}}
