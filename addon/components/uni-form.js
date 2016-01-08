@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     if (focusNode) focusNode.blur();
 
     var model = this.get('form.payload');
-    var action = this.attrs.action;
+    var action = this.get('action');
     if (!(model && action)) return;
 
     return new Ember.RSVP.Promise((resolve, reject) => {
