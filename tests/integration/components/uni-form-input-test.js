@@ -2,8 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-var INPUT_DEBOUNCE_DELAY = 300;
-
 moduleForComponent('uni-form-input', {
   integration: true,
 });
@@ -13,17 +11,21 @@ moduleForComponent('uni-form-input', {
 //
 
 test('it should bind the input[value] to attrs.value', function (assert) {
-  this.set('x', 'initial');
-  this.render(hbs`{{ uni-form-input value=x }}`);
-  assert.equal(this.$('input').val(), 'initial');
-  this.set('x', 'updated via context');
-  assert.equal(this.$('input').val(), 'updated via context');
-  this.$('input').val('updated via input').trigger('change');
   var done = assert.async();
+  this.set('x', 'initial');
+  this.render(hbs`{{ uni-form-input value=x inputValueDelay=5 }}`);
   Ember.run.later(() => {
-    assert.equal(this.get('x'), 'updated via input');
-    done();
-  }, INPUT_DEBOUNCE_DELAY + 100);
+    assert.equal(this.$('input').val(), 'initial');
+    this.set('x', 'updated via context');
+    Ember.run.later(() => {
+      assert.equal(this.$('input').val(), 'updated via context');
+      this.$('input').val('updated via input').trigger('change');
+      Ember.run.later(() => {
+        assert.equal(this.get('x'), 'updated via input');
+        done();
+      }, 10);
+    }, 5);
+  }, 5);
 });
 
 //
@@ -31,17 +33,21 @@ test('it should bind the input[value] to attrs.value', function (assert) {
 //
 
 test('it should two-way bind value to field.value', function (assert) {
-  this.set('x', { value: 'blue' });
-  this.render(hbs`{{ uni-form-input field=x }}`);
-  assert.equal(this.$('input').val(), 'blue');
-  this.set('x.value', 'red');
-  assert.equal(this.$('input').val(), 'red');
-  this.$('input').val('green').trigger('change');
   var done = assert.async();
+  this.set('x', { value: 'blue' });
+  this.render(hbs`{{ uni-form-input field=x inputValueDelay=5 }}`);
   Ember.run.later(() => {
-    assert.equal(this.get('x.value'), 'green');
-    done();
-  }, INPUT_DEBOUNCE_DELAY + 100);
+    assert.equal(this.$('input').val(), 'blue');
+    this.set('x.value', 'red');
+    Ember.run.later(() => {
+      assert.equal(this.$('input').val(), 'red');
+      this.$('input').val('green').trigger('change');
+      Ember.run.later(() => {
+        assert.equal(this.get('x.value'), 'green');
+        done();
+      }, 10);
+    }, 5);
+  }, 5);
 });
 
 test('it should bind class="required" to field.required', function (assert) {

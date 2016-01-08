@@ -2,8 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-var INPUT_DEBOUNCE_DELAY = 300;
-
 moduleForComponent('uni-form-textarea', {
   integration: true,
 });
@@ -13,17 +11,21 @@ moduleForComponent('uni-form-textarea', {
 //
 
 test('it should bind the textarea[value] to attrs.value', function (assert) {
-  this.set('x', 'initial');
-  this.render(hbs`{{ uni-form-textarea value=x }}`);
-  assert.equal(this.$('textarea').val(), 'initial');
-  this.set('x', 'updated via context');
-  assert.equal(this.$('textarea').val(), 'updated via context');
-  this.$('textarea').val('updated via textarea').trigger('change');
   var done = assert.async();
+  this.set('x', 'initial');
+  this.render(hbs`{{ uni-form-textarea value=x inputValueDelay=5 }}`);
   Ember.run.later(() => {
-    assert.equal(this.get('x'), 'updated via textarea');
-    done();
-  }, INPUT_DEBOUNCE_DELAY + 100);
+    assert.equal(this.$('textarea').val(), 'initial');
+    this.set('x', 'updated via context');
+    Ember.run.later(() => {
+      assert.equal(this.$('textarea').val(), 'updated via context');
+      this.$('textarea').val('updated via textarea').trigger('change');
+      Ember.run.later(() => {
+        assert.equal(this.get('x'), 'updated via textarea');
+        done();
+      }, 10);
+    }, 5);
+  }, 5);
 });
 
 //
@@ -31,17 +33,21 @@ test('it should bind the textarea[value] to attrs.value', function (assert) {
 //
 
 test('it should two-way bind value to field.value', function (assert) {
-  this.set('x', { value: 'blue' });
-  this.render(hbs`{{ uni-form-textarea field=x }}`);
-  assert.equal(this.$('textarea').val(), 'blue');
-  this.set('x.value', 'red');
-  assert.equal(this.$('textarea').val(), 'red');
-  this.$('textarea').val('green').trigger('change');
   var done = assert.async();
+  this.set('x', { value: 'blue' });
+  this.render(hbs`{{ uni-form-textarea field=x inputValueDelay=5 }}`);
   Ember.run.later(() => {
-    assert.equal(this.get('x.value'), 'green');
-    done();
-  }, INPUT_DEBOUNCE_DELAY + 100);
+    assert.equal(this.$('textarea').val(), 'blue');
+    this.set('x.value', 'red');
+    Ember.run.later(() => {
+      assert.equal(this.$('textarea').val(), 'red');
+      this.$('textarea').val('green').trigger('change');
+      Ember.run.later(() => {
+        assert.equal(this.get('x.value'), 'green');
+        done();
+      }, 10);
+    }, 5);
+  }, 5);
 });
 
 test('it should bind class="required" to field.required', function (assert) {

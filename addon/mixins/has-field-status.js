@@ -24,9 +24,11 @@ export default Ember.Mixin.create(
   },
 
   initNodeValue: function () {
-    this.$('input, select, textarea')
-    .not('[type="radio"]')
-    .val(this.get('value')).trigger('change');
+    Ember.run.next(() => {
+      this.$('input, select, textarea')
+      .not('[type="radio"]')
+      .val(this.get('value')).trigger('change');
+    });
   }.on('didInsertElement').observes('field.dynamicAliasReady'),
 
   label: function () {
