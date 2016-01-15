@@ -18,8 +18,8 @@ export default Ember.Component.extend(
   label: '',
   value: '',
 
-  checked: function () {
+  checked: Ember.computed('value', 'groupValue', 'field.dynamicAliasReady', function () {
     return this.get('value') === this.get('groupValue');
-  }.property('value', 'groupValue', 'field.dynamicAliasReady'),
+  }),
 
 });

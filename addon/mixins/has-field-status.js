@@ -23,57 +23,61 @@ export default Ember.Mixin.create(
     if (this.get('editing')) this.set('editing', false);
   },
 
-  initNodeValue: function () {
+  initNodeValue: Ember.on('didInsertElement', function () {
     Ember.run.next(() => {
       var nodes = this.$('input, select, textarea');
       if (!nodes) return;
       nodes.not('[type="radio"]')
       .val(this.get('value')).trigger('change');
     });
-  }.on('didInsertElement').observes('field.dynamicAliasReady'),
+  }),
 
-  label: function () {
+  initNodeValueObserver: Ember.observer('field.dynamicAliasReady', function () {
+    this.initNodeValue();
+  }),
+
+  label: Ember.computed('payloadKey', function () {
     return (this.get('payloadKey') || '').split('.').slice(-1)[0].dasherize().replace(/-/g, ' ').capitalize();
-  }.property('payloadKey'),
+  }),
 
-  maxlength: function () {
+  maxlength: Ember.computed('field.maxlength', 'field.dynamicAliasReady', function () {
     return this.get('field.maxlength');
-  }.property('field.maxlength', 'field.dynamicAliasReady'),
+  }),
 
-  message: function () {
+  message: Ember.computed('showStatus', 'field.message', function () {
     return this.get('showStatus') && this.get('field.message');
-  }.property('showStatus', 'field.message'),
+  }),
 
   name: Ember.computed.reads('payloadKey'),
 
-  optional: function () {
+  optional: Ember.computed('field.optional', 'field.dynamicAliasReady', function () {
     return this.get('field.optional');
-  }.property('field.optional', 'field.dynamicAliasReady'),
+  }),
 
   prompt: Ember.computed.reads('label'),
 
-  prompting: function () {
+  prompting: Ember.computed('value', 'field.dynamicAliasReady', function () {
     var value = this.get('value');
     return typeof value !== 'string' || value === PROMPT_VALUE;
-  }.property('value', 'field.dynamicAliasReady'),
+  }),
 
-  required: function () {
+  required: Ember.computed('field.required', 'field.dynamicAliasReady', function () {
     return this.get('field.required');
-  }.property('field.required', 'field.dynamicAliasReady'),
+  }),
 
-  showStatus: function () {
+  showStatus: Ember.computed('editing', 'parentFormView.submitFailed', function () {
     return this.get('parentFormView.submitFailed') || this.get('editing') === false;
-  }.property('editing', 'parentFormView.submitFailed'),
+  }),
 
-  status: function () {
+  status: Ember.computed('showStatus', 'tone', function () {
     return this.get('showStatus') && this.get('tone') || 'default';
-  }.property('showStatus', 'tone'),
+  }),
 
   value: Ember.computed.alias('field.value'),
 
-  valueChange: function () {
+  valueChange: Ember.observer('value', 'groupValue', function () {
     if (this._hasValueChanged() && this.$(':focus')) this.set('editing', true);
-  }.observes('value', 'groupValue'),
+  }),
 
   //
   // Helpers

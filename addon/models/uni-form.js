@@ -5,7 +5,8 @@ import pathify from 'ember-uni-form/utils/pathify';
 
 export default DS.Model.extend({
 
-  messages: (() => []).property(),
+  messages: Ember.computed(() => []),
+
   payload: DS.attr(),
 
   // Set by component:uni-form.submit when validation fails
@@ -18,7 +19,7 @@ export default DS.Model.extend({
 
   fieldNames: Ember.computed.map('payloadKeys', name => name.replace(/\./g, '_')),
 
-  fieldsByName: function () {
+  fieldsByName: Ember.computed('payload', function () {
     var result = {};
     this.get('fieldNames').map(name => {
       result[name] = this.store.createRecord('uni-form-field', {
@@ -27,18 +28,18 @@ export default DS.Model.extend({
       });
     });
     return result;
-  }.property('payload'),
+  }),
 
-  payloadKeys: function () {
+  payloadKeys: Ember.computed('payload', function () {
     if (!this.get('payload')) return [];
     return pathify(this.get('payload'), this.get('store'));
-  }.property('payload'),
+  }),
 
   //
   // Observers
   //
 
-  watchClientErrors: function () {
+  watchClientErrors: Ember.observer('payload', function () {
     this.get('payloadKeys').forEach(payloadKey => {
       var lastDot = payloadKey.lastIndexOf('.');
       var basename = payloadKey.slice(lastDot + 1);
@@ -52,7 +53,7 @@ export default DS.Model.extend({
       this.addObserver(errorsPath, this, syncErrors);
       syncErrors();
     });
-  }.observes('payload'),
+  }),
 
   //
   // Methods

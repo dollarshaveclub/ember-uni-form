@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import EmberValidations from 'ember-validations';
 
@@ -41,12 +42,12 @@ export default DS.Model.extend(
     }
   },
 
-  monthOptions: function () {
+  monthOptions: Ember.computed(function () {
     return [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12' ]
     .map(s => ({ label: s, value: s }));
-  }.property(),
+  }),
 
-  yearOptions: function () {
+  yearOptions: Ember.computed(function () {
     var year = new Date().getFullYear();
     var options = [];
     for (var i = 0; i < NUM_YEAR_OPTIONS; i++) {
@@ -54,6 +55,6 @@ export default DS.Model.extend(
       options.push({ label: s, value: s });
     }
     return options;
-  }.property(),
+  }),
 
 });

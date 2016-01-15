@@ -8,17 +8,17 @@ export default Ember.Mixin.create(
   debouncedProperties: [ 'inputValue' ],
   inputValueDelay: 100,
 
-  debouncedInputValueChanged: function () {
+  debouncedInputValueChanged: Ember.observer('debouncedInputValue', function () {
     this.set('value', this.get('debouncedInputValue'));
-  }.observes('debouncedInputValue'),
+  }),
 
   focusOut: function () {
     this._super(...arguments);
     this.set('value', this.get('inputValue'));
   },
 
-  valueChanged: function () {
+  valueChanged: Ember.observer('value', function () {
     this.set('inputValue', this.get('value'));
-  }.observes('value'),
+  }),
 
 });

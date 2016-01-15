@@ -9,27 +9,27 @@ export default DS.Model.extend({
   form: DS.belongsTo('uni-form', { inverse: null }),
 
   // i.e. "firstName"
-  basename: function () {
+  basename: Ember.computed('payloadKey', function () {
     return (this.get('payloadKey') || '').split('.').pop();
-  }.property('payloadKey'),
+  }),
 
   // i.e. "billingAddress_firstName" for payload.billingAddress.firstName
-  payloadKey: function () {
+  payloadKey: Ember.computed('name', function () {
     return (this.get('name') || '').replace(/_/g, '.');
-  }.property('name'),
+  }),
 
   // i.e. "" or "billingAddress"
-  parentKey: function () {
+  parentKey: Ember.computed('payloadKey', function () {
     var key = this.get('payloadKey');
     var lastDot = key.lastIndexOf('.');
     return lastDot === -1 ? '' : `${key.slice(0, lastDot)}`;
-  }.property('payloadKey'),
+  }),
 
   // i.e. "payload" or "payload.billingAddress"
-  parentPath: function () {
+  parentPath: Ember.computed('parentPath', function () {
     var parentKey = this.get('parentKey');
     return parentKey ? `payload.${parentKey}` : 'payload';
-  }.property('parentPath'),
+  }),
 
   //
   // Events

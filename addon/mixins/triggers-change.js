@@ -8,7 +8,7 @@ export default Ember.Mixin.create({
 
   changeTriggerInterval: 2500,
 
-  triggerChange: function () {
+  triggerChange: Ember.on('didInsertElement', function () {
 
     // Recursion.
     Ember.run.later(this, function () {
@@ -18,6 +18,6 @@ export default Ember.Mixin.create({
       this.triggerChange();
     }, this.get('changeTriggerInterval'));
 
-  }.on('didInsertElement')
+  })
 
 });
