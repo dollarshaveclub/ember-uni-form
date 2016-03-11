@@ -27,9 +27,9 @@ Uni-Form
 import Ember from 'ember';
 export default Ember.Controller.extend({
 
-  myForm: function () {
+  myForm: Ember.computed('model', function () {
     return this.store.createRecord('uni-form', { payload: this.get('model') });
-  }.property('model'),
+  }),
 
   actions: {
     mySubmit: function () {

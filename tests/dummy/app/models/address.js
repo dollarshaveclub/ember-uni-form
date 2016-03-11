@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import EmberValidations from 'ember-validations';
 
@@ -21,9 +22,9 @@ export default DS.Model.extend(
     { label: 'Other', value: 'other' },
   ],
 
-  addressString: function () {
+  addressString: Ember.computed('addressLine1', 'addressLine2', 'city', 'state', 'zipCode', function () {
     return `${this.get('addressLine1')} ${this.get('addressLine2')} ${this.get('city')}, ${this.get('state')} ${this.get('zipCode')}`;
-  }.property('addressLine1', 'addressLine2', 'city', 'state', 'zipCode'),
+  }),
 
   validations: {
     addressLine1: {

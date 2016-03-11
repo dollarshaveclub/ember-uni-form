@@ -15,14 +15,14 @@ export default Ember.Component.extend({
     if (this.$()) this.set('value', this.$().val());
   },
 
-  _content: function () {
+  _content: Ember.computed('content', 'value', function () {
     return Ember.makeArray(this.get('content')).map(o => {
       return { label: o.label, selected: o.value === this.get('value'), value: o.value };
     });
-  }.property('content', 'value'),
+  }),
 
-  valueChange: function () {
+  valueChange: Ember.observer('value', function () {
     Ember.run.next(() => { if (this.$()) this.$().val(this.get('value')); });
-  }.observes('value'),
+  }),
 
 });

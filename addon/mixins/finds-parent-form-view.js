@@ -4,11 +4,11 @@ import Ember from 'ember';
 //
 export default Ember.Mixin.create({
 
-  parentFormView: function () {
+  parentFormView: Ember.computed('parentView', function () {
     var parentView = this;
     while (parentView = parentView.get('parentView')) {
       if (parentView.get('tagName') === 'form') return parentView;
     }
-  }.property('parentView'),
+  }),
 
 });
