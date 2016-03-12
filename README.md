@@ -105,7 +105,6 @@ var msg = {
 
 Uni-Form is the one form library to rule them all. And in the darkness, bind them.
 
-* This addon requires prototype extensions.
 * __You should really read the code in the dummy app.__
 
 ## Installation
