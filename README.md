@@ -16,7 +16,7 @@ Uni-Form
 
 ```handlebars
 {{#uni-form action=(action 'mySubmit') form=myForm }}
-  {{ uni-form-input payloadKey='email' type='email' }}
+  {{ uni-form-input payloadKey='emailAddress' type='email' }}
   {{ uni-form-input payloadKey='password' type='password' }}
   {{#if myForm.submitFailed }} {{ uni-form-messages }} {{/if}}
   <input type="submit" value="Save">
@@ -91,9 +91,9 @@ A `model:uni-form-field` has a value alias and computed properties for message, 
 A `message` has a field, path, body, source, and tone.
 
 ```javascript
-// Client error for form.payload.user.email
+// Client error for form.payload.user.emailAddress
 var msg = {
-  field: 'email',
+  field: 'emailAddress',
   path: 'user',
   body: 'Please enter a valid email address.',
   source: 'client',
@@ -106,6 +106,7 @@ var msg = {
 Uni-Form is the one form library to rule them all. And in the darkness, bind them.
 
 * __You should really read the code in the dummy app.__
+* Model attribute names are expected to be camelCased.
 
 ## Installation
 
