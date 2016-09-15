@@ -24,7 +24,7 @@ export default DS.Model.extend({
     this.get('fieldNames').map(name => {
       result[name] = this.store.createRecord('uni-form-field', {
         form: this,
-        name: name
+        name: name,
       });
     });
     return result;
@@ -32,6 +32,9 @@ export default DS.Model.extend({
 
   payloadKeys: Ember.computed('payload', function () {
     if (!this.get('payload')) return [];
+    return [];
+
+    /* THIS IS WHERE THE PROBLEM MANIFESTS ITSELF! */
     return pathify(this.get('payload'), this.get('store'));
   }),
 
@@ -73,10 +76,10 @@ export default DS.Model.extend({
 
   // Parses output of ember-validations
   updateFieldMessages: function (strings, field, path, source, tone) {
-    var messages = this.get('messages').filter(o => o.field  !== field   ||
-                                                    o.path   !== path    ||
-                                                    o.tone   !== tone    ||
-                                                    o.source !== source  );
+    var messages = this.get('messages').filter(o => o.field !== field ||
+                                                    o.path !== path ||
+                                                    o.tone !== tone ||
+                                                    o.source !== source);
     Ember.makeArray(strings).forEach(body => {
       messages.push({
         field: field,
