@@ -181,3 +181,73 @@ function testPayloadKeys(assert) {
       'contains correct payloadKeys from payload from double nested uni-form model');
   });
 });
+
+test('payload with nested model inside plain object', function testPayloadKeys(assert) {
+  const subject = this.subject();
+  const store = subject.get('store');
+  Ember.run(() => {
+    const mockModel = store.createRecord('uni-form', {
+      payload: {
+        plainObjectKey: store.createRecord('payment-method', {
+          billingAddress: store.createRecord('address'),
+        }),
+      },
+    });
+    assert.ok(mockModel);
+
+    const expectedPayloadKeys = [
+      'plainObjectKey',
+      'plainObjectKey.billingAddressSameAsShippingAddress',
+      'plainObjectKey.cvv',
+      'plainObjectKey.expMonth',
+      'plainObjectKey.expYear',
+      'plainObjectKey.number',
+      'plainObjectKey.billingAddress',
+      'plainObjectKey.billingAddress.addressLine1',
+      'plainObjectKey.billingAddress.addressLine2',
+      'plainObjectKey.billingAddress.city',
+      'plainObjectKey.billingAddress.hasMailbox',
+      'plainObjectKey.billingAddress.notes',
+      'plainObjectKey.billingAddress.state',
+      'plainObjectKey.billingAddress.zipCode',
+      'plainObjectKey.billingAddress.zoning',
+    ];
+    assert.deepEqual(mockModel.get('payloadKeys'), expectedPayloadKeys,
+      'contains correct payloadKeys from payload with nested model inside plain object');
+  });
+});
+
+test('payload with nested model inside ember object', function testPayloadKeys(assert) {
+  const subject = this.subject();
+  const store = subject.get('store');
+  Ember.run(() => {
+    const mockModel = store.createRecord('uni-form', {
+      payload: Ember.Object.create({
+        plainObjectKey: store.createRecord('payment-method', {
+          billingAddress: store.createRecord('address'),
+        }),
+      }),
+    });
+    assert.ok(mockModel);
+
+    const expectedPayloadKeys = [
+      'plainObjectKey',
+      'plainObjectKey.billingAddressSameAsShippingAddress',
+      'plainObjectKey.cvv',
+      'plainObjectKey.expMonth',
+      'plainObjectKey.expYear',
+      'plainObjectKey.number',
+      'plainObjectKey.billingAddress',
+      'plainObjectKey.billingAddress.addressLine1',
+      'plainObjectKey.billingAddress.addressLine2',
+      'plainObjectKey.billingAddress.city',
+      'plainObjectKey.billingAddress.hasMailbox',
+      'plainObjectKey.billingAddress.notes',
+      'plainObjectKey.billingAddress.state',
+      'plainObjectKey.billingAddress.zipCode',
+      'plainObjectKey.billingAddress.zoning',
+    ];
+    assert.deepEqual(mockModel.get('payloadKeys'), expectedPayloadKeys,
+      'contains correct payloadKeys from payload with nested model inside ember object');
+  });
+});
