@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-export default function pathify (o, store) {
+export default function pathify(o, store) {
   if (o instanceof DS.Model) return pathifyModel(o, store);
   else return pathifyObject(o);
 }
 
-function pathifyObject (o, prefix) {
+function pathifyObject(o, prefix) {
   var result = [];
   if (prefix) result.push(prefix);
   if (o && typeof o === 'object') Object.keys(o).forEach(key => {
@@ -17,10 +17,17 @@ function pathifyObject (o, prefix) {
 
 // Belt-and-suspenders approach gets field paths from both the ultimate payload
 // and the model data structure in memory.
-function pathifyModel (model, store, prefix) {
-
+function pathifyModel(model, store, prefix) {
   var result = [];
   if (prefix) result.push(prefix);
+
+  if (Ember.get(model, '_internalModel.modelName') === 'uni-form') {
+    const propPath = propertyPath('payload', prefix);
+    if (model.get('payload') instanceof DS.Model) {
+      return result.concat(pathifyModel(model.get('payload'), store, propPath));
+    }
+    return result.concat(pathifyObject(model.get('payload'), propPath));
+  }
 
   // Pathify serializer output
   var payload = model.serialize();
@@ -45,9 +52,8 @@ function pathifyModel (model, store, prefix) {
   });
 
   return result.uniq();
-
 }
 
-function propertyPath (name, prefix) {
+function propertyPath(name, prefix) {
   return (prefix ? prefix + '.' : '') + name.camelize();
 }
