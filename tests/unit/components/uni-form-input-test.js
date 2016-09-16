@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
 moduleForComponent('uni-form-input', {
-  unit: true
+  unit: true,
 });
 
 //
@@ -66,7 +66,20 @@ test('it should set input[maxlength=attrs.maxlength]', function (assert) {
   assert.equal(this.$('input').attr('maxlength'), 35);
 });
 
-test('it should set input[type=attrs.type]', function (assert) {
-  this.subject({ type: 'subject-component-type-attribute-value' });
-  assert.equal(this.$('input').attr('type'), 'subject-component-type-attribute-value');
+// These are the only types of inputs uni-form-input is guaranteed to work with
+// Full List of Inputs: http://www.w3schools.com/tags/att_input_type.asp
+const inputTypes = [
+  'button',
+  'hidden',
+  'image',
+  'password',
+  'reset',
+  'text',
+];
+
+inputTypes.forEach((type) => {
+  test(`it should set input[type=${type}]`, function (assert) {
+    this.subject({ type });
+    assert.equal(this.$('input').attr('type'), type);
+  });
 });
