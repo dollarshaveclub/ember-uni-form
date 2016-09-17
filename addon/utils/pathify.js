@@ -15,6 +15,7 @@ function propertyPath(name, prefix) {
 function pathifyObject(o, store, prefix) {
   const result = [];
 
+  if (prefix && prefix.indexOf('validators') > -1) return '';
   if (prefix) result.push(prefix);
   if (!o || typeof o !== 'object') return result;
 
