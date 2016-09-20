@@ -1,53 +1,76 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-export default function pathify (o, store) {
+const { get } = Ember;
+
+export default function pathify(o, store) {
   if (o instanceof DS.Model) return pathifyModel(o, store);
-  else return pathifyObject(o);
+  return pathifyObject(o, store);
 }
 
-function pathifyObject (o, prefix) {
-  var result = [];
+export const pathifyModelFn = pathifyModel;
+export const pathifyObjectFn = pathifyObject;
+
+function propertyPath(name, prefix) {
+  return (prefix ? `${prefix}.` : '') + name.camelize();
+}
+
+function pathifyObject(o, store, prefix) {
+  const result = [];
+
+  if (prefix && prefix.indexOf('validators') > -1) return '';
   if (prefix) result.push(prefix);
-  if (o && typeof o === 'object') Object.keys(o).forEach(key => {
-    result = result.concat(pathifyObject(o[key], propertyPath(key, prefix)));
-  });
-  return result;
+  if (!o || typeof o !== 'object') return result;
+
+  return Object.keys(o)
+    .reduce((acc, key) => {
+      if (o[key] instanceof DS.Model) {
+        return acc.concat(pathifyModel(o[key], store, propertyPath(key, prefix)));
+      }
+      return acc.concat(pathifyObject(o[key], store, propertyPath(key, prefix)));
+    }, result);
 }
 
 // Belt-and-suspenders approach gets field paths from both the ultimate payload
 // and the model data structure in memory.
-function pathifyModel (model, store, prefix) {
-
-  var result = [];
+function pathifyModel(model, store, prefix) {
+  let result = [];
   if (prefix) result.push(prefix);
 
+  if (get(model, '_internalModel.modelName') === 'uni-form') {
+    const propPath = propertyPath('payload', prefix);
+    if (model.get('payload') instanceof DS.Model) {
+      return result.concat(pathifyModel(model.get('payload'), store, propPath));
+    }
+    return result.concat(pathifyObject(model.get('payload'), store, propPath));
+  }
+
   // Pathify serializer output
-  var payload = model.serialize();
-  payload = payload.data ? payload.data : payload;
-  payload = payload.attributes ? payload.attributes : payload;
-  result = result.concat(pathifyObject(payload, prefix));
+  const payload = model.serialize();
+  const { attributes, data } = payload;
+
+
+  if (attributes) result = result.concat(pathifyObject(attributes, store, prefix)); // JSONAPI
+  else if (data) result = result.concat(pathifyObject(data, store, prefix)); // JSONAPI
+  else result = result.concat(pathifyObject(payload, store, prefix)); // Not JSONAPI
 
   // Pathify model attributes and child models which will be serialized
-  var serializer = store.serializerFor(Ember.get(model, '_internalModel.modelName'));
+  const serializer = store.serializerFor(get(model, '_internalModel.modelName'));
+
   model.eachAttribute(name => result.push(propertyPath(name, prefix)));
-  model.eachRelationship((name, meta) => {
-    if (meta.kind === 'hasMany') return; // not supported
-    var childPath = propertyPath(name, prefix);
-    var willSerialize = Ember.get(serializer, `attrs.${name}.serialize`) === 'records' ||
-                        Ember.get(serializer, `attrs.${name}.embedded`) === 'always';
-    if (!willSerialize) result.push(childPath);
-    else {
-      var instance = store.createRecord(meta.type);
+  model.eachRelationship((name, { kind, type }) => {
+    if (kind === 'hasMany') return; // not supported
+    const childPath = propertyPath(name, prefix);
+    const willSerialize = get(serializer, `attrs.${name}.serialize`) === 'records' ||
+      get(serializer, `attrs.${name}.embedded`) === 'always';
+    if (!willSerialize) {
+      result.push(childPath);
+    } else {
+      const instance = store.createRecord(type);
       result = result.concat(pathifyModel(instance, store, childPath));
       store.deleteRecord(instance);
     }
   });
 
   return result.uniq();
-
-}
-
-function propertyPath (name, prefix) {
-  return (prefix ? prefix + '.' : '') + name.camelize();
 }
