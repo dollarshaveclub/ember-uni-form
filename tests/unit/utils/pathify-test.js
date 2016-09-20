@@ -1,4 +1,5 @@
 import pathify from 'ember-uni-form/utils/pathify';
+import { pathifyObjectFn } from 'ember-uni-form/utils/pathify';
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
@@ -33,4 +34,9 @@ test('when payload is an object', function testObjectPayload(assert) {
     'someOuterKey',
   ];
   assert.deepEqual(result, expectedPayloadKeys, 'it returns correct payloadKeys');
+});
+
+test('when payload is an object and has validators', function testObjectPayload(assert) {
+  const result = pathifyObjectFn({}, this.mockStore, 'validators');
+  assert.notOk(result, 'it should return nothing');
 });

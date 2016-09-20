@@ -8,6 +8,9 @@ export default function pathify(o, store) {
   return pathifyObject(o, store);
 }
 
+export const pathifyModelFn = pathifyModel;
+export const pathifyObjectFn = pathifyObject;
+
 function propertyPath(name, prefix) {
   return (prefix ? `${prefix}.` : '') + name.camelize();
 }
