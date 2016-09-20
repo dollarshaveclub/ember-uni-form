@@ -1,6 +1,6 @@
 {
   "name": "ember-uni-form",
-  "version": "3.2.1",
+  "version": "4.0.0",
   "description": "Powerful forms, cleanly built.",
   "directories": {
     "doc": "doc",
@@ -49,7 +49,7 @@
     "ember-cli-babel": "^5.1.6",
     "ember-cli-htmlbars": "1.1.0",
     "ember-debounced-properties": "0.0.5",
-    "ember-validations": "git://github.com/dollarshaveclub/ember-validations.git#v2.2.0-dsc.3"
+    "ember-validations": "dollarshaveclub/ember-validations#v2.2.0-dsc.3"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
