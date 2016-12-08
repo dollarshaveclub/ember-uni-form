@@ -24,7 +24,7 @@ export default DS.Model.extend({
     this.get('fieldNames').map(name => {
       result[name] = this.store.createRecord('uni-form-field', {
         form: this,
-        name: name
+        name,
       });
     });
     return result;
@@ -47,6 +47,7 @@ export default DS.Model.extend({
       var parentPath = parentKey ? `payload.${parentKey}` : 'payload';
       var errorsPath = `${parentPath}.validationErrors.${basename}`;
       var syncErrors = () => {
+        if (errorsPath.endsWith('.')) return;
         var errors = this.get(errorsPath);
         this.updateFieldMessages(errors, basename, parentKey, 'client', 'error');
       };
@@ -59,7 +60,7 @@ export default DS.Model.extend({
   // Methods
   //
 
-  addMessage: function (o) {
+  addMessage(o) {
     var messages = this.get('messages');
     if (typeof o === 'string') {
       messages.push({ body: o });
@@ -72,18 +73,18 @@ export default DS.Model.extend({
   },
 
   // Parses output of ember-validations
-  updateFieldMessages: function (strings, field, path, source, tone) {
-    var messages = this.get('messages').filter(o => o.field  !== field   ||
-                                                    o.path   !== path    ||
-                                                    o.tone   !== tone    ||
-                                                    o.source !== source  );
+  updateFieldMessages(strings, field, path, source, tone) {
+    var messages = this.get('messages').filter(o => o.field !== field ||
+                                                    o.path !== path ||
+                                                    o.tone !== tone ||
+                                                    o.source !== source);
     Ember.makeArray(strings).forEach(body => {
       messages.push({
-        field: field,
-        body: body,
-        path: path,
-        source: source,
-        tone: tone,
+        field,
+        body,
+        path,
+        source,
+        tone,
       });
     });
     this.set('messages', messages);
