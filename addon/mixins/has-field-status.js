@@ -7,6 +7,7 @@ export default Ember.Mixin.create(
   FindsFieldByName,
   {
 
+    fastboot: Ember.inject.service(),
     classNameBindings: ['disabled', 'focus', 'optional', 'prompting', 'required', 'status'],
 
     editing: null, // first null, then boolean
@@ -24,6 +25,8 @@ export default Ember.Mixin.create(
     },
 
     initNodeValue: Ember.on('didInsertElement', function () {
+      if (this.get('fastboot.isFastBoot')) { return; }
+
       Ember.run.next(() => {
         const nodes = this.$('input, select, textarea');
         if (!nodes) return;
