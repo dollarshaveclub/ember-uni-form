@@ -11,7 +11,7 @@
 //   priority: 50,
 // };
 // ```
-var TONE_PRIORITY_MAP = {
+const TONE_PRIORITY_MAP = {
   error: 50,
   warning: 40,
   success: 30,
@@ -19,7 +19,7 @@ var TONE_PRIORITY_MAP = {
   muted: 10,
 };
 
-export default function messagePriority (message) {
-  var m = message || {};
+export default function messagePriority(message) {
+  const m = message || {};
   return m.priority || TONE_PRIORITY_MAP[m.tone] || 0;
 }

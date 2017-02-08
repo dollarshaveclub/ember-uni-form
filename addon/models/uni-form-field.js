@@ -20,14 +20,14 @@ export default DS.Model.extend({
 
   // i.e. "" or "billingAddress"
   parentKey: Ember.computed('payloadKey', function () {
-    var key = this.get('payloadKey');
-    var lastDot = key.lastIndexOf('.');
+    const key = this.get('payloadKey');
+    const lastDot = key.lastIndexOf('.');
     return lastDot === -1 ? '' : `${key.slice(0, lastDot)}`;
   }),
 
   // i.e. "payload" or "payload.billingAddress"
   parentPath: Ember.computed('parentPath', function () {
-    var parentKey = this.get('parentKey');
+    const parentKey = this.get('parentKey');
     return parentKey ? `payload.${parentKey}` : 'payload';
   }),
 
@@ -35,8 +35,7 @@ export default DS.Model.extend({
   // Events
   //
 
-  ready: function () {
-
+  ready() {
     Ember.defineProperty(this, 'value', Ember.computed.alias(`form.payload.${this.get('payloadKey')}`));
 
     Ember.defineProperty(this, 'parentValidations', Ember.computed.reads(`form.${this.get('parentPath')}.validations`));
@@ -62,9 +61,9 @@ export default DS.Model.extend({
     return message.field === this.get('basename') && (message.path || '') === this.get('parentKey');
   }),
 
-  sortedMessages: Ember.computed.sort('messages', function (a, b) {
-    var p1 = messagePriority(a);
-    var p2 = messagePriority(b);
+  sortedMessages: Ember.computed.sort('messages', (a, b) => {
+    const p1 = messagePriority(a);
+    const p2 = messagePriority(b);
     if (p1 < p2) return 1;
     if (p1 > p2) return -1;
     return 0;

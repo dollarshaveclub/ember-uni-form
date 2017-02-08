@@ -20,7 +20,7 @@ export default DS.Model.extend({
   fieldNames: Ember.computed.map('payloadKeys', name => name.replace(/\./g, '_')),
 
   fieldsByName: Ember.computed('payload', function () {
-    var result = {};
+    const result = {};
     this.get('fieldNames').map(name => {
       result[name] = this.store.createRecord('uni-form-field', {
         form: this,
@@ -41,14 +41,14 @@ export default DS.Model.extend({
 
   watchClientErrors: Ember.observer('payload', function () {
     this.get('payloadKeys').forEach(payloadKey => {
-      var lastDot = payloadKey.lastIndexOf('.');
-      var basename = payloadKey.slice(lastDot + 1);
-      var parentKey = lastDot === -1 ? '' : payloadKey.slice(0, lastDot);
-      var parentPath = parentKey ? `payload.${parentKey}` : 'payload';
-      var errorsPath = `${parentPath}.validationErrors.${basename}`;
-      var syncErrors = () => {
+      const lastDot = payloadKey.lastIndexOf('.');
+      const basename = payloadKey.slice(lastDot + 1);
+      const parentKey = lastDot === -1 ? '' : payloadKey.slice(0, lastDot);
+      const parentPath = parentKey ? `payload.${parentKey}` : 'payload';
+      const errorsPath = `${parentPath}.validationErrors.${basename}`;
+      const syncErrors = () => {
         if (errorsPath.endsWith('.')) return;
-        var errors = this.get(errorsPath);
+        const errors = this.get(errorsPath);
         this.updateFieldMessages(errors, basename, parentKey, 'client', 'error');
       };
       this.addObserver(errorsPath, this, syncErrors);
@@ -61,7 +61,7 @@ export default DS.Model.extend({
   //
 
   addMessage(o) {
-    var messages = this.get('messages');
+    const messages = this.get('messages');
     if (typeof o === 'string') {
       messages.push({ body: o });
     }
@@ -74,7 +74,7 @@ export default DS.Model.extend({
 
   // Parses output of ember-validations
   updateFieldMessages(strings, field, path, source, tone) {
-    var messages = this.get('messages').filter(o => o.field !== field ||
+    const messages = this.get('messages').filter(o => o.field !== field ||
                                                     o.path !== path ||
                                                     o.tone !== tone ||
                                                     o.source !== source);

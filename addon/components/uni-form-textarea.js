@@ -6,10 +6,10 @@ import HasFieldStatus from '../mixins/has-field-status';
 export default Ember.Component.extend(
   DebouncesInputValue,
   HasFieldStatus,
-{
+  {
 
-  tagName: 'label',
-  classNames: [ 'uni-form-textarea' ],
-  layout: layout,
+    tagName: 'label',
+    classNames: ['uni-form-textarea'],
+    layout,
 
-});
+  });

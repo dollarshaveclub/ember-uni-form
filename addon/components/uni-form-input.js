@@ -8,11 +8,11 @@ export default Ember.Component.extend(
   DebouncesInputValue,
   HasFieldStatus,
   TriggersChange,
-{
+  {
 
-  tagName: 'label',
-  classNames: [ 'uni-form-input' ],
-  layout: layout,
-  type: 'text',
+    tagName: 'label',
+    classNames: ['uni-form-input'],
+    layout,
+    type: 'text',
 
-});
+  });

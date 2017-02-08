@@ -18,15 +18,15 @@ import HasFieldStatus from '../mixins/has-field-status';
 //
 export default Ember.Component.extend(
   HasFieldStatus,
-{
+  {
 
-  tagName: 'label',
-  classNames: [ 'uni-form-checkbox' ],
-  classNameBindings: [ 'checked', 'disabled' ],
-  layout: layout,
+    tagName: 'label',
+    classNames: ['uni-form-checkbox'],
+    classNameBindings: ['checked', 'disabled'],
+    layout,
 
-  checked: Ember.computed.alias('value'),
-  label: '',
-  prompting: false,
+    checked: Ember.computed.alias('value'),
+    label: '',
+    prompting: false,
 
-});
+  });

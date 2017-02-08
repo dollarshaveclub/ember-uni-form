@@ -16,10 +16,10 @@ import TriggersChange from '../mixins/triggers-change';
 export default Ember.Component.extend(
   HasFieldStatus,
   TriggersChange,
-{
+  {
 
-  tagName: 'label',
-  classNames: [ 'uni-form-select' ],
-  layout: layout,
+    tagName: 'label',
+    classNames: ['uni-form-select'],
+    layout,
 
-});
+  });

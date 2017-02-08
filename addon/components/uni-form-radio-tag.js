@@ -6,11 +6,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   tagName: 'input',
-  classNames: [ 'uni-form-radio-tag' ],
-  attributeBindings: [ 'checked', 'disabled', 'name', 'type', 'value' ],
+  classNames: ['uni-form-radio-tag'],
+  attributeBindings: ['checked', 'disabled', 'name', 'type', 'value'],
   type: 'radio',
 
-  change: function () {
+  change() {
     this.set('groupValue', this.get('value'));
   },
 
