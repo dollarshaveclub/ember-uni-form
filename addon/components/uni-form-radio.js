@@ -7,19 +7,19 @@ import HasFieldStatus from '../mixins/has-field-status';
 
 export default Ember.Component.extend(
   HasFieldStatus,
-{
+  {
 
-  tagName: 'label',
-  classNames: [ 'uni-form-radio' ],
-  classNameBindings: [ 'checked' ],
-  layout: layout,
+    tagName: 'label',
+    classNames: ['uni-form-radio'],
+    classNameBindings: ['checked'],
+    layout,
 
-  groupValue: Ember.computed.alias('field.value'),
-  label: '',
-  value: '',
+    groupValue: Ember.computed.alias('field.value'),
+    label: '',
+    value: '',
 
-  checked: Ember.computed('value', 'groupValue', 'field.dynamicAliasReady', function () {
-    return this.get('value') === this.get('groupValue');
-  }),
+    checked: Ember.computed('value', 'groupValue', 'field.dynamicAliasReady', function () {
+      return this.get('value') === this.get('groupValue');
+    }),
 
-});
+  });

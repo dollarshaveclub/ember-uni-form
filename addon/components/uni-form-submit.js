@@ -3,8 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   tagName: 'input',
-  classNames: [ 'uni-form-submit' ],
-  attributeBindings: [ 'type', 'value' ],
+  classNames: ['uni-form-submit'],
+  attributeBindings: ['type', 'value'],
   type: 'submit',
 
   label: 'Submit',
