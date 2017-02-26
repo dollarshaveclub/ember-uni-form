@@ -36,6 +36,7 @@
     "ember-data": "2.10.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
+    "ember-load-initializers": "0.6.3",
     "ember-resolver": "^2.0.3",
     "ember-try": "0.2.8",
     "eslint": "^3.12.2",
