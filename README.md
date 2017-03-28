@@ -5,6 +5,8 @@
 
 # Ember-uni-form
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dollarshaveclub/ember-uni-form.svg)](https://greenkeeper.io/)
+
 The Ember Uni-Form addon makes it easy to wire up complex, validated forms.
 
 Uni-Form
