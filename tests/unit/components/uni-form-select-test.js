@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 
 moduleForComponent('uni-form-select', {
   unit: true,
-  needs: [ 'component:uni-form-select-tag' ],
+  needs: [ 'component:uni-form-select-tag', 'service:fastboot' ],
 });
 
 //
