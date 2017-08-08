@@ -23,4 +23,8 @@ export default Ember.Component.extend({
     Ember.run.next(() => { if (this.$()) this.$().val(this.get('value')); });
   }),
 
+  contentChange: Ember.observer('content', function () {
+    Ember.run.next(() => { this.change(); });
+  }),
+
 });

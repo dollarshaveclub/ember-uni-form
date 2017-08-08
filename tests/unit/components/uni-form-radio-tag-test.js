@@ -1,7 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
 moduleForComponent('uni-form-radio-tag', {
-  unit: true
+  unit: true,
+  needs: ['service:fastboot'],
 });
 
 test('it should have class="uni-form-radio-tag"', function (assert) {
