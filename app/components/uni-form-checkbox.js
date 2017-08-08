@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/components/uni-form-checkbox';
+export { default } from 'ember-uni-form/components/uni-form-checkbox'

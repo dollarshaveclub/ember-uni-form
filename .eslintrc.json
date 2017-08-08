@@ -1,9 +1,8 @@
 {
   "extends": [
-    "airbnb/base",
-    "plugin:dollarshaveclub/ember"
-  ],
-  "plugins": [
     "dollarshaveclub"
-  ]
+  ],
+  "rules": {
+    "func-names": 0
+  }
 }

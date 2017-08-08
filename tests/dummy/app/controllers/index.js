@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Controller.extend({
 
   uniForm: Ember.computed('model', function () {
-    var form = this.store.createRecord('uni-form', { payload: this.get('model') });
-    window.form = form;
-    return form;
+    var form = this.store.createRecord('uni-form', { payload: this.get('model') })
+    window.form = form
+    return form
   }),
 
   dish: 'eggs',
@@ -17,9 +17,9 @@ export default Ember.Controller.extend({
   actions: {
 
     submit: function () {
-      console.log('[controller:index submit]');
+      console.log('[controller:index submit]')
     },
 
   },
 
-});
+})

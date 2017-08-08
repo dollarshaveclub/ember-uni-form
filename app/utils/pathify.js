@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/utils/pathify';
+export { default } from 'ember-uni-form/utils/pathify'

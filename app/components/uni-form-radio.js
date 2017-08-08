@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/components/uni-form-radio';
+export { default } from 'ember-uni-form/components/uni-form-radio'

@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/components/uni-form-messages';
+export { default } from 'ember-uni-form/components/uni-form-messages'

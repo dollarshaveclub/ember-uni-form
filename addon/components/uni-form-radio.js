@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import layout from '../templates/uni-form-radio';
-import HasFieldStatus from '../mixins/has-field-status';
+import Ember from 'ember'
+import layout from '../templates/uni-form-radio'
+import HasFieldStatus from '../mixins/has-field-status'
 
 // {{ uni-form-radio value='spam' payloadKey='dish' label='Spam' }}
 // {{#uni-form-radio value='eggs' groupValue=form.model.dish }} Eggs {{/uni-form-radio}}
@@ -19,7 +19,7 @@ export default Ember.Component.extend(
     value: '',
 
     checked: Ember.computed('value', 'groupValue', 'field.dynamicAliasReady', function () {
-      return this.get('value') === this.get('groupValue');
+      return this.get('value') === this.get('groupValue')
     }),
 
-  });
+  })

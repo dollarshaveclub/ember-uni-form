@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import layout from '../templates/uni-form-checkbox';
-import HasFieldStatus from '../mixins/has-field-status';
+import Ember from 'ember'
+import layout from '../templates/uni-form-checkbox'
+import HasFieldStatus from '../mixins/has-field-status'
 //
 // Standalone:
 //
@@ -29,4 +29,4 @@ export default Ember.Component.extend(
     label: '',
     prompting: false,
 
-  });
+  })
