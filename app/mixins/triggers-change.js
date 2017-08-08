@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/mixins/triggers-change';
+export { default } from 'ember-uni-form/mixins/triggers-change'

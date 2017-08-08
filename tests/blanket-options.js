@@ -9,14 +9,14 @@ var options = {
   cliOptions: {
     lcovOptions: {
       outputFile: 'lcov.dat',
-      renamer: function (moduleName) { return moduleName.replace(/^ember-uni-form/, 'addon') + '.js'; }
+      renamer: function (moduleName) { return moduleName.replace(/^ember-uni-form/, 'addon') + '.js' }
     },
     reporters: ['lcov'],
     autostart: true
   }
-};
+}
 if (typeof exports === 'undefined') {
-  blanket.options(options);
+  blanket.options(options)
 } else {
-  module.exports = options;
+  module.exports = options
 }
