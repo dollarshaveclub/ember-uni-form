@@ -2,7 +2,6 @@ import { moduleForComponent, test } from 'ember-qunit'
 
 moduleForComponent('uni-form-checkbox', {
   unit: true,
-  needs: ['service:fastboot'],
 })
 
 //

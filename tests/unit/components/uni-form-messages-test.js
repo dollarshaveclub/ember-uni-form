@@ -2,7 +2,6 @@ import { moduleForComponent, test } from 'ember-qunit'
 
 moduleForComponent('uni-form-messages', {
   unit: true,
-  needs: ['service:fastboot'],
 })
 
 test('it should have class="uni-form-messages"', function (assert) {

@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit'
 
 moduleForComponent('uni-form-radio', {
   unit: true,
-  needs: [ 'component:uni-form-radio-tag', 'service:fastboot' ],
+  needs: ['component:uni-form-radio-tag'],
 })
 
 //
