@@ -9,7 +9,7 @@
   <span class="{{ message.tone }} message" data-text="{{ message.body }}">{{ message.body }}</span>
 {{/if}}
 
-{{ uni-form-select-tag
+{{#uni-form-select-tag
   autofocus=autofocus
   content=content
   disabled=disabled
@@ -18,5 +18,6 @@
   tabindex=tabindex
   value=value
 }}
+{{/uni-form-select-tag}}
 
 {{ yield }}

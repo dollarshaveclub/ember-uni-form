@@ -21,5 +21,4 @@ export default Ember.Component.extend(
     tagName: 'label',
     classNames: ['uni-form-select'],
     layout,
-
   })

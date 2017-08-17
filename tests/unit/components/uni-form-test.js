@@ -3,7 +3,6 @@ import Ember from 'ember'
 
 moduleForComponent('uni-form', {
   unit: true,
-  needs: ['service:fastboot'],
 })
 
 //
