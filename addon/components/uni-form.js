@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Component.extend({
 
@@ -11,32 +11,32 @@ export default Ember.Component.extend({
   submitFailed: Ember.computed.alias('form.submitFailed'),
   submitWithErrors: false,
 
-  submit(e) {
-    if (e) e.preventDefault();
+  submit (e) {
+    if (e) e.preventDefault()
 
     // Blur on submit so pressing enter twice will not submit twice.
-    const focusNode = this.$(':focus');
-    if (focusNode) focusNode.blur();
+    const focusNode = this.$(':focus')
+    if (focusNode) focusNode.blur()
 
-    const model = this.get('form.payload');
-    const action = this.get('action');
-    if (!(model && action)) return;
+    const model = this.get('form.payload')
+    const action = this.get('action')
+    if (!(model && action)) return
 
     return new Ember.RSVP.Promise((resolve, reject) => {
-      if (model.validate) model.validate.call(model).then(resolve, reject);
-      else resolve();
+      if (model.validate) model.validate(model).then(resolve, reject)
+      else resolve()
     })
-    .then(() => {
-      action();
-    })
-    .catch(() => {
-      if (this.get('submitWithErrors')) action();
-      else this.set('form.submitFailed', true);
-    });
+      .then(() => {
+        action()
+      })
+      .catch(() => {
+        if (this.get('submitWithErrors')) action()
+        else this.set('form.submitFailed', true)
+      })
   },
 
   // DEBUG_EXPORT: function () {
   //   window.parentFormView = this;
   // }.on('didInsertElement'),
 
-});
+})

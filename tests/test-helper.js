@@ -1,9 +1,9 @@
-import resolver from './helpers/resolver';
+import resolver from './helpers/resolver'
 import {
   setResolver
-} from 'ember-qunit';
-import QUnit from 'qunit';
+} from 'ember-qunit'
+import QUnit from 'qunit'
 
-setResolver(resolver);
+setResolver(resolver)
 
-QUnit.config.testTimeout = 5000;
+QUnit.config.testTimeout = 5000

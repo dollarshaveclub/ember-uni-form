@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "visit": true,
+    "andThen": true,
+    "expect": true,
+    "currentURL": true
+  }
+}

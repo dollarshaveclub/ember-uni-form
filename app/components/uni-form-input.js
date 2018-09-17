@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/components/uni-form-input';
+export { default } from 'ember-uni-form/components/uni-form-input'

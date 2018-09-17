@@ -17,9 +17,9 @@ const TONE_PRIORITY_MAP = {
   success: 30,
   info: 20,
   muted: 10,
-};
+}
 
-export default function messagePriority(message) {
-  const m = message || {};
-  return m.priority || TONE_PRIORITY_MAP[m.tone] || 0;
+export default function messagePriority (message) {
+  const m = message || {}
+  return m.priority || TONE_PRIORITY_MAP[m.tone] || 0
 }

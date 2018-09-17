@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import layout from '../templates/uni-form-select';
-import HasFieldStatus from '../mixins/has-field-status';
-import TriggersChange from '../mixins/triggers-change';
+import Ember from 'ember'
+import layout from '../templates/uni-form-select'
+import HasFieldStatus from '../mixins/has-field-status'
+import TriggersChange from '../mixins/triggers-change'
 //
 // Content must be in this format:
 //
@@ -21,5 +21,4 @@ export default Ember.Component.extend(
     tagName: 'label',
     classNames: ['uni-form-select'],
     layout,
-
-  });
+  })

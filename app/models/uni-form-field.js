@@ -1,1 +1,1 @@
-export { default } from 'ember-uni-form/models/uni-form-field';
+export { default } from 'ember-uni-form/models/uni-form-field'

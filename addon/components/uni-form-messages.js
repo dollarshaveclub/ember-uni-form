@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import layout from '../templates/uni-form-messages';
-import FindsParentFormView from '../mixins/finds-parent-form-view';
+import Ember from 'ember'
+import layout from '../templates/uni-form-messages'
+import FindsParentFormView from '../mixins/finds-parent-form-view'
 
 export default Ember.Component.extend(
   FindsParentFormView,
@@ -15,4 +15,4 @@ export default Ember.Component.extend(
     multipleErrors: Ember.computed.gt('errors.length', 1),
     showAll: false,
 
-  });
+  })
