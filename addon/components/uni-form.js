@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   tagName: 'form',
   classNames: ['uni-form'],
   classNameBindings: ['invalid'],
+  attributeBindings: ['name'],
 
   invalid: Ember.computed.reads('form.payload.isInvalid'),
 
